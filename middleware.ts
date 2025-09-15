@@ -23,6 +23,5 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Match only internationalized pathnames and exclude static files
-  matcher: ["/", "/(de|en|ro|hu)/:path*", "/((?!api|_next|_vercel|.*\\..*).*)"],
+  matcher: ["/", "/(de|en|ro|hu)/:path*", "/((?!api|_next|_vercel|.*\\..*).*))"],
 }
