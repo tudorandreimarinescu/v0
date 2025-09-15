@@ -1,0 +1,144 @@
+{
+  "navigation": {
+    "shop": "Shop",
+    "products": "Produkte",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "cart": "Warenkorb",
+    "account": "Konto",
+    "signIn": "Anmelden"
+  },
+  "hero": {
+    "badge": "Neue Paper Shaders Erfahrung",
+    "title": "Premium Digitale Erlebnisse",
+    "subtitle": "Entdecken Sie atemberaubende Shader-Effekte und digitale Produkte, die Ihre kreativen Projekte in außergewöhnliche visuelle Erlebnisse verwandeln.",
+    "cta": "Kollektion Erkunden",
+    "secondary": "Mehr Erfahren"
+  },
+  "trust": {
+    "shipping": "Diskrete Lieferung",
+    "payments": "Sichere Zahlungen",
+    "age": "Nur 18+"
+  },
+  "footer": {
+    "company": "Unternehmen",
+    "about": "Über Uns",
+    "careers": "Karriere",
+    "press": "Presse",
+    "news": "Nachrichten",
+    "support": "Support",
+    "help": "Hilfe-Center",
+    "safety": "Sicherheit",
+    "community": "Community-Richtlinien",
+    "legal": "Rechtliches",
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen",
+    "returns": "Rückgaberichtlinie",
+    "cookies": "Cookie-Richtlinie",
+    "newsletter": "Bleiben Sie über unsere neuesten Produkte und Angebote auf dem Laufenden",
+    "subscribe": "Abonnieren",
+    "email": "E-Mail eingeben",
+    "rights": "Alle Rechte vorbehalten.",
+    "description": "Premium Shader-Erlebnisse und digitale Produkte für kreative Profis."
+  },
+  "shop": {
+    "title": "Shop",
+    "description": "Entdecken Sie unsere Kollektion von Premium-Shader-Effekten und digitalen Produkten.",
+    "filters": "Filter",
+    "sortBy": "Sortieren nach",
+    "newest": "Neueste",
+    "popular": "Beliebteste",
+    "priceHigh": "Preis: Hoch zu Niedrig",
+    "priceLow": "Preis: Niedrig zu Hoch",
+    "category": "Kategorie",
+    "allCategories": "Alle Kategorien",
+    "addToCart": "In den Warenkorb",
+    "quickView": "Schnellansicht"
+  },
+  "product": {
+    "addToCart": "In den Warenkorb",
+    "buyNow": "Jetzt Kaufen",
+    "description": "Beschreibung",
+    "specifications": "Spezifikationen",
+    "reviews": "Bewertungen",
+    "relatedProducts": "Ähnliche Produkte",
+    "inStock": "Auf Lager",
+    "outOfStock": "Ausverkauft",
+    "quantity": "Menge"
+  },
+  "cart": {
+    "title": "Warenkorb",
+    "empty": "Ihr Warenkorb ist leer",
+    "continueShopping": "Weiter Einkaufen",
+    "checkout": "Zur Kasse",
+    "subtotal": "Zwischensumme",
+    "shipping": "Versand",
+    "tax": "Steuer",
+    "total": "Gesamt",
+    "remove": "Entfernen",
+    "updateQuantity": "Menge Aktualisieren"
+  },
+  "checkout": {
+    "title": "Kasse",
+    "billingAddress": "Rechnungsadresse",
+    "shippingAddress": "Lieferadresse",
+    "paymentMethod": "Zahlungsmethode",
+    "orderSummary": "Bestellübersicht",
+    "placeOrder": "Bestellung Aufgeben",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "address": "Adresse",
+    "city": "Stadt",
+    "postalCode": "Postleitzahl",
+    "country": "Land"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "description": "Kontaktieren Sie unser Team für Support, Partnerschaften oder allgemeine Anfragen.",
+    "name": "Name",
+    "email": "E-Mail",
+    "subject": "Betreff",
+    "message": "Nachricht",
+    "send": "Nachricht Senden",
+    "office": "Unser Büro",
+    "phone": "Telefon",
+    "emailAddress": "E-Mail-Adresse",
+    "hours": "Geschäftszeiten",
+    "mondayFriday": "Montag - Freitag: 9:00 - 18:00",
+    "weekend": "Wochenende: 10:00 - 16:00"
+  },
+  "legal": {
+    "privacy": {
+      "title": "Datenschutzrichtlinie",
+      "lastUpdated": "Zuletzt aktualisiert: {date}",
+      "description": "Diese Datenschutzrichtlinie beschreibt, wie ShaderStore Ihre persönlichen Daten sammelt, verwendet und schützt."
+    },
+    "terms": {
+      "title": "Nutzungsbedingungen",
+      "lastUpdated": "Zuletzt aktualisiert: {date}",
+      "description": "Diese Nutzungsbedingungen regeln Ihre Nutzung von ShaderStore und unseren Diensten."
+    },
+    "returns": {
+      "title": "Rückgaberichtlinie",
+      "lastUpdated": "Zuletzt aktualisiert: {date}",
+      "description": "Unsere Rückgaberichtlinie beschreibt die Bedingungen und den Prozess für die Rückgabe digitaler Produkte."
+    }
+  },
+  "common": {
+    "loading": "Wird geladen...",
+    "error": "Ein Fehler ist aufgetreten",
+    "retry": "Erneut Versuchen",
+    "close": "Schließen",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "view": "Anzeigen",
+    "search": "Suchen",
+    "filter": "Filter",
+    "clear": "Löschen",
+    "apply": "Anwenden"
+  }
+}

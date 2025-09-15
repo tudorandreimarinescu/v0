@@ -1,0 +1,144 @@
+{
+  "navigation": {
+    "shop": "Magazin",
+    "products": "Produse",
+    "about": "Despre",
+    "contact": "Contact",
+    "cart": "Coș",
+    "account": "Cont",
+    "signIn": "Conectare"
+  },
+  "hero": {
+    "badge": "Noua Experiență Paper Shaders",
+    "title": "Experiențe Digitale Premium",
+    "subtitle": "Descoperă efecte shader uimitoare și produse digitale care transformă proiectele tale creative în experiențe vizuale extraordinare.",
+    "cta": "Explorează Colecția",
+    "secondary": "Află Mai Mult"
+  },
+  "trust": {
+    "shipping": "Livrare discretă",
+    "payments": "Plăți securizate",
+    "age": "Doar 18+"
+  },
+  "footer": {
+    "company": "Companie",
+    "about": "Despre Noi",
+    "careers": "Cariere",
+    "press": "Presă",
+    "news": "Știri",
+    "support": "Suport",
+    "help": "Centru de Ajutor",
+    "safety": "Siguranță",
+    "community": "Ghid Comunitate",
+    "legal": "Legal",
+    "privacy": "Politica de Confidențialitate",
+    "terms": "Termeni și Condiții",
+    "returns": "Politica de Returnare",
+    "cookies": "Politica Cookie-uri",
+    "newsletter": "Rămâi la curent cu cele mai noi produse și oferte",
+    "subscribe": "Abonează-te",
+    "email": "Introdu email-ul",
+    "rights": "Toate drepturile rezervate.",
+    "description": "Experiențe shader premium și produse digitale pentru profesioniștii creativi."
+  },
+  "shop": {
+    "title": "Magazin",
+    "description": "Descoperă colecția noastră de efecte shader premium și produse digitale.",
+    "filters": "Filtre",
+    "sortBy": "Sortează după",
+    "newest": "Cele mai noi",
+    "popular": "Cele mai populare",
+    "priceHigh": "Preț: Mare la Mic",
+    "priceLow": "Preț: Mic la Mare",
+    "category": "Categorie",
+    "allCategories": "Toate Categoriile",
+    "addToCart": "Adaugă în Coș",
+    "quickView": "Vizualizare Rapidă"
+  },
+  "product": {
+    "addToCart": "Adaugă în Coș",
+    "buyNow": "Cumpără Acum",
+    "description": "Descriere",
+    "specifications": "Specificații",
+    "reviews": "Recenzii",
+    "relatedProducts": "Produse Similare",
+    "inStock": "În Stoc",
+    "outOfStock": "Stoc Epuizat",
+    "quantity": "Cantitate"
+  },
+  "cart": {
+    "title": "Coșul de Cumpărături",
+    "empty": "Coșul tău este gol",
+    "continueShopping": "Continuă Cumpărăturile",
+    "checkout": "Finalizează Comanda",
+    "subtotal": "Subtotal",
+    "shipping": "Livrare",
+    "tax": "TVA",
+    "total": "Total",
+    "remove": "Elimină",
+    "updateQuantity": "Actualizează Cantitatea"
+  },
+  "checkout": {
+    "title": "Finalizare Comandă",
+    "billingAddress": "Adresa de Facturare",
+    "shippingAddress": "Adresa de Livrare",
+    "paymentMethod": "Metoda de Plată",
+    "orderSummary": "Rezumatul Comenzii",
+    "placeOrder": "Plasează Comanda",
+    "firstName": "Prenume",
+    "lastName": "Nume",
+    "email": "Email",
+    "phone": "Telefon",
+    "address": "Adresa",
+    "city": "Oraș",
+    "postalCode": "Cod Poștal",
+    "country": "Țara"
+  },
+  "contact": {
+    "title": "Contactează-ne",
+    "description": "Ia legătura cu echipa noastră pentru suport, parteneriate sau întrebări generale.",
+    "name": "Nume",
+    "email": "Email",
+    "subject": "Subiect",
+    "message": "Mesaj",
+    "send": "Trimite Mesajul",
+    "office": "Biroul Nostru",
+    "phone": "Telefon",
+    "emailAddress": "Adresa de Email",
+    "hours": "Program de Lucru",
+    "mondayFriday": "Luni - Vineri: 9:00 - 18:00",
+    "weekend": "Weekend: 10:00 - 16:00"
+  },
+  "legal": {
+    "privacy": {
+      "title": "Politica de Confidențialitate",
+      "lastUpdated": "Ultima actualizare: {date}",
+      "description": "Această Politică de Confidențialitate descrie cum ShaderStore colectează, folosește și protejează informațiile tale personale."
+    },
+    "terms": {
+      "title": "Termeni și Condiții",
+      "lastUpdated": "Ultima actualizare: {date}",
+      "description": "Acești Termeni și Condiții guvernează utilizarea ShaderStore și a serviciilor noastre."
+    },
+    "returns": {
+      "title": "Politica de Returnare",
+      "lastUpdated": "Ultima actualizare: {date}",
+      "description": "Politica noastră de returnare prezintă condițiile și procesul pentru returnarea produselor digitale."
+    }
+  },
+  "common": {
+    "loading": "Se încarcă...",
+    "error": "A apărut o eroare",
+    "retry": "Încearcă Din Nou",
+    "close": "Închide",
+    "save": "Salvează",
+    "cancel": "Anulează",
+    "delete": "Șterge",
+    "edit": "Editează",
+    "view": "Vizualizează",
+    "search": "Caută",
+    "filter": "Filtrează",
+    "clear": "Șterge",
+    "apply": "Aplică"
+  }
+}
