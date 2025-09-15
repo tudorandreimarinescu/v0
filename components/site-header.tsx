@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, ShoppingCart, User, Search } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import AuthButton from "@/components/auth-button"
 
 export default function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false)
@@ -61,15 +62,8 @@ export default function SiteHeader() {
                 <ShoppingCart className="h-4 w-4" />
               </Button>
             </Link>
-            <Link href="/account">
-              <Button variant="ghost" size="sm" className="text-white/80 hover:text-white">
-                <User className="h-4 w-4" />
-              </Button>
-            </Link>
             <ThemeToggle />
-            <Button size="sm" className="bg-white text-black hover:bg-white/90">
-              Sign In
-            </Button>
+            <AuthButton />
           </div>
 
           {/* Mobile menu button */}
@@ -106,7 +100,9 @@ export default function SiteHeader() {
                         Account
                       </Button>
                     </Link>
-                    <Button className="w-full bg-white text-black hover:bg-white/90">Sign In</Button>
+                    <div className="pt-2">
+                      <AuthButton />
+                    </div>
                   </div>
                 </div>
               </SheetContent>
