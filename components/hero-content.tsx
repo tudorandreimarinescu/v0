@@ -1,9 +1,9 @@
 "use client"
 
-import { useI18n } from "@/hooks/use-i18n-preview"
+import { useSimpleTranslations } from "@/lib/simple-i18n"
 
 export default function HeroContent() {
-  const { t } = useI18n()
+  const t = useSimpleTranslations()
 
   return (
     <main className="absolute bottom-8 left-8 z-20 max-w-lg">

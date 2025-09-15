@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { useI18nPreview } from "@/hooks/use-i18n-preview"
+import { useTranslations } from "next-intl"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -20,7 +20,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [magicLinkSent, setMagicLinkSent] = useState(false)
   const router = useRouter()
-  const { t } = useI18nPreview()
+  const t = useTranslations()
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -71,11 +71,11 @@ export default function LoginPage() {
         <div className="w-full max-w-sm">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">{t("auth.checkEmail")}</CardTitle>
-              <CardDescription>{t("auth.magicLinkSent")}</CardDescription>
+              <CardTitle className="text-2xl">Check your email</CardTitle>
+              <CardDescription>We've sent you a magic link</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">{t("auth.checkEmailDescription")}</p>
+              <p className="text-sm text-muted-foreground">Check your email and click the link to sign in.</p>
             </CardContent>
           </Card>
         </div>
@@ -89,21 +89,21 @@ export default function LoginPage() {
         <div className="flex flex-col gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">{t("auth.login")}</CardTitle>
-              <CardDescription>{t("auth.loginDescription")}</CardDescription>
+              <CardTitle className="text-2xl">Login</CardTitle>
+              <CardDescription>Enter your email below to login to your account</CardDescription>
             </CardHeader>
             <CardContent>
               <Tabs defaultValue="password" className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="password">{t("auth.password")}</TabsTrigger>
-                  <TabsTrigger value="magic">{t("auth.magicLink")}</TabsTrigger>
+                  <TabsTrigger value="password">Password</TabsTrigger>
+                  <TabsTrigger value="magic">Magic Link</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="password">
                   <form onSubmit={handleEmailLogin}>
                     <div className="flex flex-col gap-6">
                       <div className="grid gap-2">
-                        <Label htmlFor="email">{t("auth.email")}</Label>
+                        <Label htmlFor="email">Email</Label>
                         <Input
                           id="email"
                           type="email"
@@ -114,7 +114,7 @@ export default function LoginPage() {
                         />
                       </div>
                       <div className="grid gap-2">
-                        <Label htmlFor="password">{t("auth.password")}</Label>
+                        <Label htmlFor="password">Password</Label>
                         <Input
                           id="password"
                           type="password"
@@ -125,7 +125,7 @@ export default function LoginPage() {
                       </div>
                       {error && <p className="text-sm text-red-500">{error}</p>}
                       <Button type="submit" className="w-full" disabled={isLoading}>
-                        {isLoading ? t("auth.loggingIn") : t("auth.login")}
+                        {isLoading ? "Logging in..." : "Login"}
                       </Button>
                     </div>
                   </form>
@@ -135,7 +135,7 @@ export default function LoginPage() {
                   <form onSubmit={handleMagicLink}>
                     <div className="flex flex-col gap-6">
                       <div className="grid gap-2">
-                        <Label htmlFor="magic-email">{t("auth.email")}</Label>
+                        <Label htmlFor="magic-email">Email</Label>
                         <Input
                           id="magic-email"
                           type="email"
@@ -147,7 +147,7 @@ export default function LoginPage() {
                       </div>
                       {error && <p className="text-sm text-red-500">{error}</p>}
                       <Button type="submit" className="w-full" disabled={isLoading}>
-                        {isLoading ? t("auth.sendingLink") : t("auth.sendMagicLink")}
+                        {isLoading ? "Sending link..." : "Send Magic Link"}
                       </Button>
                     </div>
                   </form>
@@ -155,9 +155,9 @@ export default function LoginPage() {
               </Tabs>
 
               <div className="mt-4 text-center text-sm">
-                {t("auth.noAccount")}{" "}
+                Don't have an account?{" "}
                 <Link href="/auth/sign-up" className="underline underline-offset-4">
-                  {t("auth.signUp")}
+                  Sign up
                 </Link>
               </div>
             </CardContent>

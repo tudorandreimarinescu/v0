@@ -1,10 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { useI18n } from "@/hooks/use-i18n-preview"
+import { useSimpleTranslations } from "@/lib/simple-i18n"
 
 export default function SiteFooter() {
-  const { t } = useI18n()
+  const t = useSimpleTranslations()
 
   return (
     <footer className="border-t border-white/10 bg-black/20 backdrop-blur-md">
@@ -66,7 +66,7 @@ export default function SiteFooter() {
               </li>
               <li>
                 <Link href="/faq" className="text-sm text-white/60 hover:text-white transition-colors">
-                  {t("footer.faq")}
+                  FAQ
                 </Link>
               </li>
             </ul>

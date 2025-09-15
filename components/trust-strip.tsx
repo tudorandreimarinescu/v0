@@ -1,22 +1,22 @@
 "use client"
 
-import { Shield, Truck, UserCheck } from "lucide-react"
-import { useI18n } from "@/hooks/use-i18n-preview"
+import { ShieldIcon, TruckIcon, UserCheckIcon } from "@/components/simple-icons"
+import { useSimpleTranslations } from "@/lib/simple-i18n"
 
 export default function TrustStrip() {
-  const { t } = useI18n()
+  const t = useSimpleTranslations()
 
   const features = [
     {
-      icon: Truck,
+      icon: TruckIcon,
       text: t("trust.shipping"),
     },
     {
-      icon: Shield,
+      icon: ShieldIcon,
       text: t("trust.payments"),
     },
     {
-      icon: UserCheck,
+      icon: UserCheckIcon,
       text: t("trust.age"),
     },
   ]

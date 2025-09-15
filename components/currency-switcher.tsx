@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Cookies from "js-cookie"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { DollarSign } from "lucide-react"
+import { DollarSignIcon } from "@/components/simple-icons"
 
 const currencies = [
   { code: "RON", name: "Romanian Leu", symbol: "lei", flag: "🇷🇴" },
@@ -43,7 +43,7 @@ export function CurrencySwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="text-white/80 hover:text-white">
-          <DollarSign className="h-4 w-4 mr-1" />
+          <DollarSignIcon className="h-4 w-4 mr-1" />
           <span className="hidden sm:inline">{currentCurrency?.code}</span>
         </Button>
       </DropdownMenuTrigger>
