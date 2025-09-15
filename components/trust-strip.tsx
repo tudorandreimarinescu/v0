@@ -1,11 +1,6 @@
-"use client"
-
 import { Shield, Truck, UserCheck } from "lucide-react"
-import { useTranslations } from "next-intl"
 
 export default function TrustStrip() {
-  const t = useTranslations()
-
   const features = [
     {
       icon: Truck,

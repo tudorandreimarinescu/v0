@@ -1,10 +1,6 @@
 "use client"
 
-import { useTranslations } from "next-intl"
-
 export default function HeroContent() {
-  const t = useTranslations()
-
   return (
     <main className="absolute bottom-8 left-8 z-20 max-w-lg">
       <div className="text-left">
@@ -27,17 +23,17 @@ export default function HeroContent() {
 
         {/* Description */}
         <p className="text-xs font-light text-white/70 mb-4 leading-relaxed">
-          Transform your creative projects with our premium collection of paper-inspired shader effects. Perfect for web
-          design, digital art, and interactive experiences.
+          Create stunning visual experiences with our advanced shader technology. Interactive lighting, smooth
+          animations, and beautiful effects that respond to your every move.
         </p>
 
         {/* Buttons */}
         <div className="flex items-center gap-4 flex-wrap">
           <button className="px-8 py-3 rounded-full bg-transparent border border-white/30 text-white font-normal text-xs transition-all duration-200 hover:bg-white/10 hover:border-white/50 cursor-pointer">
-            View Gallery
+            Pricing
           </button>
           <button className="px-8 py-3 rounded-full bg-white text-black font-normal text-xs transition-all duration-200 hover:bg-white/90 cursor-pointer">
-            Explore Shaders
+            Get Started
           </button>
         </div>
       </div>

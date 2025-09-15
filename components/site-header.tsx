@@ -2,17 +2,13 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, ShoppingCart, User, Search } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { LanguageSwitcherPreview } from "@/components/language-switcher-preview"
-import { CurrencySwitcher } from "@/components/currency-switcher"
 
 export default function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false)
-  const t = useTranslations()
 
   const navigation = [
     { name: "Shop", href: "/shop" },
@@ -56,7 +52,7 @@ export default function SiteHeader() {
           </nav>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center space-x-4">
             <Button variant="ghost" size="sm" className="text-white/80 hover:text-white">
               <Search className="h-4 w-4" />
             </Button>
@@ -70,8 +66,6 @@ export default function SiteHeader() {
                 <User className="h-4 w-4" />
               </Button>
             </Link>
-            <LanguageSwitcherPreview />
-            <CurrencySwitcher />
             <ThemeToggle />
             <Button size="sm" className="bg-white text-black hover:bg-white/90">
               Sign In
@@ -80,8 +74,6 @@ export default function SiteHeader() {
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
-            <LanguageSwitcherPreview />
-            <CurrencySwitcher />
             <ThemeToggle />
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>

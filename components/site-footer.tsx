@@ -1,11 +1,6 @@
-"use client"
-
 import Link from "next/link"
-import { useTranslations } from "next-intl"
 
 export default function SiteFooter() {
-  const t = useTranslations()
-
   return (
     <footer className="border-t border-white/10 bg-black/20 backdrop-blur-md">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -25,26 +20,39 @@ export default function SiteFooter() {
               </svg>
               <span className="text-lg font-semibold text-white">ShaderStore</span>
             </div>
-            <p className="text-sm text-white/60 max-w-xs">Stay updated with our latest shader releases</p>
+            <p className="text-sm text-white/60 max-w-xs">
+              Premium shader experiences and digital products for creators and developers.
+            </p>
           </div>
 
-          {/* Company */}
+          {/* Shop */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-white">Company</h3>
+            <h3 className="text-sm font-semibold text-white">Shop</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/about" className="text-sm text-white/60 hover:text-white transition-colors">
-                  About Us
+                <Link href="/shop" className="text-sm text-white/60 hover:text-white transition-colors">
+                  All Products
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="text-sm text-white/60 hover:text-white transition-colors">
-                  Careers
+                <Link
+                  href="/shop?category=shaders"
+                  className="text-sm text-white/60 hover:text-white transition-colors"
+                >
+                  Shaders
                 </Link>
               </li>
               <li>
-                <Link href="/press" className="text-sm text-white/60 hover:text-white transition-colors">
-                  Press
+                <Link
+                  href="/shop?category=templates"
+                  className="text-sm text-white/60 hover:text-white transition-colors"
+                >
+                  Templates
+                </Link>
+              </li>
+              <li>
+                <Link href="/shop?category=tools" className="text-sm text-white/60 hover:text-white transition-colors">
+                  Tools
                 </Link>
               </li>
             </ul>
@@ -55,27 +63,15 @@ export default function SiteFooter() {
             <h3 className="text-sm font-semibold text-white">Support</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/help" className="text-sm text-white/60 hover:text-white transition-colors">
-                  Help Center
-                </Link>
-              </li>
-              <li>
                 <Link href="/contact" className="text-sm text-white/60 hover:text-white transition-colors">
-                  Contact
+                  Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-sm text-white/60 hover:text-white transition-colors">
-                  FAQ
+                <Link href="/legal/returns" className="text-sm text-white/60 hover:text-white transition-colors">
+                  Returns
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-white">Legal</h3>
-            <ul className="space-y-2">
               <li>
                 <Link href="/legal/privacy" className="text-sm text-white/60 hover:text-white transition-colors">
                   Privacy Policy
@@ -86,9 +82,26 @@ export default function SiteFooter() {
                   Terms of Service
                 </Link>
               </li>
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-semibold text-white">Company</h3>
+            <ul className="space-y-2">
               <li>
-                <Link href="/legal/returns" className="text-sm text-white/60 hover:text-white transition-colors">
-                  Returns
+                <Link href="/about" className="text-sm text-white/60 hover:text-white transition-colors">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link href="/careers" className="text-sm text-white/60 hover:text-white transition-colors">
+                  Careers
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-sm text-white/60 hover:text-white transition-colors">
+                  Blog
                 </Link>
               </li>
             </ul>
@@ -109,7 +122,7 @@ export default function SiteFooter() {
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"
-                  d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
+                  d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
                   clipRule="evenodd"
                 />
               </svg>
