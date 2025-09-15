@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useEffect, useState } from "react"
-import { isAdminClient } from "@/lib/auth/admin"
+import { isAdminClient } from "@/lib/auth/admin-client"
 import { useRouter } from "next/navigation"
 
 interface AdminGuardProps {
