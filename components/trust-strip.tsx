@@ -1,23 +1,23 @@
 "use client"
 
-import { ShieldIcon, TruckIcon, UserCheckIcon } from "@/components/simple-icons"
-import { useSimpleTranslations } from "@/lib/simple-i18n"
+import { Shield, Truck, UserCheck } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 export default function TrustStrip() {
-  const t = useSimpleTranslations()
+  const t = useTranslations()
 
   const features = [
     {
-      icon: TruckIcon,
-      text: t("trust.shipping"),
+      icon: Truck,
+      text: "Discreet shipping",
     },
     {
-      icon: ShieldIcon,
-      text: t("trust.payments"),
+      icon: Shield,
+      text: "Secure payments",
     },
     {
-      icon: UserCheckIcon,
-      text: t("trust.age"),
+      icon: UserCheck,
+      text: "18+ only",
     },
   ]
 

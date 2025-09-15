@@ -1,22 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Instrument_Serif } from "next/font/google"
-import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-})
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
-  variable: "--font-instrument-serif",
-  display: "swap",
-})
 
 export const metadata: Metadata = {
   title: {
@@ -80,25 +64,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <style>{`
-html {
-  font-family: ${inter.style.fontFamily};
-  --font-sans: ${inter.variable};
-  --font-instrument-serif: ${instrumentSerif.variable};
-}
-        `}</style>
-      </head>
-      <body className={`${inter.variable} ${instrumentSerif.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
-  )
+}>) {
+  return children
 }

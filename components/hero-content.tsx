@@ -1,9 +1,9 @@
 "use client"
 
-import { useSimpleTranslations } from "@/lib/simple-i18n"
+import { useTranslations } from "next-intl"
 
 export default function HeroContent() {
-  const t = useSimpleTranslations()
+  const t = useTranslations()
 
   return (
     <main className="absolute bottom-8 left-8 z-20 max-w-lg">
@@ -15,7 +15,7 @@ export default function HeroContent() {
           }}
         >
           <div className="absolute top-0 left-1 right-1 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-full" />
-          <span className="text-white text-xs font-light relative z-10">{t("hero.badge")}</span>
+          <span className="text-white text-xs font-light relative z-10">✨ New Paper Shaders Experience</span>
         </div>
 
         {/* Main Heading */}
@@ -26,15 +26,18 @@ export default function HeroContent() {
         </h1>
 
         {/* Description */}
-        <p className="text-xs font-light text-white/70 mb-4 leading-relaxed">{t("hero.subtitle")}</p>
+        <p className="text-xs font-light text-white/70 mb-4 leading-relaxed">
+          Transform your creative projects with our premium collection of paper-inspired shader effects. Perfect for web
+          design, digital art, and interactive experiences.
+        </p>
 
         {/* Buttons */}
         <div className="flex items-center gap-4 flex-wrap">
           <button className="px-8 py-3 rounded-full bg-transparent border border-white/30 text-white font-normal text-xs transition-all duration-200 hover:bg-white/10 hover:border-white/50 cursor-pointer">
-            {t("hero.secondary")}
+            View Gallery
           </button>
           <button className="px-8 py-3 rounded-full bg-white text-black font-normal text-xs transition-all duration-200 hover:bg-white/90 cursor-pointer">
-            {t("hero.cta")}
+            Explore Shaders
           </button>
         </div>
       </div>

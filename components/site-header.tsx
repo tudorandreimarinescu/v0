@@ -2,23 +2,23 @@
 
 import Link from "next/link"
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { MenuIcon, ShoppingCartIcon, UserIcon, SearchIcon } from "@/components/simple-icons"
+import { Menu, ShoppingCart, User, Search } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { LanguageSwitcherPreview } from "@/components/language-switcher-preview"
 import { CurrencySwitcher } from "@/components/currency-switcher"
-import { useSimpleTranslations } from "@/lib/simple-i18n"
 
 export default function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false)
-  const t = useSimpleTranslations()
+  const t = useTranslations()
 
   const navigation = [
-    { name: t("nav.shop"), href: "/shop" },
+    { name: "Shop", href: "/shop" },
     { name: "Products", href: "/shop" },
     { name: "About", href: "/about" },
-    { name: t("nav.contact"), href: "/contact" },
+    { name: "Contact", href: "/contact" },
   ]
 
   return (
@@ -58,16 +58,16 @@ export default function SiteHeader() {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-2">
             <Button variant="ghost" size="sm" className="text-white/80 hover:text-white">
-              <SearchIcon className="h-4 w-4" />
+              <Search className="h-4 w-4" />
             </Button>
             <Link href="/cart">
               <Button variant="ghost" size="sm" className="text-white/80 hover:text-white">
-                <ShoppingCartIcon className="h-4 w-4" />
+                <ShoppingCart className="h-4 w-4" />
               </Button>
             </Link>
             <Link href="/account">
               <Button variant="ghost" size="sm" className="text-white/80 hover:text-white">
-                <UserIcon className="h-4 w-4" />
+                <User className="h-4 w-4" />
               </Button>
             </Link>
             <LanguageSwitcherPreview />
@@ -86,7 +86,7 @@ export default function SiteHeader() {
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="sm" className="text-white">
-                  <MenuIcon className="h-5 w-5" />
+                  <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] bg-black/95 border-white/10">
@@ -104,13 +104,13 @@ export default function SiteHeader() {
                   <div className="border-t border-white/10 pt-4 space-y-2">
                     <Link href="/cart" onClick={() => setIsOpen(false)}>
                       <Button variant="ghost" className="w-full justify-start text-white/80">
-                        <ShoppingCartIcon className="h-4 w-4 mr-2" />
-                        {t("nav.cart")}
+                        <ShoppingCart className="h-4 w-4 mr-2" />
+                        Cart
                       </Button>
                     </Link>
                     <Link href="/account" onClick={() => setIsOpen(false)}>
                       <Button variant="ghost" className="w-full justify-start text-white/80">
-                        <UserIcon className="h-4 w-4 mr-2" />
+                        <User className="h-4 w-4 mr-2" />
                         Account
                       </Button>
                     </Link>

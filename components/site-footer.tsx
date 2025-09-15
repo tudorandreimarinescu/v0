@@ -1,10 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { useSimpleTranslations } from "@/lib/simple-i18n"
+import { useTranslations } from "next-intl"
 
 export default function SiteFooter() {
-  const t = useSimpleTranslations()
+  const t = useTranslations()
 
   return (
     <footer className="border-t border-white/10 bg-black/20 backdrop-blur-md">
@@ -25,26 +25,26 @@ export default function SiteFooter() {
               </svg>
               <span className="text-lg font-semibold text-white">ShaderStore</span>
             </div>
-            <p className="text-sm text-white/60 max-w-xs">{t("footer.newsletter")}</p>
+            <p className="text-sm text-white/60 max-w-xs">Stay updated with our latest shader releases</p>
           </div>
 
           {/* Company */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-white">{t("footer.company")}</h3>
+            <h3 className="text-sm font-semibold text-white">Company</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/about" className="text-sm text-white/60 hover:text-white transition-colors">
-                  {t("footer.about")}
+                  About Us
                 </Link>
               </li>
               <li>
                 <Link href="/careers" className="text-sm text-white/60 hover:text-white transition-colors">
-                  {t("footer.careers")}
+                  Careers
                 </Link>
               </li>
               <li>
                 <Link href="/press" className="text-sm text-white/60 hover:text-white transition-colors">
-                  {t("footer.press")}
+                  Press
                 </Link>
               </li>
             </ul>
@@ -52,16 +52,16 @@ export default function SiteFooter() {
 
           {/* Support */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-white">{t("footer.support")}</h3>
+            <h3 className="text-sm font-semibold text-white">Support</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/help" className="text-sm text-white/60 hover:text-white transition-colors">
-                  {t("footer.help")}
+                  Help Center
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="text-sm text-white/60 hover:text-white transition-colors">
-                  {t("footer.contact")}
+                  Contact
                 </Link>
               </li>
               <li>
@@ -74,21 +74,21 @@ export default function SiteFooter() {
 
           {/* Legal */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-white">{t("footer.legal")}</h3>
+            <h3 className="text-sm font-semibold text-white">Legal</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/legal/privacy" className="text-sm text-white/60 hover:text-white transition-colors">
-                  {t("footer.privacy")}
+                  Privacy Policy
                 </Link>
               </li>
               <li>
                 <Link href="/legal/terms" className="text-sm text-white/60 hover:text-white transition-colors">
-                  {t("footer.terms")}
+                  Terms of Service
                 </Link>
               </li>
               <li>
                 <Link href="/legal/returns" className="text-sm text-white/60 hover:text-white transition-colors">
-                  {t("footer.returns")}
+                  Returns
                 </Link>
               </li>
             </ul>
@@ -96,7 +96,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="border-t border-white/10 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-sm text-white/60">© 2024 ShaderStore. {t("footer.rights")}</p>
+          <p className="text-sm text-white/60">© 2024 ShaderStore. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 sm:mt-0">
             <Link href="#" className="text-white/60 hover:text-white transition-colors">
               <span className="sr-only">Twitter</span>

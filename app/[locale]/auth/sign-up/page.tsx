@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { useTranslations } from "next-intl"
+import { useI18nPreview } from "@/hooks/use-i18n-preview"
 
 export default function SignUpPage() {
   const [email, setEmail] = useState("")
@@ -21,7 +21,7 @@ export default function SignUpPage() {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const t = useTranslations()
+  const { t } = useI18nPreview()
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -30,7 +30,7 @@ export default function SignUpPage() {
     setError(null)
 
     if (password !== repeatPassword) {
-      setError("Passwords do not match")
+      setError(t("auth.passwordMismatch"))
       setIsLoading(false)
       return
     }
@@ -63,15 +63,15 @@ export default function SignUpPage() {
         <div className="flex flex-col gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">Sign Up</CardTitle>
-              <CardDescription>Create your account</CardDescription>
+              <CardTitle className="text-2xl">{t("auth.signUp")}</CardTitle>
+              <CardDescription>{t("auth.createAccount")}</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSignUp}>
                 <div className="flex flex-col gap-6">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="firstName">First Name</Label>
+                      <Label htmlFor="firstName">{t("auth.firstName")}</Label>
                       <Input
                         id="firstName"
                         type="text"
@@ -81,7 +81,7 @@ export default function SignUpPage() {
                       />
                     </div>
                     <div className="grid gap-2">
-                      <Label htmlFor="lastName">Last Name</Label>
+                      <Label htmlFor="lastName">{t("auth.lastName")}</Label>
                       <Input
                         id="lastName"
                         type="text"
@@ -92,7 +92,7 @@ export default function SignUpPage() {
                     </div>
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">{t("auth.email")}</Label>
                     <Input
                       id="email"
                       type="email"
@@ -103,7 +103,7 @@ export default function SignUpPage() {
                     />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">{t("auth.password")}</Label>
                     <Input
                       id="password"
                       type="password"
@@ -113,7 +113,7 @@ export default function SignUpPage() {
                     />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="repeat-password">Repeat Password</Label>
+                    <Label htmlFor="repeat-password">{t("auth.repeatPassword")}</Label>
                     <Input
                       id="repeat-password"
                       type="password"
@@ -124,13 +124,13 @@ export default function SignUpPage() {
                   </div>
                   {error && <p className="text-sm text-red-500">{error}</p>}
                   <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? "Creating account..." : "Sign Up"}
+                    {isLoading ? t("auth.creatingAccount") : t("auth.signUp")}
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">
-                  Already have an account?{" "}
+                  {t("auth.haveAccount")}{" "}
                   <Link href="/auth/login" className="underline underline-offset-4">
-                    Login
+                    {t("auth.login")}
                   </Link>
                 </div>
               </form>

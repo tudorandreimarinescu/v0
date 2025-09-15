@@ -1,11 +1,27 @@
-// Simple middleware without internationalization
-import { NextResponse } from "next/server"
+import createMiddleware from "next-intl/middleware"
+import { locales, defaultLocale } from "./i18n/request"
+import { updateSession } from "./lib/supabase/middleware"
 import type { NextRequest } from "next/server"
 
-export function middleware(request: NextRequest) {
-  return NextResponse.next()
+export default async function middleware(request: NextRequest) {
+  // First handle Supabase session management
+  const supabaseResponse = await updateSession(request)
+
+  // If Supabase middleware returned a redirect, return it
+  if (supabaseResponse.status === 302) {
+    return supabaseResponse
+  }
+
+  // Then handle internationalization
+  const intlMiddleware = createMiddleware({
+    locales,
+    defaultLocale,
+    localePrefix: "always",
+  })
+
+  return intlMiddleware(request)
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/", "/(de|en|ro|hu)/:path*", "/((?!api|_next|_vercel|.*\\..*).*))"],
 }

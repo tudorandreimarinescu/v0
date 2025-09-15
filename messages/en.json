@@ -1,5 +1,5 @@
 {
-  "nav": {
+  "navigation": {
     "shop": "Shop",
     "products": "Products",
     "about": "About",
@@ -9,11 +9,11 @@
     "signIn": "Sign In"
   },
   "hero": {
-    "badge": "✨ New Paper Shaders Experience",
-    "title": "Revolutionary Shader Effects for Modern Design",
-    "subtitle": "Transform your creative projects with our premium collection of paper-inspired shader effects. Perfect for web design, digital art, and interactive experiences.",
-    "cta": "Explore Shaders",
-    "secondary": "View Gallery"
+    "badge": "New Paper Shaders Experience",
+    "title": "Premium Digital Experiences",
+    "subtitle": "Discover stunning shader effects and digital products that transform your creative projects into extraordinary visual experiences.",
+    "cta": "Explore Collection",
+    "secondary": "Learn More"
   },
   "trust": {
     "shipping": "Discreet shipping",
@@ -35,7 +35,7 @@
     "terms": "Terms of Service",
     "returns": "Returns Policy",
     "cookies": "Cookie Policy",
-    "newsletter": "Stay updated with our latest shader releases",
+    "newsletter": "Stay updated with our latest products and offers",
     "subscribe": "Subscribe",
     "email": "Enter your email",
     "rights": "All rights reserved.",
@@ -145,8 +145,5 @@
     "filter": "Filter",
     "clear": "Clear",
     "apply": "Apply"
-  },
-  "currency": {
-    "label": "Currency"
   }
 }
