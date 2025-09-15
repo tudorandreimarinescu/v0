@@ -9,6 +9,8 @@ import { createServerClient } from "@/lib/supabase/server"
 import { Download, Eye } from "lucide-react"
 import Link from "next/link"
 
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
   title: "Order History - ShaderStore",
   description: "View your order history and download purchased items.",

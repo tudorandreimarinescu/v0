@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Users, Package, ShoppingCart, Star, Settings, BarChart3 } from "lucide-react"
 
+export const dynamic = "force-dynamic"
+
 export default async function AdminDashboard() {
   const profile = await getCurrentUserProfile()
 

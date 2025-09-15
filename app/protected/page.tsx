@@ -7,6 +7,8 @@ import { getCurrentUserProfile } from "@/lib/auth/admin"
 import RoleBadge from "@/components/role-badge"
 import { Settings } from "lucide-react"
 
+export const dynamic = "force-dynamic"
+
 export default async function ProtectedPage() {
   const supabase = await createClient()
 
