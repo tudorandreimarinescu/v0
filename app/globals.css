@@ -6,76 +6,78 @@
 :root {
   /* Updated color tokens to match the modern tech design brief */
   --background: #ffffff;
-  --foreground: #374151;
-  --card: #f8fafc;
-  --card-foreground: #1f2937;
-  --popover: #ffffff;
-  --popover-foreground: #374151;
-  --primary: #374151; /* For main headings and text */
-  --primary-foreground: #ffffff; /* For text on primary backgrounds */
-  --secondary: #6366f1; /* For call-to-action buttons */
-  --secondary-foreground: #ffffff; /* For text on secondary backgrounds */
-  --muted: #f8fafc;
-  --muted-foreground: #1f2937;
-  --accent: #6366f1; /* For interactive elements */
-  --accent-foreground: #ffffff; /* For text on accent backgrounds */
-  --destructive: #ea580c; /* Optional for error states */
-  --destructive-foreground: #ffffff; /* For text on destructive backgrounds */
-  --border: #e5e7eb; /* Light border for card elements */
-  --input: #f8fafc; /* Input fields background */
-  --ring: #6366f1; /* Focus ring for inputs and buttons */
-  --chart-1: #a16207;
-  --chart-2: #ea580c;
-  --chart-3: #374151;
-  --chart-4: #6366f1;
-  --chart-5: #f97316;
-  --radius: 1rem; /* For rounded corners */
-  --sidebar: #ffffff; /* Background for sidebar */
-  --sidebar-foreground: #374151; /* Text color for sidebar */
-  --sidebar-primary: #6366f1; /* Accent color for sidebar */
-  --sidebar-primary-foreground: #ffffff; /* Text color for sidebar primary */
-  --sidebar-accent: #f97316; /* Optional accent for sidebar */
-  --sidebar-accent-foreground: #ffffff; /* Text color for sidebar accent */
-  --sidebar-border: #e5e7eb; /* Border color for sidebar */
-  --sidebar-ring: #6366f1; /* Focus ring for sidebar elements */
-  --font-work-sans: "Work Sans", sans-serif;
-  --font-open-sans: "Open Sans", sans-serif;
+  --foreground: #4b5563;
+  --card: #f9fafb;
+  --card-foreground: #374151;
+  --popover: rgba(255, 255, 255, 0.9);
+  --popover-foreground: #4b5563;
+  --primary: #0891b2; /* Call-to-action buttons */
+  --primary-foreground: #ffffff;
+  --secondary: #d97706; /* Hover state for buttons */
+  --secondary-foreground: #ffffff;
+  --muted: #f9fafb;
+  --muted-foreground: #4b5563;
+  --accent: #d97706; /* Accent color for highlights */
+  --accent-foreground: #ffffff;
+  --destructive: #f44336; /* Example for error states */
+  --destructive-foreground: #ffffff;
+  --border: #e5e7eb;
+  --input: #f9fafb;
+  --ring: rgba(8, 145, 178, 0.6);
+  --chart-1: #0891b2;
+  --chart-2: #d97706;
+  --chart-3: #4b5563;
+  --chart-4: #f9fafb;
+  --chart-5: #ecfeff;
+  --radius: 0.5rem; /* Rounded corners for buttons */
+  --sidebar: #f9fafb;
+  --sidebar-foreground: #374151;
+  --sidebar-primary: #0891b2;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #d97706;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: rgba(8, 145, 178, 0.6);
+  --font-instrument-serif: "Instrument Serif", serif;
+  --font-figtree: "Figtree", sans-serif;
 }
 
 .dark {
   /* Updated dark mode colors to maintain consistency */
-  --background: #1f2937;
-  --foreground: #f8fafc;
-  --card: #374151;
-  --card-foreground: #f8fafc;
-  --popover: #374151;
-  --popover-foreground: #f8fafc;
-  --primary: #f8fafc;
-  --primary-foreground: #1f2937;
-  --secondary: #6366f1;
+  --background: #111827;
+  --foreground: #f9fafb;
+  --card: #1f2937;
+  --card-foreground: #f9fafb;
+  --popover: rgba(31, 41, 55, 0.9);
+  --popover-foreground: #f9fafb;
+  --primary: #0891b2;
+  --primary-foreground: #ffffff;
+  --secondary: #d97706;
   --secondary-foreground: #ffffff;
   --muted: #374151;
   --muted-foreground: #9ca3af;
-  --accent: #6366f1;
+  --accent: #d97706;
   --accent-foreground: #ffffff;
-  --destructive: #ea580c;
+  --destructive: #f44336;
   --destructive-foreground: #ffffff;
-  --border: #4b5563;
+  --border: #374151;
   --input: #374151;
-  --ring: #6366f1;
-  --chart-1: #a16207;
-  --chart-2: #ea580c;
-  --chart-3: #f8fafc;
-  --chart-4: #6366f1;
-  --chart-5: #f97316;
+  --ring: rgba(8, 145, 178, 0.6);
+  --chart-1: #0891b2;
+  --chart-2: #d97706;
+  --chart-3: #f9fafb;
+  --chart-4: #374151;
+  --chart-5: #1f2937;
   --sidebar: #1f2937;
-  --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #6366f1;
+  --sidebar-foreground: #f9fafb;
+  --sidebar-primary: #0891b2;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f97316;
+  --sidebar-accent: #d97706;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #4b5563;
-  --sidebar-ring: #6366f1;
+  --sidebar-border: #374151;
+  --sidebar-ring: rgba(8, 145, 178, 0.6);
+  --font-instrument-serif: "Instrument Serif", serif;
+  --font-figtree: "Figtree", sans-serif;
 }
 
 @theme inline {
@@ -115,8 +117,9 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-sans: var(--font-open-sans);
-  --font-heading: var(--font-work-sans);
+  --font-instrument-serif: var(--font-instrument-serif);
+  --font-sans: var(--font-figtree);
+  --font-figtree: var(--font-figtree);
 }
 
 @layer base {
@@ -125,30 +128,16 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-open-sans);
+    font-family: var(--font-figtree);
   }
 }
 
-/* Added custom classes for typography and animations */
-.heading {
-  font-family: var(--font-work-sans);
+.instrument {
+  font-family: var(--font-instrument-serif);
 }
 
-/* Shader animation keyframes */
+/* Added shader animation keyframes */
 @keyframes shaderWave {
-  0%,
-  100% {
-    transform: translateX(-50%) translateY(-50%) rotate(0deg);
-  }
-  33% {
-    transform: translateX(-50%) translateY(-50%) rotate(120deg);
-  }
-  66% {
-    transform: translateX(-50%) translateY(-50%) rotate(240deg);
-  }
-}
-
-@keyframes gradientShift {
   0%,
   100% {
     background-position: 0% 50%;
@@ -158,38 +147,42 @@
   }
 }
 
-.shader-animation {
-  animation: shaderWave 20s ease-in-out infinite;
+@keyframes shaderPulse {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
-.gradient-animation {
-  background-size: 400% 400%;
-  animation: gradientShift 8s ease infinite;
-}
-
-/* Floating particles animation */
 @keyframes float {
   0%,
   100% {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-10px);
   }
+}
+
+.shader-bg {
+  background: linear-gradient(45deg, #0891b2, #06b6d4, #d97706, #f59e0b, #0891b2);
+  background-size: 400% 400%;
+  animation: shaderWave 8s ease-in-out infinite;
+}
+
+.shader-overlay {
+  background: linear-gradient(135deg, rgba(8, 145, 178, 0.1), rgba(217, 119, 6, 0.1), rgba(6, 182, 212, 0.1));
+  background-size: 300% 300%;
+  animation: shaderWave 12s ease-in-out infinite reverse;
+}
+
+.shader-pulse {
+  animation: shaderPulse 4s ease-in-out infinite;
 }
 
 .float-animation {
   animation: float 6s ease-in-out infinite;
-}
-
-.float-delay-1 {
-  animation-delay: 1s;
-}
-
-.float-delay-2 {
-  animation-delay: 2s;
-}
-
-.float-delay-3 {
-  animation-delay: 3s;
 }
