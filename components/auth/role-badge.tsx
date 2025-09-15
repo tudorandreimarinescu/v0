@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Badge } from "@/components/ui/badge"
-import { getUserRole } from "@/lib/auth/admin"
+import { getUserRoleClient } from "@/lib/auth/admin-client"
 
 interface RoleBadgeProps {
   userId?: string
@@ -15,7 +15,7 @@ export function RoleBadge({ userId, className }: RoleBadgeProps) {
   useEffect(() => {
     async function fetchRole() {
       try {
-        const userRole = await getUserRole(userId)
+        const userRole = await getUserRoleClient(userId)
         setRole(userRole)
       } catch (error) {
         console.error("Error fetching user role:", error)

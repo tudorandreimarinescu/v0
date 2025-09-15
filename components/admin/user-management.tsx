@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
 import { RoleBadge } from "@/components/auth/role-badge"
-import { promoteToAdmin } from "@/lib/auth/admin"
+import { promoteToAdminClient } from "@/lib/auth/admin-client"
 import { Shield, Mail, Calendar } from "lucide-react"
 
 interface User {
@@ -42,7 +42,7 @@ export function UserManagement() {
 
   const handlePromoteToAdmin = async (userId: string) => {
     try {
-      await promoteToAdmin(userId)
+      await promoteToAdminClient(userId)
       // Refresh users list
       setUsers(users.map((user) => (user.id === userId ? { ...user, role: "admin" } : user)))
     } catch (error) {

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
-import { isAdmin } from "@/lib/auth/admin"
+import { isAdmin } from "@/lib/auth/admin-server"
 import { AdminDashboard } from "@/components/admin/admin-dashboard"
 
 export default async function AdminPage() {

@@ -36,3 +36,16 @@ export async function getUserRoleClient(): Promise<string> {
     return "guest"
   }
 }
+
+export async function promoteToAdminClient(targetUserId: string): Promise<void> {
+  const supabase = createClient()
+
+  // Call the database function to promote user
+  const { error } = await supabase.rpc("promote_to_admin", {
+    target_user_id: targetUserId,
+  })
+
+  if (error) {
+    throw new Error(`Failed to promote user: ${error.message}`)
+  }
+}
