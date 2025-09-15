@@ -7,7 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages } from "next-intl/server"
 import { notFound } from "next/navigation"
-import { locales } from "@/i18n"
+import { locales } from "@/i18n/request"
 import "../globals.css"
 
 const figtree = Figtree({
