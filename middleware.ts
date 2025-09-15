@@ -1,18 +1,28 @@
 import createMiddleware from "next-intl/middleware"
 import { locales, defaultLocale } from "./i18n/request"
+import { updateSession } from "./lib/supabase/middleware"
+import type { NextRequest } from "next/server"
 
-export default createMiddleware({
-  // A list of all locales that are supported
-  locales,
+export default async function middleware(request: NextRequest) {
+  // First handle Supabase session management
+  const supabaseResponse = await updateSession(request)
 
-  // Used when no locale matches
-  defaultLocale,
+  // If Supabase middleware returned a redirect, return it
+  if (supabaseResponse.status === 302) {
+    return supabaseResponse
+  }
 
-  // Always use locale prefix
-  localePrefix: "always",
-})
+  // Then handle internationalization
+  const intlMiddleware = createMiddleware({
+    locales,
+    defaultLocale,
+    localePrefix: "always",
+  })
+
+  return intlMiddleware(request)
+}
 
 export const config = {
-  // Match only internationalized pathnames
+  // Match only internationalized pathnames and exclude static files
   matcher: ["/", "/(de|en|ro|hu)/:path*", "/((?!api|_next|_vercel|.*\\..*).*)"],
 }

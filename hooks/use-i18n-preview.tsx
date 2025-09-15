@@ -21,6 +21,8 @@ export function useI18n() {
   return context
 }
 
+export const useI18nPreview = useI18n
+
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(defaultLocale)
 
