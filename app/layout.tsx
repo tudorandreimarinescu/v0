@@ -4,6 +4,7 @@ import { Figtree } from "next/font/google"
 import { GeistMono } from "geist/font/mono"
 import { Instrument_Serif } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
+import { CartProvider } from "@/lib/cart/cart-context"
 import "./globals.css"
 
 const figtree = Figtree({
@@ -100,7 +101,7 @@ html {
       </head>
       <body className={`${figtree.variable} ${instrumentSerif.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
+          <CartProvider>{children}</CartProvider>
         </ThemeProvider>
       </body>
     </html>

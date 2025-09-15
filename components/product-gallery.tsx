@@ -1,94 +1,134 @@
 "use client"
 
 import { useState } from "react"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Eye, Download, ZoomIn } from "lucide-react"
+import { ZoomIn, ChevronLeft, ChevronRight } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-interface Product {
-  id: string
-  slug: string
-  brand: string
-  image_url: string
-  translations?: {
-    name: string
-    locale: string
-  }[]
+interface GalleryImage {
+  src: string
+  alt: string
 }
 
 interface ProductGalleryProps {
-  product: Product
+  images: GalleryImage[]
+  productName: string
 }
 
-export default function ProductGallery({ product }: ProductGalleryProps) {
+export default function ProductGallery({ images, productName }: ProductGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(0)
-  const translation = product.translations?.find((t) => t.locale === "en") || product.translations?.[0]
-  const productName = translation?.name || `${product.brand} Product`
+  const [isZoomed, setIsZoomed] = useState(false)
 
-  // Mock additional images - in a real app, these would come from the database
-  const images = [
-    product.image_url || "/shader.jpg",
-    "/shader-preview-1.jpg",
-    "/shader-preview-2.jpg",
-    "/shader-code.jpg",
-  ]
+  const nextImage = () => {
+    setSelectedImage((prev) => (prev + 1) % images.length)
+  }
+
+  const prevImage = () => {
+    setSelectedImage((prev) => (prev - 1 + images.length) % images.length)
+  }
 
   return (
     <div className="space-y-4">
       {/* Main Image */}
-      <div className="aspect-video bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-lg overflow-hidden relative group">
+      <div className="relative aspect-video bg-muted rounded-lg overflow-hidden group">
         <img
-          src={images[selectedImage] || "/placeholder.svg"}
-          alt={`${productName} - Image ${selectedImage + 1}`}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          src={images[selectedImage]?.src || "/placeholder.svg"}
+          alt={images[selectedImage]?.alt || productName}
+          className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-          <Button size="sm" className="bg-white/90 text-black hover:bg-white">
-            <ZoomIn className="h-4 w-4 mr-2" />
-            Zoom
-          </Button>
-        </div>
+
+        {/* Zoom Trigger */}
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              variant="secondary"
+              size="sm"
+              className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <ZoomIn className="h-4 w-4" />
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-4xl w-full h-[80vh] p-0">
+            <div className="relative w-full h-full bg-black rounded-lg overflow-hidden">
+              <img
+                src={images[selectedImage]?.src || "/placeholder.svg"}
+                alt={images[selectedImage]?.alt || productName}
+                className="w-full h-full object-contain"
+              />
+
+              {/* Navigation in zoom */}
+              {images.length > 1 && (
+                <>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="absolute left-4 top-1/2 -translate-y-1/2"
+                    onClick={prevImage}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="absolute right-4 top-1/2 -translate-y-1/2"
+                    onClick={nextImage}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </>
+              )}
+
+              {/* Image counter */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                {selectedImage + 1} / {images.length}
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Navigation arrows */}
+        {images.length > 1 && (
+          <>
+            <Button
+              variant="secondary"
+              size="sm"
+              className="absolute left-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+              onClick={prevImage}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
+              className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+              onClick={nextImage}
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </>
+        )}
       </div>
 
       {/* Thumbnail Gallery */}
-      <div className="grid grid-cols-4 gap-2">
-        {images.map((image, index) => (
-          <button
-            key={index}
-            onClick={() => setSelectedImage(index)}
-            className={`aspect-video rounded-lg overflow-hidden border-2 transition-all duration-200 ${
-              selectedImage === index
-                ? "border-primary ring-2 ring-primary/50"
-                : "border-white/20 hover:border-white/40"
-            }`}
-          >
-            <img
-              src={image || "/placeholder.svg"}
-              alt={`${productName} thumbnail ${index + 1}`}
-              className="w-full h-full object-cover"
-            />
-          </button>
-        ))}
-      </div>
-
-      {/* Action Buttons */}
-      <div className="flex space-x-2">
-        <Button
-          variant="outline"
-          size="sm"
-          className="flex-1 border-white/20 text-white/80 bg-transparent hover:bg-white/10"
-        >
-          <Eye className="h-4 w-4 mr-2" />
-          Live Preview
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          className="flex-1 border-white/20 text-white/80 bg-transparent hover:bg-white/10"
-        >
-          <Download className="h-4 w-4 mr-2" />
-          Download Demo
-        </Button>
-      </div>
+      {images.length > 1 && (
+        <div className="flex gap-2 overflow-x-auto pb-2">
+          {images.map((image, index) => (
+            <button
+              key={index}
+              onClick={() => setSelectedImage(index)}
+              className={cn(
+                "flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all",
+                selectedImage === index
+                  ? "border-primary ring-2 ring-primary/20"
+                  : "border-border hover:border-primary/50",
+              )}
+            >
+              <img src={image.src || "/placeholder.svg"} alt={image.alt} className="w-full h-full object-cover" />
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

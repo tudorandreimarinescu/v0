@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
+import { updateSession } from "@/lib/supabase/middleware"
 
-export function middleware(request: NextRequest) {
-  // For now, just pass through all requests to avoid Edge Runtime issues
-  // Auth protection will be handled at the component level
+export async function middleware(request: NextRequest) {
+  // Handle auth session updates for protected routes
+  const protectedPaths = ["/profile", "/orders", "/admin"]
+  const isProtectedPath = protectedPaths.some((path) => request.nextUrl.pathname.startsWith(path))
+
+  if (isProtectedPath) {
+    return await updateSession(request)
+  }
+
+  // For all other routes, just pass through
   return NextResponse.next()
 }
 

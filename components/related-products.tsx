@@ -1,92 +1,80 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { formatPrice } from "@/lib/supabase/products"
-import { Eye, ShoppingCart } from "lucide-react"
 import Link from "next/link"
-
-interface Product {
-  id: string
-  slug: string
-  brand: string
-  image_url: string
-  base_price: number
-  default_currency: string
-  category?: {
-    name: string
-    slug: string
-  }
-  translations?: {
-    name: string
-    short_desc: string
-    locale: string
-  }[]
-}
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Star, Eye } from "lucide-react"
+import { getRelatedProducts } from "@/lib/supabase/products"
+import { formatCurrency } from "@/lib/currency"
 
 interface RelatedProductsProps {
-  products: Product[]
+  productId: string
+  categoryId: string
 }
 
-export default function RelatedProducts({ products }: RelatedProductsProps) {
-  if (products.length === 0) return null
+export default async function RelatedProducts({ productId, categoryId }: RelatedProductsProps) {
+  const relatedProducts = await getRelatedProducts(productId, categoryId, 4)
+
+  if (relatedProducts.length === 0) {
+    return null
+  }
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-light text-white">
-        <span className="font-medium italic instrument">Related</span> Products
-      </h2>
+    <section className="space-y-6">
+      <h2 className="text-2xl font-light text-foreground">Related Products</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {products.map((product) => {
-          const translation = product.translations?.find((t) => t.locale === "en") || product.translations?.[0]
-          const productName = translation?.name || `${product.brand} Product`
-          const productDesc = translation?.short_desc || "Premium shader product"
-
-          return (
-            <Card
-              key={product.id}
-              className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
-            >
-              <CardHeader className="p-0">
-                <div className="aspect-video bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-t-lg overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {relatedProducts.map((product) => (
+          <Card key={product.id} className="group hover:shadow-lg transition-all duration-300">
+            <CardHeader className="p-0">
+              <Link href={`/product/${product.slug}`}>
+                <div className="aspect-video bg-gradient-to-br from-primary/10 to-secondary/10 relative overflow-hidden rounded-t-lg">
                   <img
-                    src={product.image_url || "/placeholder.svg?height=200&width=300&query=shader"}
-                    alt={productName}
-                    className="w-full h-full object-cover"
+                    src={
+                      product.image_url ||
+                      `/placeholder.svg?height=200&width=300&query=${encodeURIComponent(product.name) || "/placeholder.svg"}`
+                    }
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-              </CardHeader>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <Badge variant="secondary" className="bg-white/10 text-white/80 text-xs">
-                    {product.category?.name || "Shader"}
-                  </Badge>
-                  <span className="text-sm font-semibold text-white">
-                    {formatPrice(product.base_price, product.default_currency)}
-                  </span>
+              </Link>
+            </CardHeader>
+
+            <CardContent className="p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <Badge variant="secondary" className="text-xs">
+                  {product.category_name}
+                </Badge>
+                <div className="flex items-center gap-1">
+                  <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                  <span className="text-xs text-muted-foreground">{product.avg_rating.toFixed(1)}</span>
                 </div>
-                <CardTitle className="text-white text-sm mb-1">{productName}</CardTitle>
-                <CardDescription className="text-white/60 text-xs line-clamp-2">{productDesc}</CardDescription>
-              </CardContent>
-              <CardFooter className="p-4 pt-0 flex gap-2">
-                <Link href={`/product/${product.slug}`} className="flex-1">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full border-white/20 text-white bg-transparent hover:bg-white/10"
-                  >
+              </div>
+
+              <Link href={`/product/${product.slug}`}>
+                <h3 className="font-medium text-foreground line-clamp-2 hover:text-primary transition-colors">
+                  {product.name}
+                </h3>
+              </Link>
+
+              <p className="text-sm text-muted-foreground line-clamp-2">{product.short_desc}</p>
+
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-foreground">
+                  {formatCurrency(product.localized_price, product.currency)}
+                </span>
+
+                <Link href={`/product/${product.slug}`}>
+                  <Button variant="outline" size="sm" className="bg-transparent">
                     <Eye className="h-3 w-3 mr-1" />
                     View
                   </Button>
                 </Link>
-                <Button size="sm" className="bg-white text-black hover:bg-white/90">
-                  <ShoppingCart className="h-3 w-3" />
-                </Button>
-              </CardFooter>
-            </Card>
-          )
-        })}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
-    </div>
+    </section>
   )
 }

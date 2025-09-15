@@ -12,6 +12,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { createBrowserClient } from "@/lib/supabase/client"
 import { useToast } from "@/hooks/use-toast"
 import { Loader2 } from "lucide-react"
+import { useCart } from "@/lib/cart/cart-context"
+import type { UserProfile } from "@/lib/auth/admin"
 
 interface CheckoutFormProps {
   cartItems: Array<{
@@ -21,14 +23,15 @@ interface CheckoutFormProps {
     quantity: number
   }>
   total: number
+  userProfile: UserProfile | null
 }
 
-export default function CheckoutForm({ cartItems, total }: CheckoutFormProps) {
+export default function CheckoutForm({ cartItems, total, userProfile }: CheckoutFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
+    firstName: userProfile?.first_name || "",
+    lastName: userProfile?.last_name || "",
+    email: userProfile?.email || "",
     address: "",
     city: "",
     country: "",
@@ -39,6 +42,7 @@ export default function CheckoutForm({ cartItems, total }: CheckoutFormProps) {
 
   const router = useRouter()
   const { toast } = useToast()
+  const { clearCart } = useCart()
   const supabase = createBrowserClient()
 
   const handleInputChange = (field: string, value: string) => {
@@ -57,9 +61,11 @@ export default function CheckoutForm({ cartItems, total }: CheckoutFormProps) {
       // Create order in database
       const orderData = {
         user_id: user?.id || null,
-        email: formData.email,
+        guest_email: !user ? formData.email : null,
         total_amount: total,
+        currency: "USD",
         status: "completed",
+        payment_status: "completed",
         billing_address: {
           firstName: formData.firstName,
           lastName: formData.lastName,
@@ -79,7 +85,8 @@ export default function CheckoutForm({ cartItems, total }: CheckoutFormProps) {
         order_id: order.id,
         product_id: item.id,
         quantity: item.quantity,
-        price: item.price,
+        unit_price: item.price,
+        total_price: item.price * item.quantity,
       }))
 
       const { error: itemsError } = await supabase.from("order_items").insert(orderItems)
@@ -88,6 +95,9 @@ export default function CheckoutForm({ cartItems, total }: CheckoutFormProps) {
 
       // Simulate payment processing
       await new Promise((resolve) => setTimeout(resolve, 2000))
+
+      // Clear cart
+      clearCart()
 
       toast({
         title: "Order Successful!",
@@ -109,81 +119,67 @@ export default function CheckoutForm({ cartItems, total }: CheckoutFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
+      <Card>
         <CardHeader>
-          <CardTitle className="text-white">Billing Information</CardTitle>
+          <CardTitle>Billing Information</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="firstName" className="text-white/80">
-                First Name
-              </Label>
+              <Label htmlFor="firstName">First Name</Label>
               <Input
                 id="firstName"
                 value={formData.firstName}
                 onChange={(e) => handleInputChange("firstName", e.target.value)}
-                className="bg-white/10 border-white/20 text-white"
                 required
+                disabled={!!userProfile}
               />
             </div>
             <div>
-              <Label htmlFor="lastName" className="text-white/80">
-                Last Name
-              </Label>
+              <Label htmlFor="lastName">Last Name</Label>
               <Input
                 id="lastName"
                 value={formData.lastName}
                 onChange={(e) => handleInputChange("lastName", e.target.value)}
-                className="bg-white/10 border-white/20 text-white"
                 required
+                disabled={!!userProfile}
               />
             </div>
           </div>
           <div>
-            <Label htmlFor="email" className="text-white/80">
-              Email
-            </Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
               value={formData.email}
               onChange={(e) => handleInputChange("email", e.target.value)}
-              className="bg-white/10 border-white/20 text-white"
               required
+              disabled={!!userProfile}
             />
           </div>
           <div>
-            <Label htmlFor="address" className="text-white/80">
-              Address
-            </Label>
+            <Label htmlFor="address">Address</Label>
             <Input
               id="address"
               value={formData.address}
               onChange={(e) => handleInputChange("address", e.target.value)}
-              className="bg-white/10 border-white/20 text-white"
               required
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="city" className="text-white/80">
-                City
-              </Label>
+              <Label htmlFor="city">City</Label>
               <Input
                 id="city"
                 value={formData.city}
                 onChange={(e) => handleInputChange("city", e.target.value)}
-                className="bg-white/10 border-white/20 text-white"
                 required
               />
             </div>
             <div>
-              <Label htmlFor="country" className="text-white/80">
-                Country
-              </Label>
+              <Label htmlFor="country">Country</Label>
               <Select onValueChange={(value) => handleInputChange("country", value)} required>
-                <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                <SelectTrigger>
                   <SelectValue placeholder="Select country" />
                 </SelectTrigger>
                 <SelectContent>
@@ -198,54 +194,45 @@ export default function CheckoutForm({ cartItems, total }: CheckoutFormProps) {
         </CardContent>
       </Card>
 
-      <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
+      <Card>
         <CardHeader>
-          <CardTitle className="text-white">Payment Information</CardTitle>
+          <CardTitle>Payment Information</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label htmlFor="cardNumber" className="text-white/80">
-              Card Number
-            </Label>
+            <Label htmlFor="cardNumber">Card Number</Label>
             <Input
               id="cardNumber"
               placeholder="1234 5678 9012 3456"
               value={formData.cardNumber}
               onChange={(e) => handleInputChange("cardNumber", e.target.value)}
-              className="bg-white/10 border-white/20 text-white"
               required
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="expiry" className="text-white/80">
-                Expiry Date
-              </Label>
+              <Label htmlFor="expiry">Expiry Date</Label>
               <Input
                 id="expiry"
                 placeholder="MM/YY"
                 value={formData.expiry}
                 onChange={(e) => handleInputChange("expiry", e.target.value)}
-                className="bg-white/10 border-white/20 text-white"
                 required
               />
             </div>
             <div>
-              <Label htmlFor="cvv" className="text-white/80">
-                CVV
-              </Label>
+              <Label htmlFor="cvv">CVV</Label>
               <Input
                 id="cvv"
                 placeholder="123"
                 value={formData.cvv}
                 onChange={(e) => handleInputChange("cvv", e.target.value)}
-                className="bg-white/10 border-white/20 text-white"
                 required
               />
             </div>
           </div>
 
-          <Button type="submit" className="w-full bg-white text-black hover:bg-white/90" disabled={isLoading}>
+          <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? (
               <>
                 <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -256,7 +243,7 @@ export default function CheckoutForm({ cartItems, total }: CheckoutFormProps) {
             )}
           </Button>
 
-          <p className="text-xs text-white/60 text-center">
+          <p className="text-xs text-muted-foreground text-center">
             By completing this purchase, you agree to our Terms of Service and Privacy Policy.
           </p>
         </CardContent>

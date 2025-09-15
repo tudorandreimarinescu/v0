@@ -3,11 +3,10 @@ import { notFound } from "next/navigation"
 import { Suspense } from "react"
 import SiteHeader from "@/components/site-header"
 import SiteFooter from "@/components/site-footer"
-import ProductGallery from "@/components/product-gallery"
-import ProductInfo from "@/components/product-info"
-import ProductReviews from "@/components/product-reviews"
+import ProductDetail from "@/components/product-detail"
 import RelatedProducts from "@/components/related-products"
-import { getProductBySlug, getProducts } from "@/lib/supabase/products"
+import { getProductBySlug } from "@/lib/supabase/products"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface ProductPageProps {
   params: {
@@ -16,7 +15,7 @@ interface ProductPageProps {
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-  const { product } = await getProductBySlug(params.slug)
+  const product = await getProductBySlug(params.slug)
 
   if (!product) {
     return {
@@ -24,73 +23,83 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     }
   }
 
-  const translation = product.translations?.find((t) => t.locale === "en") || product.translations?.[0]
-  const productName = translation?.name || `${product.brand} Product`
-  const productDesc = translation?.short_desc || "Premium shader product"
-
   return {
-    title: `${productName} - ShaderStore`,
-    description: productDesc,
+    title: `${product.name} - ShaderStore`,
+    description: product.short_desc || product.long_desc,
     openGraph: {
-      title: productName,
-      description: productDesc,
-      images: [product.image_url || "/placeholder.svg"],
+      title: product.name,
+      description: product.short_desc || product.long_desc,
+      images: product.image_url ? [product.image_url] : [],
     },
   }
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
-  const { product, error } = await getProductBySlug(params.slug)
+function ProductSkeleton() {
+  return (
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        {/* Gallery skeleton */}
+        <div className="space-y-4">
+          <Skeleton className="aspect-video w-full" />
+          <div className="flex gap-2">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Skeleton key={i} className="w-20 h-20" />
+            ))}
+          </div>
+        </div>
 
-  if (error || !product) {
+        {/* Details skeleton */}
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <Skeleton className="h-6 w-24" />
+            <Skeleton className="h-10 w-3/4" />
+            <Skeleton className="h-6 w-32" />
+            <Skeleton className="h-20 w-full" />
+          </div>
+          <div className="flex items-center justify-between">
+            <Skeleton className="h-8 w-24" />
+            <Skeleton className="h-10 w-32" />
+          </div>
+          <Skeleton className="h-32 w-full" />
+          <Skeleton className="h-32 w-full" />
+        </div>
+      </div>
+
+      {/* Related products skeleton */}
+      <div className="space-y-6">
+        <Skeleton className="h-8 w-48" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="space-y-4">
+              <Skeleton className="aspect-video w-full" />
+              <Skeleton className="h-4 w-3/4" />
+              <Skeleton className="h-4 w-1/2" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default async function ProductPage({ params }: ProductPageProps) {
+  const product = await getProductBySlug(params.slug)
+
+  if (!product) {
     notFound()
   }
 
-  // Get related products from the same category
-  const { products: relatedProducts } = await getProducts(
-    { category: product.category?.slug },
-    { field: "created_at", direction: "desc" },
-    1,
-    4,
-  )
-
-  // Filter out current product from related products
-  const filteredRelatedProducts = relatedProducts.filter((p) => p.id !== product.id)
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black">
+    <div className="min-h-screen bg-background">
       <SiteHeader />
-
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          {/* Product Gallery */}
-          <Suspense fallback={<div className="animate-pulse bg-white/5 rounded-lg aspect-video" />}>
-            <ProductGallery product={product} />
-          </Suspense>
-
-          {/* Product Info */}
-          <Suspense fallback={<div className="animate-pulse bg-white/5 rounded-lg h-96" />}>
-            <ProductInfo product={product} />
-          </Suspense>
-        </div>
-
-        {/* Product Reviews */}
-        <div className="mb-16">
-          <Suspense fallback={<div className="animate-pulse bg-white/5 rounded-lg h-64" />}>
-            <ProductReviews productId={product.id} />
-          </Suspense>
-        </div>
-
-        {/* Related Products */}
-        {filteredRelatedProducts.length > 0 && (
-          <div>
-            <Suspense fallback={<div className="animate-pulse bg-white/5 rounded-lg h-64" />}>
-              <RelatedProducts products={filteredRelatedProducts} />
-            </Suspense>
+      <Suspense fallback={<ProductSkeleton />}>
+        <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <ProductDetail product={product} />
+          <div className="mt-16">
+            <RelatedProducts productId={product.id} categoryId={product.category_id} />
           </div>
-        )}
-      </main>
-
+        </main>
+      </Suspense>
       <SiteFooter />
     </div>
   )
