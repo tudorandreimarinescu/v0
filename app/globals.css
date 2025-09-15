@@ -4,82 +4,78 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color tokens to match dramatic lighting design brief */
-  --background: oklch(0.9730 0.0133 286.1503); /* Pure black background */
-  --foreground: oklch(0.3015 0.0572 282.4176); /* Pure white for text and highlights */
-  --card: oklch(1.0000 0 0); /* Light gray for subtle backgrounds */
-  --card-foreground: oklch(0.3015 0.0572 282.4176); /* Black text on light cards */
-  --popover: oklch(1.0000 0 0); /* White for popover backgrounds */
-  --popover-foreground: oklch(0.3015 0.0572 282.4176); /* Black text in popovers */
-  --primary: oklch(0.5417 0.1790 288.0332); /* Violet accent for highlights */
-  --primary-foreground: oklch(1.0000 0 0); /* White text on violet */
-  --secondary: oklch(0.9174 0.0435 292.6901); /* Light gray for secondary elements */
-  --secondary-foreground: oklch(0.4143 0.1039 288.1742); /* Black text on secondary */
-  --muted: oklch(0.9580 0.0133 286.1454); /* Dark gray for muted elements */
-  --muted-foreground: oklch(0.5426 0.0465 284.7435); /* Light gray text for muted */
-  --accent: oklch(0.9221 0.0373 262.1410); /* Violet for interactive elements */
-  --accent-foreground: oklch(0.3015 0.0572 282.4176); /* White text on accent */
-  --destructive: oklch(0.6861 0.2061 14.9941); /* Amber for destructive actions */
-  --destructive-foreground: oklch(1.0000 0 0); /* White text for destructive */
-  --border: oklch(0.9115 0.0216 285.9625); /* White borders for contrast */
-  --input: oklch(0.9115 0.0216 285.9625); /* Light gray for inputs */
-  --ring: oklch(0.5417 0.1790 288.0332); /* Violet for focus rings */
-  --chart-1: oklch(0.5417 0.1790 288.0332);
-  --chart-2: oklch(0.7042 0.1602 288.9880);
-  --chart-3: oklch(0.5679 0.2113 276.7065);
-  --chart-4: oklch(0.6356 0.1922 281.8054);
-  --chart-5: oklch(0.4509 0.1758 279.3838);
-  --radius: 0.5rem; /* Softer rounded corners */
-  --sidebar: oklch(0.9580 0.0133 286.1454); /* Black sidebar */
-  --sidebar-foreground: oklch(0.3015 0.0572 282.4176); /* White sidebar text */
-  --sidebar-primary: oklch(0.5417 0.1790 288.0332); /* Violet for primary sidebar */
-  --sidebar-primary-foreground: oklch(1.0000 0 0); /* White text on sidebar primary */
-  --sidebar-accent: oklch(0.9221 0.0373 262.1410); /* Light gray for sidebar accent */
-  --sidebar-accent-foreground: oklch(0.3015 0.0572 282.4176); /* Black text on sidebar accent */
-  --sidebar-border: oklch(0.9115 0.0216 285.9625); /* White sidebar borders */
-  --sidebar-ring: oklch(0.5417 0.1790 288.0332); /* Violet for sidebar focus */
-  --font-instrument-serif: "Instrument Serif", serif; /* Instrument Serif font family configuration */
-  /* Added Figtree as the primary font variable */
-  --font-figtree: "Figtree", sans-serif; /* Figtree font family configuration */
+  /* Updated color tokens to match the modern tech design brief */
+  --background: #ffffff;
+  --foreground: #374151;
+  --card: #f8fafc;
+  --card-foreground: #1f2937;
+  --popover: #ffffff;
+  --popover-foreground: #374151;
+  --primary: #374151; /* For main headings and text */
+  --primary-foreground: #ffffff; /* For text on primary backgrounds */
+  --secondary: #6366f1; /* For call-to-action buttons */
+  --secondary-foreground: #ffffff; /* For text on secondary backgrounds */
+  --muted: #f8fafc;
+  --muted-foreground: #1f2937;
+  --accent: #6366f1; /* For interactive elements */
+  --accent-foreground: #ffffff; /* For text on accent backgrounds */
+  --destructive: #ea580c; /* Optional for error states */
+  --destructive-foreground: #ffffff; /* For text on destructive backgrounds */
+  --border: #e5e7eb; /* Light border for card elements */
+  --input: #f8fafc; /* Input fields background */
+  --ring: #6366f1; /* Focus ring for inputs and buttons */
+  --chart-1: #a16207;
+  --chart-2: #ea580c;
+  --chart-3: #374151;
+  --chart-4: #6366f1;
+  --chart-5: #f97316;
+  --radius: 1rem; /* For rounded corners */
+  --sidebar: #ffffff; /* Background for sidebar */
+  --sidebar-foreground: #374151; /* Text color for sidebar */
+  --sidebar-primary: #6366f1; /* Accent color for sidebar */
+  --sidebar-primary-foreground: #ffffff; /* Text color for sidebar primary */
+  --sidebar-accent: #f97316; /* Optional accent for sidebar */
+  --sidebar-accent-foreground: #ffffff; /* Text color for sidebar accent */
+  --sidebar-border: #e5e7eb; /* Border color for sidebar */
+  --sidebar-ring: #6366f1; /* Focus ring for sidebar elements */
+  --font-work-sans: "Work Sans", sans-serif;
+  --font-open-sans: "Open Sans", sans-serif;
 }
 
 .dark {
-  /* Dark mode maintains the same dramatic black background theme */
-  --background: oklch(0.1743 0.0227 283.7998);
-  --foreground: oklch(0.9185 0.0257 285.8834);
-  --card: oklch(0.2284 0.0384 282.9324);
-  --card-foreground: oklch(0.9185 0.0257 285.8834);
-  --popover: oklch(0.2284 0.0384 282.9324);
-  --popover-foreground: oklch(0.9185 0.0257 285.8834);
-  --primary: oklch(0.7162 0.1597 290.3962);
-  --primary-foreground: oklch(0.1743 0.0227 283.7998);
-  --secondary: oklch(0.3139 0.0736 283.4591);
-  --secondary-foreground: oklch(0.8367 0.0849 285.9111);
-  --muted: oklch(0.2710 0.0621 281.4377);
-  --muted-foreground: oklch(0.7166 0.0462 285.1741);
-  --accent: oklch(0.3354 0.0828 280.9705);
-  --accent-foreground: oklch(0.9185 0.0257 285.8834);
-  --destructive: oklch(0.6861 0.2061 14.9941);
-  --destructive-foreground: oklch(1.0000 0 0);
-  --border: oklch(0.3261 0.0597 282.5832);
-  --input: oklch(0.3261 0.0597 282.5832);
-  --ring: oklch(0.7162 0.1597 290.3962);
-  --chart-1: oklch(0.7162 0.1597 290.3962);
-  --chart-2: oklch(0.6382 0.1047 274.9117);
-  --chart-3: oklch(0.7482 0.1235 244.7492);
-  --chart-4: oklch(0.7124 0.0977 186.6761);
-  --chart-5: oklch(0.7546 0.1831 346.8124);
-  --sidebar: oklch(0.2284 0.0384 282.9324);
-  --sidebar-foreground: oklch(0.9185 0.0257 285.8834);
-  --sidebar-primary: oklch(0.7162 0.1597 290.3962);
-  --sidebar-primary-foreground: oklch(0.1743 0.0227 283.7998);
-  --sidebar-accent: oklch(0.3354 0.0828 280.9705);
-  --sidebar-accent-foreground: oklch(0.9185 0.0257 285.8834);
-  --sidebar-border: oklch(0.3261 0.0597 282.5832);
-  --sidebar-ring: oklch(0.7162 0.1597 290.3962);
-  --font-instrument-serif: "Instrument Serif", serif; /* Instrument Serif font family configuration */
-  /* Added Figtree font variable for dark mode consistency */
-  --font-figtree: "Figtree", sans-serif; /* Figtree font family configuration */
+  /* Updated dark mode colors to maintain consistency */
+  --background: #1f2937;
+  --foreground: #f8fafc;
+  --card: #374151;
+  --card-foreground: #f8fafc;
+  --popover: #374151;
+  --popover-foreground: #f8fafc;
+  --primary: #f8fafc;
+  --primary-foreground: #1f2937;
+  --secondary: #6366f1;
+  --secondary-foreground: #ffffff;
+  --muted: #374151;
+  --muted-foreground: #9ca3af;
+  --accent: #6366f1;
+  --accent-foreground: #ffffff;
+  --destructive: #ea580c;
+  --destructive-foreground: #ffffff;
+  --border: #4b5563;
+  --input: #374151;
+  --ring: #6366f1;
+  --chart-1: #a16207;
+  --chart-2: #ea580c;
+  --chart-3: #f8fafc;
+  --chart-4: #6366f1;
+  --chart-5: #f97316;
+  --sidebar: #1f2937;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #6366f1;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f97316;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #4b5563;
+  --sidebar-ring: #6366f1;
 }
 
 @theme inline {
@@ -119,10 +115,8 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-instrument-serif: var(--font-instrument-serif);
-  /* Added Figtree font to theme configuration */
-  --font-sans: var(--font-figtree);
-  --font-figtree: var(--font-figtree);
+  --font-sans: var(--font-open-sans);
+  --font-heading: var(--font-work-sans);
 }
 
 @layer base {
@@ -131,11 +125,71 @@
   }
   body {
     @apply bg-background text-foreground;
-    /* Set Figtree as the default font family for the entire website */
-    font-family: var(--font-figtree);
+    font-family: var(--font-open-sans);
   }
 }
 
-.instrument {
-  font-family: var(--font-instrument-serif);
+/* Added custom classes for typography and animations */
+.heading {
+  font-family: var(--font-work-sans);
+}
+
+/* Shader animation keyframes */
+@keyframes shaderWave {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(-50%) rotate(0deg);
+  }
+  33% {
+    transform: translateX(-50%) translateY(-50%) rotate(120deg);
+  }
+  66% {
+    transform: translateX(-50%) translateY(-50%) rotate(240deg);
+  }
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.shader-animation {
+  animation: shaderWave 20s ease-in-out infinite;
+}
+
+.gradient-animation {
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* Floating particles animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+.float-delay-1 {
+  animation-delay: 1s;
+}
+
+.float-delay-2 {
+  animation-delay: 2s;
+}
+
+.float-delay-3 {
+  animation-delay: 3s;
 }
