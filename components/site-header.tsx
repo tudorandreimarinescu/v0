@@ -4,9 +4,10 @@ import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, ShoppingCart, User, Search } from "lucide-react"
+import { Menu, User, Search } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import AuthButton from "@/components/auth-button"
+import CartDrawer from "@/components/cart-drawer"
 
 export default function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false)
@@ -57,17 +58,14 @@ export default function SiteHeader() {
             <Button variant="ghost" size="sm" className="text-white/80 hover:text-white">
               <Search className="h-4 w-4" />
             </Button>
-            <Link href="/cart">
-              <Button variant="ghost" size="sm" className="text-white/80 hover:text-white">
-                <ShoppingCart className="h-4 w-4" />
-              </Button>
-            </Link>
+            <CartDrawer />
             <ThemeToggle />
             <AuthButton />
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
+            <CartDrawer />
             <ThemeToggle />
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
@@ -90,8 +88,7 @@ export default function SiteHeader() {
                   <div className="border-t border-white/10 pt-4 space-y-2">
                     <Link href="/cart" onClick={() => setIsOpen(false)}>
                       <Button variant="ghost" className="w-full justify-start text-white/80">
-                        <ShoppingCart className="h-4 w-4 mr-2" />
-                        Cart
+                        View Full Cart
                       </Button>
                     </Link>
                     <Link href="/account" onClick={() => setIsOpen(false)}>
