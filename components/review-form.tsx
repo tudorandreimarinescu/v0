@@ -9,15 +9,16 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Star, Loader2 } from "lucide-react"
-import { createReview } from "@/lib/supabase/reviews"
+import { createReview } from "@/lib/supabase/reviews-client"
 import { useToast } from "@/hooks/use-toast"
 
 interface ReviewFormProps {
   productId: string
   productName: string
+  onReviewAdded?: () => void
 }
 
-export default function ReviewForm({ productId, productName }: ReviewFormProps) {
+export default function ReviewForm({ productId, productName, onReviewAdded }: ReviewFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [rating, setRating] = useState(0)
   const [hoveredRating, setHoveredRating] = useState(0)
@@ -69,8 +70,11 @@ export default function ReviewForm({ productId, productName }: ReviewFormProps) 
         setTitle("")
         setBody("")
 
-        // Refresh the page to show updated reviews
-        router.refresh()
+        if (onReviewAdded) {
+          onReviewAdded()
+        } else {
+          router.refresh()
+        }
       } else {
         toast({
           title: "Submission Failed",

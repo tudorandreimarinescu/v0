@@ -5,8 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Star, ThumbsUp, Flag, ChevronDown, ChevronUp } from "lucide-react"
-import type { Review } from "@/lib/supabase/reviews"
-import { getProductReviews } from "@/lib/supabase/reviews"
+import type { Review } from "@/lib/supabase/reviews-server"
 
 interface ReviewsListProps {
   reviews: Review[]
@@ -23,12 +22,11 @@ export default function ReviewsList({ reviews: initialReviews, productId }: Revi
   const loadMoreReviews = async () => {
     setIsLoading(true)
     try {
-      const newReviews = await getProductReviews(productId, {
-        limit: 5,
-        offset: reviews.length,
-        sortBy,
-        sortOrder,
-      })
+      const response = await fetch(
+        `/api/reviews?productId=${productId}&limit=5&offset=${reviews.length}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
+      )
+      const data = await response.json()
+      const newReviews = data.reviews || []
 
       if (newReviews.length < 5) {
         setHasMore(false)
@@ -48,13 +46,11 @@ export default function ReviewsList({ reviews: initialReviews, productId }: Revi
     setIsLoading(true)
 
     try {
-      const sortedReviews = await getProductReviews(productId, {
-        limit: reviews.length,
-        offset: 0,
-        sortBy: newSortBy,
-        sortOrder: newSortOrder,
-      })
-      setReviews(sortedReviews)
+      const response = await fetch(
+        `/api/reviews?productId=${productId}&limit=${reviews.length}&offset=0&sortBy=${newSortBy}&sortOrder=${newSortOrder}`,
+      )
+      const data = await response.json()
+      setReviews(data.reviews || [])
     } catch (error) {
       console.error("Error sorting reviews:", error)
     } finally {

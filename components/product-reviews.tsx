@@ -1,23 +1,61 @@
-import { Suspense } from "react"
+"use client"
+
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { MessageSquare } from "lucide-react"
-import { getProductReviews, getReviewStats, canUserReviewProduct } from "@/lib/supabase/reviews"
 import ReviewForm from "@/components/review-form"
 import ReviewsList from "@/components/reviews-list"
 import ReviewStats from "@/components/review-stats"
+import type { Review, ReviewStats as ReviewStatsType } from "@/lib/supabase/reviews-server"
 
 interface ProductReviewsProps {
   productId: string
   productName: string
 }
 
-export default async function ProductReviews({ productId, productName }: ProductReviewsProps) {
-  const [reviews, stats, canReview] = await Promise.all([
-    getProductReviews(productId, { limit: 5 }),
-    getReviewStats(productId),
-    canUserReviewProduct(productId),
-  ])
+export default function ProductReviews({ productId, productName }: ProductReviewsProps) {
+  const [reviews, setReviews] = useState<Review[]>([])
+  const [stats, setStats] = useState<ReviewStatsType | null>(null)
+  const [canReview, setCanReview] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [reviewsRes, statsRes, canReviewRes] = await Promise.all([
+          fetch(`/api/reviews?productId=${productId}&limit=5`),
+          fetch(`/api/reviews/stats?productId=${productId}`),
+          fetch(`/api/reviews/can-review?productId=${productId}`),
+        ])
+
+        const [reviewsData, statsData, canReviewData] = await Promise.all([
+          reviewsRes.json(),
+          statsRes.json(),
+          canReviewRes.json(),
+        ])
+
+        setReviews(reviewsData.reviews || [])
+        setStats(statsData.stats)
+        setCanReview(canReviewData.canReview)
+      } catch (error) {
+        console.error("Error fetching review data:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [productId])
+
+  const handleReviewAdded = () => {
+    // Refresh data after a review is added
+    window.location.reload()
+  }
+
+  if (loading) {
+    return <div>Loading reviews...</div>
+  }
 
   return (
     <section className="space-y-6">
@@ -42,9 +80,7 @@ export default async function ProductReviews({ productId, productName }: Product
 
           {/* Reviews List */}
           <div className="lg:col-span-2 space-y-6">
-            <Suspense fallback={<div>Loading reviews...</div>}>
-              <ReviewsList reviews={reviews} productId={productId} />
-            </Suspense>
+            <ReviewsList reviews={reviews} productId={productId} />
 
             {/* Write Review Section */}
             {canReview && (
@@ -53,7 +89,7 @@ export default async function ProductReviews({ productId, productName }: Product
                   <CardTitle>Write a Review</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ReviewForm productId={productId} productName={productName} />
+                  <ReviewForm productId={productId} productName={productName} onReviewAdded={handleReviewAdded} />
                 </CardContent>
               </Card>
             )}
@@ -75,7 +111,7 @@ export default async function ProductReviews({ productId, productName }: Product
             <h3 className="text-lg font-medium text-foreground mb-2">No reviews yet</h3>
             <p className="text-muted-foreground mb-6">Be the first to review {productName}</p>
             {canReview ? (
-              <ReviewForm productId={productId} productName={productName} />
+              <ReviewForm productId={productId} productName={productName} onReviewAdded={handleReviewAdded} />
             ) : (
               <p className="text-sm text-muted-foreground">Purchase this product to write the first review.</p>
             )}
