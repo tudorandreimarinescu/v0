@@ -289,18 +289,60 @@ export async function getRelatedProducts(
 ): Promise<Product[]> {
   const supabase = createClient()
 
-  const { data, error } = await supabase.rpc("get_products_with_details", {
-    p_locale: locale,
-    p_currency: currency,
-    p_category_id: categoryId,
-    p_limit: limit + 1, // Get one extra to exclude current product
-  })
+  const { data, error } = await supabase
+    .from("products")
+    .select(`
+      id,
+      slug,
+      brand,
+      material,
+      status,
+      image_url,
+      base_price,
+      default_currency,
+      category_id,
+      specs,
+      created_at,
+      categories!inner(
+        name
+      ),
+      product_translations!left(
+        name,
+        short_desc,
+        long_desc
+      )
+    `)
+    .eq("status", "active")
+    .eq("category_id", categoryId)
+    .eq("product_translations.locale", locale)
+    .neq("id", productId) // Exclude current product
+    .limit(limit)
+    .order("created_at", { ascending: false })
 
   if (error) {
     console.error("Error fetching related products:", error)
     return []
   }
 
-  // Filter out the current product and limit results
-  return (data || []).filter((product: Product) => product.id !== productId).slice(0, limit)
+  return (data || []).map((item) => ({
+    id: item.id,
+    slug: item.slug,
+    brand: item.brand,
+    material: item.material,
+    status: item.status,
+    image_url: item.image_url,
+    base_price: item.base_price,
+    localized_price: item.base_price, // TODO: Apply currency conversion
+    currency: currency,
+    category_id: item.category_id,
+    category_name: item.categories?.name || "",
+    name: item.product_translations?.[0]?.name || "Untitled Product",
+    short_desc: item.product_translations?.[0]?.short_desc || "",
+    long_desc: item.product_translations?.[0]?.long_desc || "",
+    specs: item.specs || {},
+    stock: 0, // TODO: Calculate from variants
+    avg_rating: 0, // TODO: Calculate from reviews
+    review_count: 0, // TODO: Calculate from reviews
+    created_at: item.created_at,
+  }))
 }
