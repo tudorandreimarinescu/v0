@@ -11,7 +11,10 @@ export async function updateSession(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/dashboard") ||
     request.nextUrl.pathname.startsWith("/profile") ||
     request.nextUrl.pathname.startsWith("/companies") ||
-    request.nextUrl.pathname.startsWith("/documents")
+    request.nextUrl.pathname.startsWith("/documents") ||
+    request.nextUrl.pathname.startsWith("/checkout") ||
+    request.nextUrl.pathname.startsWith("/account") ||
+    request.nextUrl.pathname.startsWith("/orders")
 
   if (!isProtectedRoute) {
     return supabaseResponse

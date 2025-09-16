@@ -45,7 +45,7 @@ export default function ForgotPasswordPage() {
               <CardDescription className="text-white/60">Password reset instructions sent</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-white/80 mb-4">
+              <p className="text-sm text-gray-200 mb-4">
                 We've sent password reset instructions to <strong className="text-white">{email}</strong>. Click the
                 link in your email to reset your password.
               </p>
@@ -79,7 +79,7 @@ export default function ForgotPasswordPage() {
               <form onSubmit={handlePasswordReset}>
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
-                    <Label htmlFor="email" className="text-white/80">
+                    <Label htmlFor="email" className="text-gray-200">
                       Email
                     </Label>
                     <Input

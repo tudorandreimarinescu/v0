@@ -29,11 +29,11 @@ export default function LoginPage() {
         email,
         password,
         options: {
-          emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/protected`,
+          emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/`,
         },
       })
       if (error) throw error
-      router.push("/protected")
+      router.push("/")
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred")
     } finally {
@@ -58,7 +58,7 @@ export default function LoginPage() {
               <form onSubmit={handleLogin}>
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
-                    <Label htmlFor="email" className="text-white/80">
+                    <Label htmlFor="email" className="text-gray-200">
                       Email
                     </Label>
                     <Input
@@ -72,7 +72,7 @@ export default function LoginPage() {
                     />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="password" className="text-white/80">
+                    <Label htmlFor="password" className="text-gray-200">
                       Password
                     </Label>
                     <Input

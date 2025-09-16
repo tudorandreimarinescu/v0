@@ -50,7 +50,7 @@ export default function AgeVerificationModal() {
               <span className="text-white font-bold text-lg">18+</span>
             </div>
             <CardTitle className="text-white text-lg">Confirmare Vârstă</CardTitle>
-            <CardDescription className="text-white/60">
+            <CardDescription className="text-gray-200">
               Vă rugăm să confirmați că aveți cel puțin 18 ani împliniți
             </CardDescription>
           </CardHeader>
@@ -64,7 +64,7 @@ export default function AgeVerificationModal() {
             <Button
               onClick={() => handleVerify(false)}
               variant="outline"
-              className="w-full border-white/20 text-white/80 hover:bg-white/10"
+              className="w-full border-white/20 text-white hover:bg-white/10 hover:text-white"
             >
               Nu, am sub 18 ani
             </Button>

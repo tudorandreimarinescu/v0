@@ -23,5 +23,5 @@ export default async function AuthCallbackPage({
   }
 
   // URL to redirect to after sign up process completes
-  redirect("/protected")
+  redirect("/")
 }

@@ -72,7 +72,7 @@ export default function SignUpPage() {
                 <div className="flex flex-col gap-6">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="firstName" className="text-white/80">
+                      <Label htmlFor="firstName" className="text-gray-200">
                         First Name
                       </Label>
                       <Input
@@ -86,7 +86,7 @@ export default function SignUpPage() {
                       />
                     </div>
                     <div className="grid gap-2">
-                      <Label htmlFor="lastName" className="text-white/80">
+                      <Label htmlFor="lastName" className="text-gray-200">
                         Last Name
                       </Label>
                       <Input
@@ -101,7 +101,7 @@ export default function SignUpPage() {
                     </div>
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="email" className="text-white/80">
+                    <Label htmlFor="email" className="text-gray-200">
                       Email
                     </Label>
                     <Input
@@ -115,7 +115,7 @@ export default function SignUpPage() {
                     />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="password" className="text-white/80">
+                    <Label htmlFor="password" className="text-gray-200">
                       Password
                     </Label>
                     <Input
@@ -130,7 +130,7 @@ export default function SignUpPage() {
                     <PasswordStrength password={password} />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="repeat-password" className="text-white/80">
+                    <Label htmlFor="repeat-password" className="text-gray-200">
                       Repeat Password
                     </Label>
                     <Input
