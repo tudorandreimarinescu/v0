@@ -4,7 +4,7 @@ import type React from "react"
 import { createContext, useContext, useEffect, useReducer } from "react"
 import { useToast } from "@/hooks/use-toast"
 import { saveCart, loadCart, clearCartStorage, generateGuestId, type CartStorage } from "./cart-storage"
-import { handleCartMergeOnLogin, saveUserCart } from "./cart-merge"
+import { handleCartMergeOnLoginAction, saveUserCartAction, loadUserCartAction } from "./cart-actions"
 
 export interface CartItem {
   id: string
@@ -203,12 +203,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           const guestItems = savedCart?.items || []
 
           if (guestItems.length > 0) {
-            const mergedItems = await handleCartMergeOnLogin(user.id, guestItems)
+            const mergedItems = await handleCartMergeOnLoginAction(guestItems)
             dispatch({ type: "MERGE_CART", payload: mergedItems })
             clearCartStorage()
           } else {
-            const { loadUserCart } = await import("./cart-merge")
-            const userCartData = await loadUserCart(user.id)
+            const userCartData = await loadUserCartAction()
             dispatch({ type: "LOAD_CART", payload: userCartData?.items || [] })
           }
 
@@ -251,7 +250,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
 
       if (state.userId) {
-        saveUserCart(state.userId, {
+        saveUserCartAction({
           items: state.items,
           lastUpdated: state.lastUpdated,
         }).catch((error) => {
@@ -274,7 +273,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           if (event === "SIGNED_IN" && session?.user) {
             const currentItems = state.items
             if (currentItems.length > 0) {
-              const mergedItems = await handleCartMergeOnLogin(session.user.id, currentItems)
+              const mergedItems = await handleCartMergeOnLoginAction(currentItems)
               dispatch({ type: "MERGE_CART", payload: mergedItems })
             }
             dispatch({ type: "SET_USER", payload: { userId: session.user.id, guestId: null } })
