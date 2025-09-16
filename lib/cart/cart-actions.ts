@@ -8,8 +8,13 @@ export interface UserCartData {
   lastUpdated: number
 }
 
+export interface SaveCartResult {
+  success: boolean
+  error?: string
+}
+
 // Server action to save user cart to database
-export async function saveUserCartAction(cartData: UserCartData) {
+export async function saveUserCartAction(cartData: UserCartData): Promise<SaveCartResult> {
   const supabase = await createClient()
 
   const {
@@ -19,7 +24,7 @@ export async function saveUserCartAction(cartData: UserCartData) {
 
   if (authError || !user) {
     console.error("Authentication error in saveUserCartAction:", authError)
-    throw new Error("User not authenticated")
+    return { success: false, error: "User not authenticated" }
   }
 
   try {
@@ -36,13 +41,13 @@ export async function saveUserCartAction(cartData: UserCartData) {
 
     if (error) {
       console.error("Database error in saveUserCartAction:", error)
-      throw error
+      return { success: false, error: error.message }
     }
 
     return { success: true }
   } catch (error) {
     console.error("Error saving user cart:", error)
-    throw error
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" }
   }
 }
 
@@ -91,10 +96,14 @@ export async function handleCartMergeOnLoginAction(guestCartItems: CartItem[]): 
         // Merge guest cart with user cart
         const mergedItems = mergeCartItems(guestCartItems, userItems)
 
-        await saveUserCartAction({
+        const saveResult = await saveUserCartAction({
           items: mergedItems,
           lastUpdated: Date.now(),
         })
+
+        if (!saveResult.success) {
+          throw new Error(saveResult.error || "Failed to save cart")
+        }
 
         return mergedItems
       } catch (error) {

@@ -252,10 +252,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       if (state.userId) {
         const timeoutId = setTimeout(async () => {
           try {
-            await saveUserCartAction({
+            const result = await saveUserCartAction({
               items: state.items,
               lastUpdated: state.lastUpdated,
             })
+
+            if (!result.success) {
+              console.error("Error saving user cart:", result.error)
+              // Fallback to local storage if user cart save fails
+              saveCart(cartData)
+            }
           } catch (error) {
             console.error("Error saving user cart:", error)
             saveCart(cartData)
