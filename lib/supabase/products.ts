@@ -57,6 +57,19 @@ export interface ProductFilters {
   offset?: number
 }
 
+function createServiceClient() {
+  return createServerClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
+    cookies: {
+      getAll() {
+        return []
+      },
+      setAll() {
+        // No-op for service role
+      },
+    },
+  })
+}
+
 function createClient() {
   const cookieStore = cookies()
 
@@ -79,7 +92,7 @@ function createClient() {
 }
 
 export async function getProducts(filters: ProductFilters = {}, locale = "en", currency = "USD"): Promise<Product[]> {
-  const supabase = createClient()
+  const supabase = createServiceClient()
 
   let query = supabase
     .from("products")
@@ -171,7 +184,7 @@ export async function getProducts(filters: ProductFilters = {}, locale = "en", c
 }
 
 export async function getProductBySlug(slug: string, locale = "en", currency = "USD"): Promise<ProductDetail | null> {
-  const supabase = createClient()
+  const supabase = createServiceClient()
 
   const { data, error } = await supabase
     .from("products")
@@ -249,7 +262,7 @@ export async function getProductBySlug(slug: string, locale = "en", currency = "
 }
 
 export async function getCategories(): Promise<Category[]> {
-  const supabase = createClient()
+  const supabase = createServiceClient()
 
   const { data, error } = await supabase
     .from("categories")
@@ -287,7 +300,7 @@ export async function getRelatedProducts(
   locale = "en",
   currency = "USD",
 ): Promise<Product[]> {
-  const supabase = createClient()
+  const supabase = createServiceClient()
 
   const { data, error } = await supabase
     .from("products")
