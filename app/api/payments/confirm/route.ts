@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { paymentService } from "@/lib/payments/payment-service"
+import { createPaymentService } from "@/lib/payments/payment-service"
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,6 +19,8 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    const paymentService = createPaymentService()
+
     // Confirm payment intent
     const result = await paymentService.confirmIntent({
       payment_intent_id,
@@ -31,6 +33,7 @@ export async function POST(request: NextRequest) {
           error: result.error?.message || "Failed to confirm payment",
           error_code: result.error?.code,
           error_type: result.error?.type,
+          payment_intent_status: result.payment_intent?.status,
         },
         { status: 400 },
       )

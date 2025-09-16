@@ -3,7 +3,6 @@
 import type React from "react"
 import { createContext, useContext, useEffect, useReducer } from "react"
 import { useToast } from "@/hooks/use-toast"
-import { createBrowserClient } from "@/lib/supabase/client"
 import { saveCart, loadCart, clearCartStorage, generateGuestId, type CartStorage } from "./cart-storage"
 import { handleCartMergeOnLogin, saveUserCart } from "./cart-merge"
 
@@ -159,6 +158,27 @@ const CartContext = createContext<CartContextType | undefined>(undefined)
 
 const CART_STORAGE_KEY = "shaderstore-cart"
 
+let supabaseClient: any = null
+
+const getSupabaseClient = async () => {
+  if (!supabaseClient) {
+    try {
+      const { createBrowserClient } = await import("@/lib/supabase/client")
+      supabaseClient = createBrowserClient()
+    } catch (error) {
+      console.error("Failed to initialize Supabase client:", error)
+      // Return a mock client for development
+      supabaseClient = {
+        auth: {
+          getUser: () => Promise.resolve({ data: { user: null }, error: null }),
+          onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+        },
+      }
+    }
+  }
+  return supabaseClient
+}
+
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, {
     items: [],
@@ -169,11 +189,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   })
 
   const { toast } = useToast()
-  const supabase = createBrowserClient()
 
   useEffect(() => {
     const initializeCart = async () => {
       try {
+        const supabase = await getSupabaseClient()
         const {
           data: { user },
         } = await supabase.auth.getUser()
@@ -206,12 +226,21 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         }
       } catch (error) {
         console.error("Error initializing cart:", error)
-        dispatch({ type: "SET_LOADING", payload: false })
+        // Fallback to guest mode
+        const savedCart = loadCart()
+        if (savedCart) {
+          dispatch({ type: "LOAD_CART", payload: savedCart.items })
+          dispatch({ type: "SET_USER", payload: { userId: null, guestId: savedCart.guestId || generateGuestId() } })
+        } else {
+          const guestId = generateGuestId()
+          dispatch({ type: "SET_USER", payload: { userId: null, guestId } })
+          dispatch({ type: "SET_LOADING", payload: false })
+        }
       }
     }
 
     initializeCart()
-  }, [supabase])
+  }, [])
 
   useEffect(() => {
     if (!state.isLoading && state.items.length >= 0) {
@@ -236,25 +265,35 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [state.items, state.lastUpdated, state.isLoading, state.userId, state.guestId])
 
   useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === "SIGNED_IN" && session?.user) {
-        const currentItems = state.items
-        if (currentItems.length > 0) {
-          const mergedItems = await handleCartMergeOnLogin(session.user.id, currentItems)
-          dispatch({ type: "MERGE_CART", payload: mergedItems })
-        }
-        dispatch({ type: "SET_USER", payload: { userId: session.user.id, guestId: null } })
-        clearCartStorage()
-      } else if (event === "SIGNED_OUT") {
-        const guestId = generateGuestId()
-        dispatch({ type: "SET_USER", payload: { userId: null, guestId } })
-      }
-    })
+    const setupAuthListener = async () => {
+      try {
+        const supabase = await getSupabaseClient()
+        const {
+          data: { subscription },
+        } = supabase.auth.onAuthStateChange(async (event, session) => {
+          if (event === "SIGNED_IN" && session?.user) {
+            const currentItems = state.items
+            if (currentItems.length > 0) {
+              const mergedItems = await handleCartMergeOnLogin(session.user.id, currentItems)
+              dispatch({ type: "MERGE_CART", payload: mergedItems })
+            }
+            dispatch({ type: "SET_USER", payload: { userId: session.user.id, guestId: null } })
+            clearCartStorage()
+          } else if (event === "SIGNED_OUT") {
+            const guestId = generateGuestId()
+            dispatch({ type: "SET_USER", payload: { userId: null, guestId } })
+          }
+        })
 
-    return () => subscription.unsubscribe()
-  }, [supabase, state.items])
+        return () => subscription.unsubscribe()
+      } catch (error) {
+        console.error("Error setting up auth listener:", error)
+        return () => {}
+      }
+    }
+
+    setupAuthListener()
+  }, [state.items])
 
   const addItem = (item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
     dispatch({ type: "ADD_ITEM", payload: item })

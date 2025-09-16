@@ -5,12 +5,14 @@ import { StripePaymentAdapter } from "./stripe-payment-adapter"
 export class PaymentService {
   private adapter: PaymentAdapter
 
-  constructor() {
-    // Use mock adapter in development, Stripe in production
-    if (process.env.NODE_ENV === "development" || !process.env.STRIPE_SECRET_KEY) {
+  constructor(stripeSecretKey?: string) {
+    // Use mock adapter in development or when no Stripe key is provided
+    const useStripe = stripeSecretKey || process.env.STRIPE_SECRET_KEY
+
+    if (process.env.NODE_ENV === "development" || !useStripe) {
       this.adapter = new MockPaymentAdapter()
     } else {
-      this.adapter = new StripePaymentAdapter(process.env.STRIPE_SECRET_KEY!)
+      this.adapter = new StripePaymentAdapter(useStripe)
     }
   }
 
@@ -36,5 +38,8 @@ export class PaymentService {
   }
 }
 
-// Singleton instance
 export const paymentService = new PaymentService()
+
+export function createPaymentService(): PaymentService {
+  return new PaymentService(process.env.STRIPE_SECRET_KEY)
+}

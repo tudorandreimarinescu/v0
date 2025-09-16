@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Trash2, ShoppingBag } from "lucide-react"
 import { useCart } from "@/lib/cart/cart-context"
-import { formatCurrency } from "@/lib/currency"
+import { formatCurrency } from "@/lib/utils/currency"
 import QuantitySelector from "@/components/quantity-selector"
 
 export default function CartPageClient() {
@@ -20,8 +20,9 @@ export default function CartPageClient() {
   }
 
   const subtotal = totalAmount
-  const tax = subtotal * 0.08 // 8% tax
-  const total = subtotal + tax
+  const vatRate = 0.2 // 20% VAT
+  const vatAmount = subtotal * vatRate
+  const total = subtotal + vatAmount
 
   if (isLoading) {
     return (
@@ -93,6 +94,7 @@ export default function CartPageClient() {
                       </Link>
                       <p className="text-sm text-muted-foreground">{item.category}</p>
                       {item.brand && <p className="text-sm text-muted-foreground">{item.brand}</p>}
+                      {item.variantId && <p className="text-sm text-muted-foreground">Variant: {item.variantId}</p>}
                       <p className="text-sm font-medium text-foreground">{formatCurrency(item.price, item.currency)}</p>
                     </div>
 
@@ -136,14 +138,20 @@ export default function CartPageClient() {
                   <span>{formatCurrency(subtotal)}</span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
-                  <span>Tax</span>
-                  <span>{formatCurrency(tax)}</span>
+                  <span>VAT (20%)</span>
+                  <span>{formatCurrency(vatAmount)}</span>
                 </div>
                 <div className="border-t pt-4">
                   <div className="flex justify-between font-semibold text-lg text-foreground">
                     <span>Total</span>
                     <span>{formatCurrency(total)}</span>
                   </div>
+                </div>
+
+                <div className="text-xs text-muted-foreground bg-muted/50 p-3 rounded">
+                  <p className="font-medium mb-1">Shipping Information:</p>
+                  <p>• Digital products: Instant download (Free)</p>
+                  <p>• Physical products: Calculated at checkout</p>
                 </div>
 
                 <div className="space-y-2 pt-4">
