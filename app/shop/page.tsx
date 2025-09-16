@@ -4,6 +4,7 @@ import SiteHeader from "@/components/site-header"
 import SiteFooter from "@/components/site-footer"
 import ShopContent from "@/components/shop-content"
 import { Skeleton } from "@/components/ui/skeleton"
+import { ErrorBoundary } from "@/components/error-boundary"
 
 export const metadata: Metadata = {
   title: "Shop - Premium Shader Products",
@@ -54,12 +55,16 @@ function ShopSkeleton() {
 
 export default function ShopPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black">
-      <SiteHeader />
-      <Suspense fallback={<ShopSkeleton />}>
-        <ShopContent />
-      </Suspense>
-      <SiteFooter />
-    </div>
+    <ErrorBoundary>
+      <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black">
+        <SiteHeader />
+        <main id="main-content">
+          <Suspense fallback={<ShopSkeleton />}>
+            <ShopContent />
+          </Suspense>
+        </main>
+        <SiteFooter />
+      </div>
+    </ErrorBoundary>
   )
 }
