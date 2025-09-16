@@ -37,20 +37,23 @@ export default function ForgotPasswordPage() {
 
   if (success) {
     return (
-      <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+      <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black flex items-center justify-center p-6 md:p-10">
         <div className="w-full max-w-sm">
-          <Card>
+          <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-2xl">Check your email</CardTitle>
-              <CardDescription>Password reset instructions sent</CardDescription>
+              <CardTitle className="text-2xl text-white">Check your email</CardTitle>
+              <CardDescription className="text-white/60">Password reset instructions sent</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                We've sent password reset instructions to <strong>{email}</strong>. Click the link in your email to
-                reset your password.
+              <p className="text-sm text-white/80 mb-4">
+                We've sent password reset instructions to <strong className="text-white">{email}</strong>. Click the
+                link in your email to reset your password.
               </p>
               <div className="text-center">
-                <Link href="/auth/login" className="text-sm underline underline-offset-4">
+                <Link
+                  href="/auth/login"
+                  className="text-sm text-purple-400 underline underline-offset-4 hover:text-purple-300"
+                >
                   Back to login
                 </Link>
               </div>
@@ -62,19 +65,23 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black flex items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
         <div className="flex flex-col gap-6">
-          <Card>
+          <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-2xl">Reset your password</CardTitle>
-              <CardDescription>Enter your email to receive reset instructions</CardDescription>
+              <CardTitle className="text-2xl text-white">Reset your password</CardTitle>
+              <CardDescription className="text-white/60">
+                Enter your email to receive reset instructions
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handlePasswordReset}>
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email" className="text-white/80">
+                      Email
+                    </Label>
                     <Input
                       id="email"
                       type="email"
@@ -82,16 +89,20 @@ export default function ForgotPasswordPage() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      className="bg-white/10 border-white/20 text-white placeholder:text-white/40"
                     />
                   </div>
-                  {error && <p className="text-sm text-red-500">{error}</p>}
-                  <Button type="submit" className="w-full" disabled={isLoading}>
+                  {error && <p className="text-sm text-red-400">{error}</p>}
+                  <Button type="submit" className="w-full bg-white text-black hover:bg-white/90" disabled={isLoading}>
                     {isLoading ? "Sending instructions..." : "Send reset instructions"}
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">
-                  Remember your password?{" "}
-                  <Link href="/auth/login" className="underline underline-offset-4">
+                  <span className="text-white/60">Remember your password? </span>
+                  <Link
+                    href="/auth/login"
+                    className="text-purple-400 underline underline-offset-4 hover:text-purple-300"
+                  >
                     Back to login
                   </Link>
                 </div>

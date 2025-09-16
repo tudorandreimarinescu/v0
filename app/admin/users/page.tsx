@@ -127,36 +127,36 @@ export default function UsersManagement() {
 
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black">
         <div className="container mx-auto p-6">
           <div className="mb-6">
-            <Button variant="ghost" asChild className="mb-4">
+            <Button variant="ghost" asChild className="mb-4 text-white hover:bg-white/10">
               <Link href="/admin">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Dashboard
               </Link>
             </Button>
-            <h1 className="text-3xl font-bold">User Management</h1>
-            <p className="text-muted-foreground">Manage user accounts and permissions</p>
+            <h1 className="text-3xl font-bold text-white">User Management</h1>
+            <p className="text-white/60">Manage user accounts and permissions</p>
           </div>
 
-          <Card>
+          <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle>All Users</CardTitle>
-              <CardDescription>View and manage user roles and permissions</CardDescription>
+              <CardTitle className="text-white">All Users</CardTitle>
+              <CardDescription className="text-white/60">View and manage user roles and permissions</CardDescription>
             </CardHeader>
             <CardContent>
               {loading ? (
-                <div className="text-center py-8">Loading users...</div>
+                <div className="text-center py-8 text-white">Loading users...</div>
               ) : (
                 <Table>
                   <TableHeader>
-                    <TableRow>
-                      <TableHead>User</TableHead>
-                      <TableHead>Email</TableHead>
-                      <TableHead>Role</TableHead>
-                      <TableHead>Joined</TableHead>
-                      <TableHead>Actions</TableHead>
+                    <TableRow className="border-white/10">
+                      <TableHead className="text-white/80">User</TableHead>
+                      <TableHead className="text-white/80">Email</TableHead>
+                      <TableHead className="text-white/80">Role</TableHead>
+                      <TableHead className="text-white/80">Joined</TableHead>
+                      <TableHead className="text-white/80">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -167,25 +167,29 @@ export default function UsersManagement() {
                         "U"
 
                       return (
-                        <TableRow key={user.id}>
+                        <TableRow key={user.id} className="border-white/10">
                           <TableCell>
                             <div className="flex items-center gap-3">
                               <Avatar className="h-8 w-8">
                                 <AvatarImage src={user.avatar_url || "/placeholder.svg"} alt={user.email} />
-                                <AvatarFallback>{userInitials}</AvatarFallback>
+                                <AvatarFallback className="bg-purple-400/20 text-purple-400">
+                                  {userInitials}
+                                </AvatarFallback>
                               </Avatar>
                               <div>
-                                <p className="font-medium">
+                                <p className="font-medium text-white">
                                   {user.first_name} {user.last_name}
                                 </p>
                               </div>
                             </div>
                           </TableCell>
-                          <TableCell>{user.email}</TableCell>
+                          <TableCell className="text-white/80">{user.email}</TableCell>
                           <TableCell>
                             <RoleBadge role={user.role} />
                           </TableCell>
-                          <TableCell>{new Date(user.created_at).toLocaleDateString()}</TableCell>
+                          <TableCell className="text-white/80">
+                            {new Date(user.created_at).toLocaleDateString()}
+                          </TableCell>
                           <TableCell>
                             <div className="flex gap-2">
                               {user.role === "user" ? (
@@ -194,6 +198,7 @@ export default function UsersManagement() {
                                   variant="outline"
                                   onClick={() => promoteUser(user.id)}
                                   disabled={actionLoading === user.id}
+                                  className="bg-white/10 border-white/20 text-white hover:bg-white/20"
                                 >
                                   <UserPlus className="h-4 w-4 mr-1" />
                                   Promote
@@ -204,6 +209,7 @@ export default function UsersManagement() {
                                   variant="outline"
                                   onClick={() => demoteUser(user.id)}
                                   disabled={actionLoading === user.id}
+                                  className="bg-white/10 border-white/20 text-white hover:bg-white/20"
                                 >
                                   <UserMinus className="h-4 w-4 mr-1" />
                                   Demote

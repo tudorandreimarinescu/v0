@@ -14,7 +14,7 @@ export default async function CheckoutPage() {
   const profile = await getCurrentUserProfile()
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black">
       <SiteHeader />
       <CheckoutProvider>
         <CheckoutPageClient userProfile={profile} />

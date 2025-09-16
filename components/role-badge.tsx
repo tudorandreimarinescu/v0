@@ -8,7 +8,7 @@ export default function RoleBadge({ role }: RoleBadgeProps) {
   const getRoleColor = (role: string) => {
     switch (role.toLowerCase()) {
       case "admin":
-        return "destructive"
+        return "default"
       case "user":
         return "secondary"
       default:
@@ -27,5 +27,20 @@ export default function RoleBadge({ role }: RoleBadgeProps) {
     }
   }
 
-  return <Badge variant={getRoleColor(role)}>{getRoleLabel(role)}</Badge>
+  const getRoleClassName = (role: string) => {
+    switch (role.toLowerCase()) {
+      case "admin":
+        return "bg-purple-400 text-black"
+      case "user":
+        return "bg-white/10 text-white border-white/20"
+      default:
+        return "bg-white/10 text-white border-white/20"
+    }
+  }
+
+  return (
+    <Badge variant={getRoleColor(role)} className={getRoleClassName(role)}>
+      {getRoleLabel(role)}
+    </Badge>
+  )
 }

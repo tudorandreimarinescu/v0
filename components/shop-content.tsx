@@ -36,39 +36,41 @@ export default async function ShopContent({ searchParams }: ShopContentProps) {
 
   return (
     <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-light text-foreground mb-4">
-          <span className="font-medium italic instrument">Premium</span> Shader Collection
-        </h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Discover our curated collection of premium shader experiences, templates, and digital tools
-        </p>
-      </div>
-
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Filters Sidebar */}
-        <div className="lg:w-64 flex-shrink-0">
-          <ShopFilters
-            categories={categories}
-            currentFilters={{
-              categoryId,
-              minPrice,
-              maxPrice,
-              searchTerm,
-              sortBy,
-              sortOrder,
-            }}
-          />
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-3xl md:text-4xl font-light text-white mb-4">
+            <span className="font-medium italic instrument">Premium</span> Shader Collection
+          </h1>
+          <p className="text-lg text-white/60 max-w-2xl mx-auto">
+            Discover our curated collection of premium shader experiences, templates, and digital tools
+          </p>
         </div>
 
-        {/* Products Grid */}
-        <div className="flex-1">
-          <ProductGrid
-            products={products}
-            currentPage={page}
-            hasMore={products.length === limit}
-            totalResults={products.length}
-          />
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Filters Sidebar */}
+          <div className="lg:w-64 flex-shrink-0">
+            <ShopFilters
+              categories={categories}
+              currentFilters={{
+                categoryId,
+                minPrice,
+                maxPrice,
+                searchTerm,
+                sortBy,
+                sortOrder,
+              }}
+            />
+          </div>
+
+          {/* Products Grid */}
+          <div className="flex-1">
+            <ProductGrid
+              products={products}
+              currentPage={page}
+              hasMore={products.length === limit}
+              totalResults={products.length}
+            />
+          </div>
         </div>
       </div>
     </main>

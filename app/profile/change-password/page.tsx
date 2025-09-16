@@ -83,22 +83,26 @@ export default function ChangePasswordPage() {
   }
 
   if (!user) {
-    return <div>Loading...</div>
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    )
   }
 
   if (success) {
     return (
-      <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+      <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black flex items-center justify-center p-6 md:p-10">
         <div className="w-full max-w-sm">
-          <Card>
+          <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-2xl">Password updated</CardTitle>
-              <CardDescription>Your password has been successfully changed</CardDescription>
+              <CardTitle className="text-2xl text-white">Password updated</CardTitle>
+              <CardDescription className="text-white/60">Your password has been successfully changed</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">You will be redirected to your profile shortly.</p>
+              <p className="text-sm text-white/80 mb-4">You will be redirected to your profile shortly.</p>
               <Link href="/profile">
-                <Button className="w-full">Back to profile</Button>
+                <Button className="w-full bg-white text-black hover:bg-white/90">Back to profile</Button>
               </Link>
             </CardContent>
           </Card>
@@ -108,29 +112,34 @@ export default function ChangePasswordPage() {
   }
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black flex items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
         <div className="flex flex-col gap-6">
-          <Card>
+          <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-2xl">Change Password</CardTitle>
-              <CardDescription>Update your account password</CardDescription>
+              <CardTitle className="text-2xl text-white">Change Password</CardTitle>
+              <CardDescription className="text-white/60">Update your account password</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handlePasswordChange}>
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
-                    <Label htmlFor="current-password">Current Password</Label>
+                    <Label htmlFor="current-password" className="text-white/80">
+                      Current Password
+                    </Label>
                     <Input
                       id="current-password"
                       type="password"
                       required
                       value={currentPassword}
                       onChange={(e) => setCurrentPassword(e.target.value)}
+                      className="bg-white/10 border-white/20 text-white placeholder:text-white/40"
                     />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="new-password">New Password</Label>
+                    <Label htmlFor="new-password" className="text-white/80">
+                      New Password
+                    </Label>
                     <Input
                       id="new-password"
                       type="password"
@@ -138,11 +147,14 @@ export default function ChangePasswordPage() {
                       minLength={8}
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
+                      className="bg-white/10 border-white/20 text-white placeholder:text-white/40"
                     />
                     <PasswordStrength password={newPassword} />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="confirm-password">Confirm New Password</Label>
+                    <Label htmlFor="confirm-password" className="text-white/80">
+                      Confirm New Password
+                    </Label>
                     <Input
                       id="confirm-password"
                       type="password"
@@ -150,15 +162,16 @@ export default function ChangePasswordPage() {
                       minLength={8}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
+                      className="bg-white/10 border-white/20 text-white placeholder:text-white/40"
                     />
                   </div>
-                  {error && <p className="text-sm text-red-500">{error}</p>}
-                  <Button type="submit" className="w-full" disabled={isLoading}>
+                  {error && <p className="text-sm text-red-400">{error}</p>}
+                  <Button type="submit" className="w-full bg-white text-black hover:bg-white/90" disabled={isLoading}>
                     {isLoading ? "Updating password..." : "Update password"}
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">
-                  <Link href="/profile" className="underline underline-offset-4">
+                  <Link href="/profile" className="text-purple-400 underline underline-offset-4 hover:text-purple-300">
                     Back to profile
                   </Link>
                 </div>

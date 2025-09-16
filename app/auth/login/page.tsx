@@ -42,19 +42,25 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black flex items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
         <div className="flex flex-col gap-6">
-          <Card>
+          <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-2xl">Login to ShaderStore</CardTitle>
-              <CardDescription>Enter your email below to login to your account</CardDescription>
+              <CardTitle className="text-2xl text-white">
+                Login to <span className="font-medium italic instrument">ShaderStore</span>
+              </CardTitle>
+              <CardDescription className="text-white/60">
+                Enter your email below to login to your account
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleLogin}>
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email" className="text-white/80">
+                      Email
+                    </Label>
                     <Input
                       id="email"
                       type="email"
@@ -62,37 +68,50 @@ export default function LoginPage() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      className="bg-white/10 border-white/20 text-white placeholder:text-white/40"
                     />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password" className="text-white/80">
+                      Password
+                    </Label>
                     <Input
                       id="password"
                       type="password"
                       required
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      className="bg-white/10 border-white/20 text-white placeholder:text-white/40"
                     />
                   </div>
-                  {error && <p className="text-sm text-red-500">{error}</p>}
-                  <Button type="submit" className="w-full" disabled={isLoading}>
+                  {error && <p className="text-sm text-red-400">{error}</p>}
+                  <Button type="submit" className="w-full bg-white text-black hover:bg-white/90" disabled={isLoading}>
                     {isLoading ? "Logging in..." : "Login"}
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm space-y-2">
-                  <div>
+                  <div className="text-white/60">
                     Don't have an account?{" "}
-                    <Link href="/auth/sign-up" className="underline underline-offset-4">
+                    <Link
+                      href="/auth/sign-up"
+                      className="text-purple-400 underline underline-offset-4 hover:text-purple-300"
+                    >
                       Sign up
                     </Link>
                   </div>
                   <div>
-                    <Link href="/auth/forgot-password" className="underline underline-offset-4">
+                    <Link
+                      href="/auth/forgot-password"
+                      className="text-purple-400 underline underline-offset-4 hover:text-purple-300"
+                    >
                       Forgot your password?
                     </Link>
                   </div>
                   <div>
-                    <Link href="/auth/magic-link" className="underline underline-offset-4">
+                    <Link
+                      href="/auth/magic-link"
+                      className="text-purple-400 underline underline-offset-4 hover:text-purple-300"
+                    >
                       Sign in with magic link
                     </Link>
                   </div>

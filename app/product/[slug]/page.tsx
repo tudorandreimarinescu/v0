@@ -90,13 +90,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black">
       <SiteHeader />
       <Suspense fallback={<ProductSkeleton />}>
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <ProductDetail product={product} />
-          <div className="mt-16">
-            <RelatedProducts productId={product.id} categoryId={product.category_id} />
+          <div className="max-w-6xl mx-auto">
+            <ProductDetail product={product} />
+            <div className="mt-16">
+              <RelatedProducts productId={product.id} categoryId={product.category_id} />
+            </div>
           </div>
         </main>
       </Suspense>
