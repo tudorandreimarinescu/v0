@@ -23,7 +23,6 @@ export async function saveUserCartAction(cartData: UserCartData): Promise<SaveCa
   } = await supabase.auth.getUser()
 
   if (authError || !user) {
-    console.error("Authentication error in saveUserCartAction:", authError)
     return { success: false, error: "User not authenticated" }
   }
 
@@ -61,7 +60,6 @@ export async function loadUserCartAction(): Promise<UserCartData | null> {
   } = await supabase.auth.getUser()
 
   if (authError || !user) {
-    console.error("Authentication error in loadUserCartAction:", authError)
     return null
   }
 

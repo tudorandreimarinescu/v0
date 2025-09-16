@@ -258,7 +258,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             })
 
             if (!result.success) {
-              console.error("Error saving user cart:", result.error)
+              if (result.error !== "User not authenticated") {
+                console.error("Error saving user cart:", result.error)
+              }
               // Fallback to local storage if user cart save fails
               saveCart(cartData)
             }
