@@ -11,6 +11,7 @@ export class StripePaymentAdapter extends PaymentAdapter {
   private baseUrl = "https://api.stripe.com/v1"
 
   constructor(apiKey: string) {
+    super()
     this.apiKey = apiKey
   }
 
