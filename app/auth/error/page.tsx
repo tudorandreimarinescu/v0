@@ -13,13 +13,15 @@ export default async function Page({
         <div className="flex flex-col gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">Sorry, something went wrong.</CardTitle>
+              <CardTitle className="text-2xl">Ne pare rău, ceva nu a mers bine.</CardTitle>
             </CardHeader>
             <CardContent>
               {params?.error ? (
-                <p className="text-sm text-muted-foreground">Code error: {params.error}</p>
+                /* Updated error message to Romanian */
+                <p className="text-sm text-muted-foreground">Cod eroare: {params.error}</p>
               ) : (
-                <p className="text-sm text-muted-foreground">An unspecified error occurred.</p>
+                /* Updated generic error message to Romanian */
+                <p className="text-sm text-muted-foreground">A apărut o eroare nespecificată.</p>
               )}
             </CardContent>
           </Card>

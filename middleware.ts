@@ -4,7 +4,7 @@ import { updateSession } from "@/lib/supabase/middleware"
 
 export async function middleware(request: NextRequest) {
   // Handle auth session updates for protected routes
-  const protectedPaths = ["/profile", "/orders", "/admin"]
+  const protectedPaths = ["/profile", "/orders", "/admin", "/dashboard", "/companies", "/documents"]
   const isProtectedPath = protectedPaths.some((path) => request.nextUrl.pathname.startsWith(path))
 
   if (isProtectedPath) {

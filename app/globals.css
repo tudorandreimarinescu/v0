@@ -4,78 +4,78 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color tokens to match e-commerce design brief */
-  --background: #ffffff; /* Base background color */
-  --foreground: #475569; /* Primary text color */
-  --card: #f1f5f9; /* Background color for cards */
-  --card-foreground: #374151; /* Text color for card content */
-  --popover: #ffffff; /* Background color for popups */
-  --popover-foreground: #475569; /* Text color for popups */
-  --primary: #059669; /* Used for call-to-action buttons and links */
-  --primary-foreground: #ffffff; /* Text color for primary buttons */
-  --secondary: #10b981; /* Used for secondary actions */
-  --secondary-foreground: #ffffff; /* Text color for secondary buttons */
-  --muted: #f1f5f9; /* Background for muted elements */
-  --muted-foreground: #4b5563; /* Text color for muted elements */
-  --accent: #10b981; /* Accent color for highlights */
-  --accent-foreground: #ffffff; /* Text color for accent elements */
-  --destructive: #ea580c; /* Color for error messages or destructive actions */
-  --destructive-foreground: #ffffff; /* Text color for destructive elements */
-  --border: #d1d5db; /* Border color for cards and inputs */
-  --input: #ffffff; /* Input field background */
-  --ring: rgba(9, 99, 105, 0.5); /* Ring color for focus states */
-  --chart-1: #059669; /* Chart color 1 */
-  --chart-2: #10b981; /* Chart color 2 */
-  --chart-3: #d97706; /* Chart color 3 */
-  --chart-4: #ea580c; /* Chart color 4 */
-  --chart-5: #fffbeb; /* Chart color 5 */
-  --radius: 0.5rem; /* Standard corner rounding */
+  /* Updated color tokens for Romanian company management dashboard */
+  --background: #ffffff; /* Main background */
+  --foreground: #1f2937; /* Main text color */
+  --card: #f1f5f9; /* Card background */
+  --card-foreground: #475569; /* Card text color */
+  --popover: #ffffff; /* Popover background */
+  --popover-foreground: #1f2937; /* Popover text color */
+  --primary: #1f2937; /* Primary actions */
+  --primary-foreground: #ffffff; /* Primary text on actions */
+  --secondary: #8b5cf6; /* Secondary actions */
+  --secondary-foreground: #ffffff; /* Secondary text on actions */
+  --muted: #f1f5f9; /* Muted background elements */
+  --muted-foreground: #475569; /* Muted text */
+  --accent: #8b5cf6; /* Accents and highlights */
+  --accent-foreground: #ffffff; /* Text on accents */
+  --destructive: #be123c; /* Destructive actions */
+  --destructive-foreground: #ffffff; /* Text on destructive actions */
+  --border: #e5e7eb; /* Borders */
+  --input: #f1f5f9; /* Input backgrounds */
+  --ring: #8b5cf6; /* Focus rings */
+  --chart-1: #4f46e5; /* First chart color */
+  --chart-2: #4338ca; /* Second chart color */
+  --chart-3: #6366f1; /* Third chart color */
+  --chart-4: #a5b4fc; /* Fourth chart color */
+  --chart-5: #e0e7ff; /* Fifth chart color */
+  --radius: 0.5rem; /* Corner rounding */
   --sidebar: #f1f5f9; /* Sidebar background */
-  --sidebar-foreground: #475569; /* Sidebar text color */
-  --sidebar-primary: #059669; /* Sidebar primary action color */
-  --sidebar-primary-foreground: #ffffff; /* Text color for primary actions in sidebar */
-  --sidebar-accent: #10b981; /* Sidebar accent color */
-  --sidebar-accent-foreground: #ffffff; /* Text color for sidebar accents */
-  --sidebar-border: #d1d5db; /* Sidebar border color */
-  --sidebar-ring: rgba(9, 99, 105, 0.5); /* Sidebar focus ring color */
+  --sidebar-foreground: #1f2937; /* Sidebar text */
+  --sidebar-primary: #ffffff; /* Sidebar primary background */
+  --sidebar-primary-foreground: #1f2937; /* Sidebar primary text */
+  --sidebar-accent: #8b5cf6; /* Sidebar accent */
+  --sidebar-accent-foreground: #ffffff; /* Sidebar accent text */
+  --sidebar-border: #e5e7eb; /* Sidebar border */
+  --sidebar-ring: #8b5cf6; /* Sidebar focus ring */
   --font-instrument-serif: "Instrument Serif", serif; /* Instrument Serif font family configuration */
   --font-figtree: "Figtree", sans-serif; /* Figtree font family configuration */
 }
 
 .dark {
-  /* Updated dark mode colors for e-commerce theme */
+  /* Dark mode colors for company management dashboard */
   --background: #0f172a;
   --foreground: #f1f5f9;
   --card: #1e293b;
   --card-foreground: #f1f5f9;
   --popover: #1e293b;
   --popover-foreground: #f1f5f9;
-  --primary: #10b981;
+  --primary: #f1f5f9;
   --primary-foreground: #0f172a;
-  --secondary: #334155;
-  --secondary-foreground: #f1f5f9;
+  --secondary: #8b5cf6;
+  --secondary-foreground: #ffffff;
   --muted: #334155;
   --muted-foreground: #94a3b8;
-  --accent: #059669;
+  --accent: #8b5cf6;
   --accent-foreground: #f1f5f9;
-  --destructive: #ea580c;
+  --destructive: #be123c;
   --destructive-foreground: #ffffff;
   --border: #334155;
   --input: #1e293b;
-  --ring: rgba(16, 185, 129, 0.5);
-  --chart-1: #10b981;
-  --chart-2: #059669;
-  --chart-3: #d97706;
-  --chart-4: #ea580c;
+  --ring: #8b5cf6;
+  --chart-1: #6366f1;
+  --chart-2: #8b5cf6;
+  --chart-3: #a855f7;
+  --chart-4: #c084fc;
   --chart-5: #1e293b;
   --sidebar: #1e293b;
   --sidebar-foreground: #f1f5f9;
-  --sidebar-primary: #10b981;
-  --sidebar-primary-foreground: #0f172a;
-  --sidebar-accent: #059669;
+  --sidebar-primary: #334155;
+  --sidebar-primary-foreground: #f1f5f9;
+  --sidebar-accent: #8b5cf6;
   --sidebar-accent-foreground: #f1f5f9;
   --sidebar-border: #334155;
-  --sidebar-ring: rgba(16, 185, 129, 0.5);
+  --sidebar-ring: #8b5cf6;
   --font-instrument-serif: "Instrument Serif", serif;
   --font-figtree: "Figtree", sans-serif;
 }
