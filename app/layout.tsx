@@ -5,6 +5,8 @@ import { GeistMono } from "geist/font/mono"
 import { Instrument_Serif } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CartProvider } from "@/lib/cart/cart-context"
+import AgeVerificationModal from "@/components/age-verification-modal"
+import GDPRCookieBanner from "@/components/gdpr-cookie-banner"
 import "./globals.css"
 
 const figtree = Figtree({
@@ -101,7 +103,11 @@ html {
       </head>
       <body className={`${figtree.variable} ${instrumentSerif.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <CartProvider>{children}</CartProvider>
+          <CartProvider>
+            {children}
+            <AgeVerificationModal />
+            <GDPRCookieBanner />
+          </CartProvider>
         </ThemeProvider>
       </body>
     </html>

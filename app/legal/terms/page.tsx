@@ -4,7 +4,8 @@ import SiteFooter from "@/components/site-footer"
 
 export const metadata: Metadata = {
   title: "Terms of Service - kynky.ro",
-  description: "Read the terms and conditions for using kynky.ro products and services.",
+  description:
+    "Read the terms and conditions for using kynky.ro products and services, including adult content policies.",
 }
 
 export default function TermsPage() {
@@ -19,55 +20,138 @@ export default function TermsPage() {
           </h1>
 
           <div className="prose prose-invert max-w-none">
-            <div className="bg-white/5 border-white/10 backdrop-blur-sm rounded-lg p-8 space-y-6">
-              <section>
-                <h2 className="text-xl font-semibold text-white mb-4">Acceptance of Terms</h2>
+            <div className="bg-white/5 border-white/10 backdrop-blur-sm rounded-lg p-8 space-y-8">
+              <section className="bg-red-500/10 border border-red-500/20 rounded-lg p-6">
+                <h2 className="text-xl font-semibold text-white mb-4">🔞 Conținut pentru Adulți</h2>
                 <p className="text-white/80 leading-relaxed">
-                  By accessing and using kynky.ro, you accept and agree to be bound by the terms and provision of this
-                  agreement. If you do not agree to abide by the above, please do not use this service.
+                  Acest site conține conținut pentru adulți și este destinat exclusiv persoanelor cu vârsta de cel puțin
+                  18 ani. Prin utilizarea acestui site, confirmați că aveți vârsta legală în jurisdicția dumneavoastră
+                  pentru a accesa astfel de conținut.
                 </p>
               </section>
 
               <section>
-                <h2 className="text-xl font-semibold text-white mb-4">License and Usage</h2>
+                <h2 className="text-xl font-semibold text-white mb-4">1. Acceptarea Termenilor</h2>
+                <p className="text-white/80 leading-relaxed">
+                  Prin accesarea și utilizarea kynky.ro, acceptați și sunteți de acord să fiți obligat de termenii și
+                  prevederile acestui acord. Dacă nu sunteți de acord să respectați cele de mai sus, vă rugăm să nu
+                  utilizați acest serviciu.
+                </p>
+              </section>
+
+              <section>
+                <h2 className="text-xl font-semibold text-white mb-4">2. Licență și Utilizare</h2>
                 <p className="text-white/80 leading-relaxed mb-4">
-                  Upon purchase, you are granted a non-exclusive license to use our digital products subject to the
-                  following conditions:
+                  La achiziție, vi se acordă o licență non-exclusivă pentru utilizarea produselor noastre digitale,
+                  supusă următoarelor condiții:
                 </p>
                 <ul className="list-disc list-inside text-white/80 space-y-2">
-                  <li>Products may be used for commercial and personal projects</li>
-                  <li>You may not redistribute, resell, or share the original files</li>
-                  <li>Attribution is appreciated but not required</li>
-                  <li>Modifications are allowed for your own use</li>
+                  <li>Produsele pot fi utilizate pentru proiecte comerciale și personale</li>
+                  <li>Nu puteți redistribui, revinde sau partaja fișierele originale</li>
+                  <li>Atribuirea este apreciată, dar nu este obligatorie</li>
+                  <li>Modificările sunt permise pentru utilizarea proprie</li>
+                  <li>Utilizarea trebuie să respecte legile locale privind conținutul pentru adulți</li>
                 </ul>
               </section>
 
               <section>
-                <h2 className="text-xl font-semibold text-white mb-4">Age Restriction</h2>
+                <h2 className="text-xl font-semibold text-white mb-4">3. Restricții de Vârstă și Acces</h2>
+                <div className="space-y-4">
+                  <p className="text-white/80 leading-relaxed">
+                    Serviciile noastre sunt destinate utilizatorilor care au cel puțin 18 ani. Prin utilizarea
+                    serviciilor noastre, declarați că:
+                  </p>
+                  <ul className="list-disc list-inside text-white/80 space-y-2">
+                    <li>Aveți cel puțin 18 ani împliniți</li>
+                    <li>Aveți dreptul legal să accesați conținut pentru adulți în jurisdicția dumneavoastră</li>
+                    <li>Nu veți permite accesul minorilor la conținutul achiziționat</li>
+                    <li>Înțelegeți natura conținutului pentru adulți oferit</li>
+                  </ul>
+                </div>
+              </section>
+
+              <section>
+                <h2 className="text-xl font-semibold text-white mb-4">4. Protecția Datelor și GDPR</h2>
+                <div className="bg-white/5 rounded-lg p-6">
+                  <p className="text-white/80 leading-relaxed mb-4">
+                    Respectăm pe deplin Regulamentul General privind Protecția Datelor (GDPR) și ne angajăm să protejăm
+                    confidențialitatea dumneavoastră:
+                  </p>
+                  <ul className="list-disc list-inside text-white/80 space-y-2">
+                    <li>Colectăm doar datele necesare pentru furnizarea serviciilor</li>
+                    <li>Obținem consimțământul explicit pentru procesarea datelor</li>
+                    <li>Respectăm drepturile dumneavoastră de acces, rectificare și ștergere</li>
+                    <li>Implementăm măsuri de securitate adecvate</li>
+                    <li>Nu partajăm datele cu terți fără consimțământul dumneavoastră</li>
+                  </ul>
+                </div>
+              </section>
+
+              <section>
+                <h2 className="text-xl font-semibold text-white mb-4">5. Conținut și Conduită Acceptabilă</h2>
+                <p className="text-white/80 leading-relaxed mb-4">
+                  Prin utilizarea serviciilor noastre, vă angajați să:
+                </p>
+                <ul className="list-disc list-inside text-white/80 space-y-2">
+                  <li>Utilizați conținutul în mod responsabil și legal</li>
+                  <li>Nu încălcați drepturile de autor ale terților</li>
+                  <li>Nu utilizați conținutul pentru activități ilegale</li>
+                  <li>Respectați termenii de licență pentru fiecare produs</li>
+                  <li>Nu încercați să ocoliți măsurile de securitate</li>
+                </ul>
+              </section>
+
+              <section>
+                <h2 className="text-xl font-semibold text-white mb-4">6. Returnări și Rambursări</h2>
                 <p className="text-white/80 leading-relaxed">
-                  Our services are intended for users who are 18 years of age or older. By using our services, you
-                  represent that you are at least 18 years old.
+                  Datorită naturii digitale a produselor noastre și a livrării instantanee, toate vânzările sunt finale.
+                  Cu toate acestea, dacă întâmpinați probleme tehnice sau primiți un produs defect, vă rugăm să
+                  contactați echipa noastră de suport în termen de 30 de zile de la achiziție. Consultați politica
+                  noastră de returnări pentru detalii complete.
                 </p>
               </section>
 
               <section>
-                <h2 className="text-xl font-semibold text-white mb-4">Refunds and Returns</h2>
+                <h2 className="text-xl font-semibold text-white mb-4">7. Limitarea Răspunderii</h2>
                 <p className="text-white/80 leading-relaxed">
-                  Due to the digital nature of our products, all sales are final. However, if you experience technical
-                  issues or receive a defective product, please contact our support team within 30 days of purchase.
+                  kynky.ro nu va fi răspunzător pentru niciun fel de daune indirecte, accidentale, speciale, consecutive
+                  sau punitive, inclusiv, fără limitare, pierderea profiturilor, datelor, utilizării, bunăvoinței sau
+                  alte pierderi intangibile, rezultate din utilizarea sau incapacitatea de utilizare a serviciilor
+                  noastre.
                 </p>
               </section>
 
               <section>
-                <h2 className="text-xl font-semibold text-white mb-4">Limitation of Liability</h2>
+                <h2 className="text-xl font-semibold text-white mb-4">8. Modificări ale Termenilor</h2>
                 <p className="text-white/80 leading-relaxed">
-                  kynky.ro shall not be liable for any indirect, incidental, special, consequential, or punitive
-                  damages, including without limitation, loss of profits, data, use, goodwill, or other intangible
-                  losses.
+                  Ne rezervăm dreptul de a modifica acești termeni în orice moment. Modificările vor fi publicate pe
+                  această pagină și vor intra în vigoare imediat. Utilizarea continuă a serviciilor după modificări
+                  constituie acceptarea noilor termeni.
                 </p>
               </section>
 
-              <p className="text-white/60 text-sm">Last updated: December 2024</p>
+              <section>
+                <h2 className="text-xl font-semibold text-white mb-4">9. Legea Aplicabilă</h2>
+                <p className="text-white/80 leading-relaxed">
+                  Acești termeni sunt guvernați de legile României. Orice dispute vor fi rezolvate în instanțele
+                  competente din România, cu respectarea drepturilor consumatorilor conform legislației europene și
+                  naționale.
+                </p>
+              </section>
+
+              <section>
+                <h2 className="text-xl font-semibold text-white mb-4">10. Contact</h2>
+                <p className="text-white/80 leading-relaxed">
+                  Pentru întrebări despre acești termeni, vă rugăm să ne contactați la legal@kynky.ro sau prin
+                  intermediul paginii noastre de contact.
+                </p>
+              </section>
+
+              <p className="text-white/60 text-sm border-t border-white/10 pt-6">
+                <strong>Ultima actualizare:</strong> Decembrie 2024
+                <br />
+                <strong>Versiune:</strong> 2.0 (GDPR Compliant)
+              </p>
             </div>
           </div>
         </div>

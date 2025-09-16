@@ -14,7 +14,6 @@ export default function SiteHeader() {
 
   const navigation = [
     { name: "Shop", href: "/shop" },
-    { name: "Products", href: "/shop" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ]
