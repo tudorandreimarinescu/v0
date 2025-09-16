@@ -5,6 +5,7 @@ export class ResendEmailAdapter extends EmailAdapter {
   private baseUrl = "https://api.resend.com"
 
   constructor(apiKey: string) {
+    super()
     this.apiKey = apiKey
   }
 
