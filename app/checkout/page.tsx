@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import SiteHeader from "@/components/site-header"
 import SiteFooter from "@/components/site-footer"
+import { CheckoutProvider } from "@/lib/checkout/checkout-context"
 import CheckoutPageClient from "@/components/checkout-page-client"
 import { getCurrentUserProfile } from "@/lib/auth/admin"
 
@@ -15,7 +16,9 @@ export default async function CheckoutPage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <CheckoutPageClient userProfile={profile} />
+      <CheckoutProvider>
+        <CheckoutPageClient userProfile={profile} />
+      </CheckoutProvider>
       <SiteFooter />
     </div>
   )

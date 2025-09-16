@@ -5,8 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ShoppingBag } from "lucide-react"
 import Link from "next/link"
-import CheckoutForm from "@/components/checkout-form"
-import { formatCurrency } from "@/lib/currency"
+import { formatCurrency } from "@/lib/utils/currency"
+import { useCheckout } from "@/lib/checkout/checkout-context"
+import CheckoutSteps from "@/components/checkout/checkout-steps"
+import ShippingStep from "@/components/checkout/shipping-step"
+import BillingStep from "@/components/checkout/billing-step"
+import EnhancedPaymentStep from "@/components/checkout/enhanced-payment-step"
 import type { UserProfile } from "@/lib/auth/admin"
 
 interface CheckoutPageClientProps {
@@ -15,10 +19,12 @@ interface CheckoutPageClientProps {
 
 export default function CheckoutPageClient({ userProfile }: CheckoutPageClientProps) {
   const { items, totalAmount, isLoading } = useCart()
+  const { state } = useCheckout()
 
   const subtotal = totalAmount
-  const tax = subtotal * 0.08 // 8% tax
-  const total = subtotal + tax
+  const vatRate = 0.2 // 20% VAT
+  const vatAmount = subtotal * vatRate
+  const total = subtotal + vatAmount
 
   if (isLoading) {
     return (
@@ -43,13 +49,18 @@ export default function CheckoutPageClient({ userProfile }: CheckoutPageClientPr
     )
   }
 
-  // Convert cart items to checkout format
-  const checkoutItems = items.map((item) => ({
-    id: item.productId,
-    name: item.name,
-    price: item.price,
-    quantity: item.quantity,
-  }))
+  const renderCurrentStep = () => {
+    switch (state.currentStep) {
+      case 1:
+        return <ShippingStep userProfile={userProfile} />
+      case 2:
+        return <BillingStep />
+      case 3:
+        return <EnhancedPaymentStep />
+      default:
+        return <ShippingStep userProfile={userProfile} />
+    }
+  }
 
   return (
     <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -57,11 +68,10 @@ export default function CheckoutPageClient({ userProfile }: CheckoutPageClientPr
         <span className="font-medium italic instrument">Secure</span> Checkout
       </h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Checkout Form */}
-        <div className="space-y-6">
-          <CheckoutForm cartItems={checkoutItems} total={total} userProfile={userProfile} />
-        </div>
+      <CheckoutSteps currentStep={state.currentStep} />
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+        <div className="space-y-6">{renderCurrentStep()}</div>
 
         {/* Order Summary */}
         <div>
@@ -86,8 +96,8 @@ export default function CheckoutPageClient({ userProfile }: CheckoutPageClientPr
                   <span>{formatCurrency(subtotal)}</span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
-                  <span>Tax</span>
-                  <span>{formatCurrency(tax)}</span>
+                  <span>VAT (20%)</span>
+                  <span>{formatCurrency(vatAmount)}</span>
                 </div>
                 <div className="flex justify-between font-semibold text-lg text-foreground">
                   <span>Total</span>

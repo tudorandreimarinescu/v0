@@ -1,9 +1,11 @@
 "use client"
 
 import type React from "react"
-
 import { createContext, useContext, useEffect, useReducer } from "react"
 import { useToast } from "@/hooks/use-toast"
+import { createBrowserClient } from "@/lib/supabase/client"
+import { saveCart, loadCart, clearCartStorage, generateGuestId, type CartStorage } from "./cart-storage"
+import { handleCartMergeOnLogin, saveUserCart } from "./cart-merge"
 
 export interface CartItem {
   id: string
@@ -24,6 +26,8 @@ interface CartState {
   items: CartItem[]
   isLoading: boolean
   lastUpdated: number
+  guestId: string | null
+  userId: string | null
 }
 
 type CartAction =
@@ -33,6 +37,8 @@ type CartAction =
   | { type: "CLEAR_CART" }
   | { type: "LOAD_CART"; payload: CartItem[] }
   | { type: "SET_LOADING"; payload: boolean }
+  | { type: "SET_USER"; payload: { userId: string | null; guestId: string | null } }
+  | { type: "MERGE_CART"; payload: CartItem[] }
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
@@ -118,6 +124,20 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         isLoading: action.payload,
       }
 
+    case "SET_USER":
+      return {
+        ...state,
+        userId: action.payload.userId,
+        guestId: action.payload.guestId,
+      }
+
+    case "MERGE_CART":
+      return {
+        ...state,
+        items: action.payload,
+        lastUpdated: Date.now(),
+      }
+
     default:
       return state
   }
@@ -144,42 +164,97 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     items: [],
     isLoading: true,
     lastUpdated: Date.now(),
+    guestId: null,
+    userId: null,
   })
 
   const { toast } = useToast()
+  const supabase = createBrowserClient()
 
-  // Load cart from localStorage on mount
   useEffect(() => {
-    try {
-      const savedCart = localStorage.getItem(CART_STORAGE_KEY)
-      if (savedCart) {
-        const parsedCart = JSON.parse(savedCart)
-        dispatch({ type: "LOAD_CART", payload: parsedCart.items || [] })
-      } else {
+    const initializeCart = async () => {
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser()
+
+        if (user) {
+          const savedCart = loadCart()
+          const guestItems = savedCart?.items || []
+
+          if (guestItems.length > 0) {
+            const mergedItems = await handleCartMergeOnLogin(user.id, guestItems)
+            dispatch({ type: "MERGE_CART", payload: mergedItems })
+            clearCartStorage()
+          } else {
+            const { loadUserCart } = await import("./cart-merge")
+            const userCartData = await loadUserCart(user.id)
+            dispatch({ type: "LOAD_CART", payload: userCartData?.items || [] })
+          }
+
+          dispatch({ type: "SET_USER", payload: { userId: user.id, guestId: null } })
+        } else {
+          const savedCart = loadCart()
+          if (savedCart) {
+            dispatch({ type: "LOAD_CART", payload: savedCart.items })
+            dispatch({ type: "SET_USER", payload: { userId: null, guestId: savedCart.guestId || generateGuestId() } })
+          } else {
+            const guestId = generateGuestId()
+            dispatch({ type: "SET_USER", payload: { userId: null, guestId } })
+            dispatch({ type: "SET_LOADING", payload: false })
+          }
+        }
+      } catch (error) {
+        console.error("Error initializing cart:", error)
         dispatch({ type: "SET_LOADING", payload: false })
       }
-    } catch (error) {
-      console.error("Error loading cart from localStorage:", error)
-      dispatch({ type: "SET_LOADING", payload: false })
     }
-  }, [])
 
-  // Save cart to localStorage whenever it changes
+    initializeCart()
+  }, [supabase])
+
   useEffect(() => {
-    if (!state.isLoading) {
-      try {
-        localStorage.setItem(
-          CART_STORAGE_KEY,
-          JSON.stringify({
-            items: state.items,
-            lastUpdated: state.lastUpdated,
-          }),
-        )
-      } catch (error) {
-        console.error("Error saving cart to localStorage:", error)
+    if (!state.isLoading && state.items.length >= 0) {
+      const cartData: CartStorage = {
+        items: state.items,
+        lastUpdated: state.lastUpdated,
+        guestId: state.guestId || undefined,
+      }
+
+      if (state.userId) {
+        saveUserCart(state.userId, {
+          items: state.items,
+          lastUpdated: state.lastUpdated,
+        }).catch((error) => {
+          console.error("Error saving user cart:", error)
+          saveCart(cartData)
+        })
+      } else {
+        saveCart(cartData)
       }
     }
-  }, [state.items, state.lastUpdated, state.isLoading])
+  }, [state.items, state.lastUpdated, state.isLoading, state.userId, state.guestId])
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === "SIGNED_IN" && session?.user) {
+        const currentItems = state.items
+        if (currentItems.length > 0) {
+          const mergedItems = await handleCartMergeOnLogin(session.user.id, currentItems)
+          dispatch({ type: "MERGE_CART", payload: mergedItems })
+        }
+        dispatch({ type: "SET_USER", payload: { userId: session.user.id, guestId: null } })
+        clearCartStorage()
+      } else if (event === "SIGNED_OUT") {
+        const guestId = generateGuestId()
+        dispatch({ type: "SET_USER", payload: { userId: null, guestId } })
+      }
+    })
+
+    return () => subscription.unsubscribe()
+  }, [supabase, state.items])
 
   const addItem = (item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
     dispatch({ type: "ADD_ITEM", payload: item })
