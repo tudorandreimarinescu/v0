@@ -39,7 +39,7 @@ export default function AgeVerificationModal() {
       <DialogContent className="sm:max-w-md bg-black/95 border-white/20" hideCloseButton>
         <DialogHeader className="text-center">
           <DialogTitle className="text-2xl font-bold text-white mb-2">Verificare Vârstă</DialogTitle>
-          <DialogDescription className="text-white/70">
+          <DialogDescription className="text-white/90">
             Acest site conține conținut pentru adulți. Trebuie să aveți cel puțin 18 ani pentru a continua.
           </DialogDescription>
         </DialogHeader>
@@ -50,14 +50,14 @@ export default function AgeVerificationModal() {
               <span className="text-white font-bold text-lg">18+</span>
             </div>
             <CardTitle className="text-white text-lg">Confirmare Vârstă</CardTitle>
-            <CardDescription className="text-gray-200">
+            <CardDescription className="text-white">
               Vă rugăm să confirmați că aveți cel puțin 18 ani împliniți
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <Button
               onClick={() => handleVerify(true)}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium"
+              className="w-full bg-white text-black hover:bg-gray-100 font-medium"
             >
               Da, am peste 18 ani
             </Button>
@@ -71,7 +71,7 @@ export default function AgeVerificationModal() {
           </CardContent>
         </Card>
 
-        <p className="text-xs text-white/50 text-center mt-4">
+        <p className="text-xs text-white/80 text-center mt-4">
           Prin continuare, confirmați că aveți vârsta legală în țara dumneavoastră pentru a vizualiza conținut pentru
           adulți.
         </p>

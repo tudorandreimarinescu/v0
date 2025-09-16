@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic"
 export default async function AuthCallbackPage({
   searchParams,
 }: {
-  searchParams: Promise<{ code?: string; error?: string }>
+  searchParams: Promise<{ code?: string; error?: string; redirect?: string }>
 }) {
   const params = await searchParams
   const supabase = await createClient()
@@ -22,6 +22,6 @@ export default async function AuthCallbackPage({
     redirect(`/auth/error?error=${encodeURIComponent(params.error)}`)
   }
 
-  // URL to redirect to after sign up process completes
-  redirect("/")
+  const redirectTo = params.redirect || "/"
+  redirect(redirectTo)
 }

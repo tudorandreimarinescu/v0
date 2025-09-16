@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
 
 export default function LoginPage() {
@@ -17,6 +17,8 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirectTo = searchParams.get("redirect") || "/"
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -29,11 +31,13 @@ export default function LoginPage() {
         email,
         password,
         options: {
-          emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/`,
+          emailRedirectTo:
+            process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
+            `${window.location.origin}/auth/callback?redirect=${encodeURIComponent(redirectTo)}`,
         },
       })
       if (error) throw error
-      router.push("/")
+      router.push(redirectTo)
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred")
     } finally {
@@ -50,7 +54,7 @@ export default function LoginPage() {
               <CardTitle className="text-2xl text-white">
                 Login to <span className="font-medium italic instrument">kynky.ro</span>
               </CardTitle>
-              <CardDescription className="text-white/60">
+              <CardDescription className="text-white/85">
                 Enter your email below to login to your account
               </CardDescription>
             </CardHeader>
@@ -58,7 +62,7 @@ export default function LoginPage() {
               <form onSubmit={handleLogin}>
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
-                    <Label htmlFor="email" className="text-gray-200">
+                    <Label htmlFor="email" className="text-white">
                       Email
                     </Label>
                     <Input
@@ -72,7 +76,7 @@ export default function LoginPage() {
                     />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="password" className="text-gray-200">
+                    <Label htmlFor="password" className="text-white">
                       Password
                     </Label>
                     <Input
@@ -90,10 +94,10 @@ export default function LoginPage() {
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm space-y-2">
-                  <div className="text-white/60">
+                  <div className="text-white/85">
                     Don't have an account?{" "}
                     <Link
-                      href="/auth/sign-up"
+                      href={`/auth/sign-up${redirectTo !== "/" ? `?redirect=${encodeURIComponent(redirectTo)}` : ""}`}
                       className="text-purple-400 underline underline-offset-4 hover:text-purple-300"
                     >
                       Sign up
