@@ -91,6 +91,7 @@ export default function AuthButton() {
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => router.push("/profile")}>Profile</DropdownMenuItem>
         <DropdownMenuItem onClick={() => router.push("/orders")}>Order History</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => router.push("/profile/change-password")}>Change Password</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut}>Sign out</DropdownMenuItem>
       </DropdownMenuContent>

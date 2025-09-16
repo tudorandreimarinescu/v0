@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import PasswordStrength from "@/components/password-strength"
 
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
@@ -108,9 +109,11 @@ export default function SignUpPage() {
                       id="password"
                       type="password"
                       required
+                      minLength={8}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
+                    <PasswordStrength password={password} />
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="repeat-password">Repeat Password</Label>
@@ -118,6 +121,7 @@ export default function SignUpPage() {
                       id="repeat-password"
                       type="password"
                       required
+                      minLength={8}
                       value={repeatPassword}
                       onChange={(e) => setRepeatPassword(e.target.value)}
                     />
