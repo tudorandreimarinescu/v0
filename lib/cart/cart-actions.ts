@@ -23,11 +23,16 @@ export async function saveUserCartAction(cartData: UserCartData) {
   }
 
   try {
-    const { error } = await supabase.from("user_carts").upsert({
-      user_id: user.id, // Use authenticated user ID from session
-      cart_data: cartData,
-      updated_at: new Date().toISOString(),
-    })
+    const { error } = await supabase.from("user_carts").upsert(
+      {
+        user_id: user.id, // Use authenticated user ID from session
+        cart_data: cartData,
+        updated_at: new Date().toISOString(),
+      },
+      {
+        onConflict: "user_id",
+      },
+    )
 
     if (error) {
       console.error("Database error in saveUserCartAction:", error)
@@ -77,18 +82,29 @@ export async function loadUserCartAction(): Promise<UserCartData | null> {
 // Server action to handle cart merging on login
 export async function handleCartMergeOnLoginAction(guestCartItems: CartItem[]): Promise<CartItem[]> {
   try {
-    const userCartData = await loadUserCartAction()
-    const userItems = userCartData?.items || []
+    let retries = 3
+    while (retries > 0) {
+      try {
+        const userCartData = await loadUserCartAction()
+        const userItems = userCartData?.items || []
 
-    // Merge guest cart with user cart
-    const mergedItems = mergeCartItems(guestCartItems, userItems)
+        // Merge guest cart with user cart
+        const mergedItems = mergeCartItems(guestCartItems, userItems)
 
-    await saveUserCartAction({
-      items: mergedItems,
-      lastUpdated: Date.now(),
-    })
+        await saveUserCartAction({
+          items: mergedItems,
+          lastUpdated: Date.now(),
+        })
 
-    return mergedItems
+        return mergedItems
+      } catch (error) {
+        retries--
+        if (retries === 0) throw error
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+      }
+    }
+
+    return guestCartItems
   } catch (error) {
     console.error("Error merging carts on login:", error)
     // Return guest items if merge fails

@@ -250,13 +250,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
 
       if (state.userId) {
-        saveUserCartAction({
-          items: state.items,
-          lastUpdated: state.lastUpdated,
-        }).catch((error) => {
-          console.error("Error saving user cart:", error)
-          saveCart(cartData)
-        })
+        const timeoutId = setTimeout(async () => {
+          try {
+            await saveUserCartAction({
+              items: state.items,
+              lastUpdated: state.lastUpdated,
+            })
+          } catch (error) {
+            console.error("Error saving user cart:", error)
+            saveCart(cartData)
+          }
+        }, 500) // Debounce by 500ms
+
+        return () => clearTimeout(timeoutId)
       } else {
         saveCart(cartData)
       }
@@ -271,13 +277,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           data: { subscription },
         } = supabase.auth.onAuthStateChange(async (event, session) => {
           if (event === "SIGNED_IN" && session?.user) {
-            const currentItems = state.items
-            if (currentItems.length > 0) {
-              const mergedItems = await handleCartMergeOnLoginAction(currentItems)
-              dispatch({ type: "MERGE_CART", payload: mergedItems })
-            }
-            dispatch({ type: "SET_USER", payload: { userId: session.user.id, guestId: null } })
-            clearCartStorage()
+            setTimeout(async () => {
+              try {
+                const currentItems = state.items
+                if (currentItems.length > 0) {
+                  const mergedItems = await handleCartMergeOnLoginAction(currentItems)
+                  dispatch({ type: "MERGE_CART", payload: mergedItems })
+                }
+                dispatch({ type: "SET_USER", payload: { userId: session.user.id, guestId: null } })
+                clearCartStorage()
+              } catch (error) {
+                console.error("Error during cart merge on login:", error)
+                dispatch({ type: "SET_USER", payload: { userId: session.user.id, guestId: null } })
+              }
+            }, 1000) // Wait 1 second for session to be fully established
           } else if (event === "SIGNED_OUT") {
             const guestId = generateGuestId()
             dispatch({ type: "SET_USER", payload: { userId: null, guestId } })
