@@ -5,7 +5,7 @@ import CartPageClient from "./CartPageClient"
 
 // Note: This would normally be generated server-side
 export const metadata: Metadata = {
-  title: "Shopping Cart - ShaderStore",
+  title: "Shopping Cart - kynky.ro",
   description: "Review your selected shader products and proceed to checkout.",
 }
 

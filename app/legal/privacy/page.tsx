@@ -3,8 +3,8 @@ import SiteHeader from "@/components/site-header"
 import SiteFooter from "@/components/site-footer"
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - ShaderStore",
-  description: "Learn how ShaderStore collects, uses, and protects your personal information.",
+  title: "Privacy Policy - kynky.ro",
+  description: "Learn how kynky.ro collects, uses, and protects your personal information.",
 }
 
 export default function PrivacyPage() {
@@ -62,8 +62,8 @@ export default function PrivacyPage() {
               <section>
                 <h2 className="text-xl font-semibold text-white mb-4">Contact Us</h2>
                 <p className="text-white/80 leading-relaxed">
-                  If you have any questions about this Privacy Policy, please contact us at privacy@shaderstore.com or
-                  through our contact page.
+                  If you have any questions about this Privacy Policy, please contact us at privacy@kynky.ro or through
+                  our contact page.
                 </p>
               </section>
 

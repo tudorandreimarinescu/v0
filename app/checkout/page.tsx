@@ -6,7 +6,7 @@ import CheckoutPageClient from "@/components/checkout-page-client"
 import { getCurrentUserProfile } from "@/lib/auth/admin"
 
 export const metadata: Metadata = {
-  title: "Checkout - ShaderStore",
+  title: "Checkout - kynky.ro",
   description: "Complete your purchase of premium shader products.",
 }
 

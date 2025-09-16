@@ -12,7 +12,7 @@ import Link from "next/link"
 export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
-  title: "Order History - ShaderStore",
+  title: "Order History - kynky.ro",
   description: "View your order history and download purchased items.",
 }
 

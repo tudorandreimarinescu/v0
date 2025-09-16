@@ -18,7 +18,7 @@ export class ResendEmailAdapter extends EmailAdapter {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: request.from || "noreply@shaderstore.com",
+          from: request.from || "noreply@kynky.ro",
           to: [request.to],
           subject: request.subject,
           html: request.html,

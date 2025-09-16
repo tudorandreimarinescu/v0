@@ -2,7 +2,7 @@
 
 import type { CartItem } from "./cart-context"
 
-const CART_STORAGE_KEY = "shaderstore-cart"
+const CART_STORAGE_KEY = "kynky-cart"
 const CART_COOKIE_KEY = "cart_items"
 
 // Cookie utilities

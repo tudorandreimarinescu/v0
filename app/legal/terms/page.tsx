@@ -3,8 +3,8 @@ import SiteHeader from "@/components/site-header"
 import SiteFooter from "@/components/site-footer"
 
 export const metadata: Metadata = {
-  title: "Terms of Service - ShaderStore",
-  description: "Read the terms and conditions for using ShaderStore products and services.",
+  title: "Terms of Service - kynky.ro",
+  description: "Read the terms and conditions for using kynky.ro products and services.",
 }
 
 export default function TermsPage() {
@@ -23,8 +23,8 @@ export default function TermsPage() {
               <section>
                 <h2 className="text-xl font-semibold text-white mb-4">Acceptance of Terms</h2>
                 <p className="text-white/80 leading-relaxed">
-                  By accessing and using ShaderStore, you accept and agree to be bound by the terms and provision of
-                  this agreement. If you do not agree to abide by the above, please do not use this service.
+                  By accessing and using kynky.ro, you accept and agree to be bound by the terms and provision of this
+                  agreement. If you do not agree to abide by the above, please do not use this service.
                 </p>
               </section>
 
@@ -61,7 +61,7 @@ export default function TermsPage() {
               <section>
                 <h2 className="text-xl font-semibold text-white mb-4">Limitation of Liability</h2>
                 <p className="text-white/80 leading-relaxed">
-                  ShaderStore shall not be liable for any indirect, incidental, special, consequential, or punitive
+                  kynky.ro shall not be liable for any indirect, incidental, special, consequential, or punitive
                   damages, including without limitation, loss of profits, data, use, goodwill, or other intangible
                   losses.
                 </p>

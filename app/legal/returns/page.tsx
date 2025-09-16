@@ -3,7 +3,7 @@ import SiteHeader from "@/components/site-header"
 import SiteFooter from "@/components/site-footer"
 
 export const metadata: Metadata = {
-  title: "Returns Policy - ShaderStore",
+  title: "Returns Policy - kynky.ro",
   description: "Learn about our returns and refund policy for digital products.",
 }
 
@@ -63,8 +63,8 @@ export default function ReturnsPage() {
               <section>
                 <h2 className="text-xl font-semibold text-white mb-4">Contact Support</h2>
                 <p className="text-white/80 leading-relaxed">
-                  For return requests or questions about our policy, please contact us at support@shaderstore.com or use
-                  our contact form.
+                  For return requests or questions about our policy, please contact us at support@kynky.ro or use our
+                  contact form.
                 </p>
               </section>
 

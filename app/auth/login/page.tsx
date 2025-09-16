@@ -48,7 +48,7 @@ export default function LoginPage() {
           <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
             <CardHeader>
               <CardTitle className="text-2xl text-white">
-                Login to <span className="font-medium italic instrument">ShaderStore</span>
+                Login to <span className="font-medium italic instrument">kynky.ro</span>
               </CardTitle>
               <CardDescription className="text-white/60">
                 Enter your email below to login to your account

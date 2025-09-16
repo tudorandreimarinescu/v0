@@ -24,44 +24,44 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: {
-    default: "ShaderStore - Premium Digital Experiences",
-    template: "%s | ShaderStore",
+    default: "kynky.ro - Premium Digital Experiences",
+    template: "%s | kynky.ro",
   },
   description:
     "Discover premium shader experiences and digital products. Create stunning visual effects with our advanced shader technology.",
   keywords: ["shaders", "digital art", "visual effects", "graphics", "e-commerce"],
-  authors: [{ name: "ShaderStore" }],
-  creator: "ShaderStore",
-  publisher: "ShaderStore",
+  authors: [{ name: "kynky.ro" }],
+  creator: "kynky.ro",
+  publisher: "kynky.ro",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://shaderstore.com"),
+  metadataBase: new URL("https://kynky.ro"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://shaderstore.com",
-    title: "ShaderStore - Premium Digital Experiences",
+    url: "https://kynky.ro",
+    title: "kynky.ro - Premium Digital Experiences",
     description:
       "Discover premium shader experiences and digital products. Create stunning visual effects with our advanced shader technology.",
-    siteName: "ShaderStore",
+    siteName: "kynky.ro",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "ShaderStore - Premium Digital Experiences",
+        alt: "kynky.ro - Premium Digital Experiences",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ShaderStore - Premium Digital Experiences",
+    title: "kynky.ro - Premium Digital Experiences",
     description: "Discover premium shader experiences and digital products.",
     images: ["/og-image.jpg"],
   },

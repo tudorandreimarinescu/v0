@@ -5,7 +5,7 @@ import SiteFooter from "@/components/site-footer"
 import OrderConfirmationContent from "@/components/order-confirmation-content"
 
 export const metadata: Metadata = {
-  title: "Order Confirmed - ShaderStore",
+  title: "Order Confirmed - kynky.ro",
   description: "Your order has been successfully processed.",
 }
 

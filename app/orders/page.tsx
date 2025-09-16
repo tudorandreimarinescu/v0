@@ -12,7 +12,7 @@ import Link from "next/link"
 import { formatCurrency } from "@/lib/currency"
 
 export const metadata: Metadata = {
-  title: "Order History - ShaderStore",
+  title: "Order History - kynky.ro",
   description: "View your order history and download purchased products.",
 }
 

@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   }
 
   return {
-    title: `${product.name} - ShaderStore`,
+    title: `${product.name} - kynky.ro`,
     description: product.short_desc || product.long_desc,
     openGraph: {
       title: product.name,

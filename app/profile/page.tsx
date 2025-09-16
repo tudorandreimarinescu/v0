@@ -9,8 +9,8 @@ import { getCurrentUserProfile } from "@/lib/auth/admin"
 import ProfileEditForm from "@/components/profile-edit-form"
 
 export const metadata: Metadata = {
-  title: "Profile - ShaderStore",
-  description: "Manage your ShaderStore account and preferences.",
+  title: "Profile - kynky.ro",
+  description: "Manage your kynky.ro account and preferences.",
 }
 
 export default async function ProfilePage() {

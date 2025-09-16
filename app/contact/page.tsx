@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Mail, MessageCircle, Clock } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Contact Us - ShaderStore",
+  title: "Contact Us - kynky.ro",
   description: "Get in touch with our team for support, questions, or feedback.",
 }
 
@@ -75,7 +75,7 @@ export default function ContactPage() {
                     <Mail className="h-5 w-5 text-purple-400" />
                     <h3 className="text-lg font-semibold text-white">Email Support</h3>
                   </div>
-                  <p className="text-white/80 mb-2">support@shaderstore.com</p>
+                  <p className="text-white/80 mb-2">support@kynky.ro</p>
                   <p className="text-white/60 text-sm">
                     For technical support, billing questions, and general inquiries
                   </p>
@@ -106,6 +106,14 @@ export default function ContactPage() {
                   </div>
                 </CardContent>
               </Card>
+
+              <div className="bg-white/5 border-white/10 backdrop-blur-sm rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-white mb-4">Contact Support</h3>
+                <p className="text-white/80 leading-relaxed">
+                  For return requests or questions about our policy, please contact us at support@kynky.ro or use our
+                  contact form.
+                </p>
+              </div>
 
               <div className="bg-white/5 border-white/10 backdrop-blur-sm rounded-lg p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Frequently Asked Questions</h3>

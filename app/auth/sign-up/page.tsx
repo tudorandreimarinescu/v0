@@ -63,7 +63,7 @@ export default function SignUpPage() {
           <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
             <CardHeader>
               <CardTitle className="text-2xl text-white">
-                Join <span className="font-medium italic instrument">ShaderStore</span>
+                Join <span className="font-medium italic instrument">kynky.ro</span>
               </CardTitle>
               <CardDescription className="text-white/60">Create your account to access premium shaders</CardDescription>
             </CardHeader>
