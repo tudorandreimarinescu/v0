@@ -26,6 +26,17 @@ export interface ReviewStats {
   }
 }
 
+function createServiceClient() {
+  return createServerClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
+    cookies: {
+      getAll() {
+        return []
+      },
+      setAll() {},
+    },
+  })
+}
+
 function createClient() {
   const cookieStore = cookies()
 
@@ -56,15 +67,26 @@ export async function getProductReviews(
     sortOrder?: "ASC" | "DESC"
   } = {},
 ): Promise<Review[]> {
-  const supabase = createClient()
+  const supabase = createServiceClient()
 
-  const { data, error } = await supabase.rpc("get_product_reviews", {
-    p_product_id: productId,
-    p_limit: options.limit || 10,
-    p_offset: options.offset || 0,
-    p_sort_by: options.sortBy || "created_at",
-    p_sort_order: options.sortOrder || "DESC",
-  })
+  const { data, error } = await supabase
+    .from("reviews")
+    .select(`
+      id,
+      user_id,
+      reviewer_name,
+      reviewer_email,
+      title,
+      body,
+      rating,
+      status,
+      created_at,
+      updated_at
+    `)
+    .eq("product_id", productId)
+    .eq("status", "approved")
+    .order(options.sortBy || "created_at", { ascending: options.sortOrder === "ASC" })
+    .range(options.offset || 0, (options.offset || 0) + (options.limit || 10) - 1)
 
   if (error) {
     console.error("Error fetching reviews:", error)
@@ -75,18 +97,42 @@ export async function getProductReviews(
 }
 
 export async function getReviewStats(productId: string): Promise<ReviewStats | null> {
-  const supabase = createClient()
+  const supabase = createServiceClient()
 
-  const { data, error } = await supabase.rpc("get_review_stats", {
-    p_product_id: productId,
-  })
+  const { data, error } = await supabase
+    .from("reviews")
+    .select("rating")
+    .eq("product_id", productId)
+    .eq("status", "approved")
 
   if (error) {
     console.error("Error fetching review stats:", error)
     return null
   }
 
-  return data?.[0] || null
+  if (!data || data.length === 0) {
+    return {
+      total_reviews: 0,
+      average_rating: 0,
+      rating_distribution: { "5": 0, "4": 0, "3": 0, "2": 0, "1": 0 },
+    }
+  }
+
+  const total_reviews = data.length
+  const average_rating = data.reduce((sum, review) => sum + review.rating, 0) / total_reviews
+  const rating_distribution = data.reduce(
+    (acc, review) => {
+      acc[review.rating.toString() as keyof typeof acc]++
+      return acc
+    },
+    { "5": 0, "4": 0, "3": 0, "2": 0, "1": 0 },
+  )
+
+  return {
+    total_reviews,
+    average_rating: Math.round(average_rating * 10) / 10,
+    rating_distribution,
+  }
 }
 
 export async function canUserReviewProduct(productId: string): Promise<boolean> {
@@ -101,15 +147,39 @@ export async function canUserReviewProduct(productId: string): Promise<boolean> 
     return false
   }
 
-  const { data, error } = await supabase.rpc("can_user_review_product", {
-    p_user_id: user.id,
-    p_product_id: productId,
-  })
+  const serviceClient = createServiceClient()
 
-  if (error) {
-    console.error("Error checking review eligibility:", error)
+  // Check if user has purchased the product
+  const { data: orderData, error: orderError } = await serviceClient
+    .from("order_items")
+    .select("id")
+    .eq("product_id", productId)
+    .eq("user_id", user.id)
+    .limit(1)
+
+  if (orderError) {
+    console.error("Error checking purchase history:", orderError)
     return false
   }
 
-  return data || false
+  // If no purchase found, user cannot review
+  if (!orderData || orderData.length === 0) {
+    return false
+  }
+
+  // Check if user has already reviewed this product
+  const { data: reviewData, error: reviewError } = await serviceClient
+    .from("reviews")
+    .select("id")
+    .eq("product_id", productId)
+    .eq("user_id", user.id)
+    .limit(1)
+
+  if (reviewError) {
+    console.error("Error checking existing reviews:", reviewError)
+    return false
+  }
+
+  // User can review if they haven't already reviewed
+  return !reviewData || reviewData.length === 0
 }
