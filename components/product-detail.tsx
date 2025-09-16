@@ -10,6 +10,7 @@ import QuantitySelector from "@/components/quantity-selector"
 import ProductReviews from "@/components/product-reviews"
 import { formatCurrency } from "@/lib/currency"
 import { useCart } from "@/lib/cart/cart-context"
+import { getProductImages } from "@/lib/product-images"
 
 interface ProductDetailProps {
   product: any
@@ -84,18 +85,11 @@ export default function ProductDetailComponent({ product }: ProductDetailProps) 
     }
   }
 
-  // Generate gallery images (for now using placeholder)
-  const galleryImages = [
-    {
-      src: product.image_url || `/placeholder.svg?height=600&width=800&query=${encodeURIComponent(product.name)}`,
-      alt: product.name,
-    },
-    // Add more images if available in the future
-    ...Array.from({ length: 3 }).map((_, i) => ({
-      src: `/placeholder.svg?height=600&width=800&query=${encodeURIComponent(product.name + ` view ${i + 2}`)}`,
-      alt: `${product.name} - View ${i + 2}`,
-    })),
-  ]
+  const productImages = getProductImages(product)
+  const galleryImages = productImages.gallery.map((src, index) => ({
+    src,
+    alt: index === 0 ? productImages.alt : `${productImages.alt} - View ${index + 1}`,
+  }))
 
   return (
     <div className="space-y-16">

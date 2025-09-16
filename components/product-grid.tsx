@@ -11,6 +11,7 @@ import { Star, ShoppingCart, Eye } from "lucide-react"
 import type { Product } from "@/lib/supabase/products"
 import { formatCurrency } from "@/lib/currency"
 import { useCart } from "@/lib/cart/cart-context"
+import { getProductThumbnail } from "@/lib/product-images"
 
 interface ProductGridProps {
   products: Product[]
@@ -117,16 +118,16 @@ function ProductCard({ product }: { product: Product }) {
     }
   }
 
+  const productThumbnail = getProductThumbnail(product)
+
   return (
     <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
       <CardHeader className="p-0">
         <Link href={`/product/${product.slug}`}>
           <div className="aspect-video bg-gradient-to-br from-primary/10 to-secondary/10 relative overflow-hidden">
             <img
-              src={
-                product.image_url || `/placeholder.svg?height=300&width=400&query=${encodeURIComponent(product.name)}`
-              }
-              alt={product.name}
+              src={productThumbnail || "/placeholder.svg"}
+              alt={`${product.name} - Professional software interface`}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
             {product.stock <= 0 && (
