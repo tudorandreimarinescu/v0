@@ -1,22 +1,7 @@
-// Temporary mock for Supabase client
+import { createBrowserClient } from "@supabase/ssr"
+
 export function createClient() {
-  return {
-    auth: {
-      getUser: () => Promise.resolve({ data: { user: null }, error: null }),
-      signInWithPassword: () => Promise.resolve({ data: null, error: null }),
-      signUp: () => Promise.resolve({ data: null, error: null }),
-      signOut: () => Promise.resolve({ error: null }),
-    },
-    from: () => ({
-      select: () => ({
-        eq: () => ({
-          single: () => Promise.resolve({ data: null, error: null }),
-          order: () => Promise.resolve({ data: [], error: null }),
-        }),
-        order: () => Promise.resolve({ data: [], error: null }),
-      }),
-    }),
-  }
+  return createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
 }
 
-export { createClient as createBrowserClient }
+export { createBrowserClient }
