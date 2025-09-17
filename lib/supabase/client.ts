@@ -1,31 +1,22 @@
-import { createBrowserClient as createSupabaseBrowserClient } from "@supabase/ssr"
-
+// Temporary mock for Supabase client
 export function createClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.error("Missing Supabase environment variables:", {
-      url: !!supabaseUrl,
-      key: !!supabaseAnonKey,
-    })
-    throw new Error("Supabase URL and Anon Key are required. Please check your environment variables.")
+  return {
+    auth: {
+      getUser: () => Promise.resolve({ data: { user: null }, error: null }),
+      signInWithPassword: () => Promise.resolve({ data: null, error: null }),
+      signUp: () => Promise.resolve({ data: null, error: null }),
+      signOut: () => Promise.resolve({ error: null }),
+    },
+    from: () => ({
+      select: () => ({
+        eq: () => ({
+          single: () => Promise.resolve({ data: null, error: null }),
+          order: () => Promise.resolve({ data: [], error: null }),
+        }),
+        order: () => Promise.resolve({ data: [], error: null }),
+      }),
+    }),
   }
-
-  return createSupabaseBrowserClient(supabaseUrl, supabaseAnonKey)
 }
 
-export function createBrowserClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.error("Missing Supabase environment variables:", {
-      url: !!supabaseUrl,
-      key: !!supabaseAnonKey,
-    })
-    throw new Error("Supabase URL and Anon Key are required. Please check your environment variables.")
-  }
-
-  return createSupabaseBrowserClient(supabaseUrl, supabaseAnonKey)
-}
+export { createClient as createBrowserClient }
