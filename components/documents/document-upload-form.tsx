@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
@@ -34,8 +34,7 @@ export function DocumentUploadForm({ userId }: DocumentUploadFormProps) {
   const router = useRouter()
   const { toast } = useToast()
 
-  // Load companies on component mount
-  useState(() => {
+  useEffect(() => {
     const loadCompanies = async () => {
       const supabase = createClient()
       const { data } = await supabase.from("companies").select("id, name, cui").eq("created_by", userId).order("name")
@@ -45,11 +44,20 @@ export function DocumentUploadForm({ userId }: DocumentUploadFormProps) {
       }
     }
     loadCompanies()
-  })
+  }, [userId])
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        toast({
+          title: "Eroare",
+          description: "Fișierul este prea mare. Dimensiunea maximă permisă este 10MB.",
+          variant: "destructive",
+        })
+        return
+      }
+
       setSelectedFile(file)
       if (!formData.documentName) {
         setFormData((prev) => ({
@@ -76,8 +84,27 @@ export function DocumentUploadForm({ userId }: DocumentUploadFormProps) {
     try {
       const supabase = createClient()
 
-      // Upload file to Supabase Storage (if configured)
-      // For now, we'll just store the document metadata
+      const fileExt = selectedFile.name.split(".").pop()
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
+      const filePath = `documents/${userId}/${fileName}`
+
+      // Upload file to storage
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from("documents")
+        .upload(filePath, selectedFile)
+
+      if (uploadError) {
+        console.error("Storage upload error:", uploadError)
+        // Continue without file storage if bucket doesn't exist
+      }
+
+      // Get public URL if upload was successful
+      let fileUrl = null
+      if (uploadData) {
+        const { data: urlData } = supabase.storage.from("documents").getPublicUrl(filePath)
+        fileUrl = urlData.publicUrl
+      }
+
       const { data, error } = await supabase
         .from("company_documents")
         .insert({
@@ -86,6 +113,7 @@ export function DocumentUploadForm({ userId }: DocumentUploadFormProps) {
           document_type: formData.documentType,
           file_size: selectedFile.size,
           mime_type: selectedFile.type,
+          file_url: fileUrl,
           issue_date: formData.issueDate || null,
           expiry_date: formData.expiryDate || null,
           status: "active",
@@ -97,7 +125,7 @@ export function DocumentUploadForm({ userId }: DocumentUploadFormProps) {
       if (error) throw error
 
       toast({
-        title: "Success",
+        title: "Succes",
         description: "Documentul a fost încărcat cu succes.",
       })
 

@@ -19,8 +19,13 @@ import { UserIcon } from "lucide-react"
 export default function AuthButton() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+  const [mounted, setMounted] = useState(false)
   const router = useRouter()
   const supabase = createClient()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     const getInitialUser = async () => {
@@ -38,11 +43,9 @@ export default function AuthButton() {
 
         if (session?.user) {
           setUser(session.user)
-          setLoading(false)
-          return
+        } else {
+          setUser(null)
         }
-
-        setUser(null)
       } catch (error) {
         console.error("Error in getInitialUser:", error)
         setUser(null)
@@ -51,32 +54,41 @@ export default function AuthButton() {
       }
     }
 
-    getInitialUser()
+    if (mounted) {
+      getInitialUser()
+    }
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
       console.log("[v0] Auth state change:", event, session?.user?.email || "No user")
 
-      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED" || (event === "INITIAL_SESSION" && session)) {
+      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
         setUser(session?.user ?? null)
+        setLoading(false)
       } else if (event === "SIGNED_OUT") {
         setUser(null)
+        setLoading(false)
+      } else if (event === "INITIAL_SESSION") {
+        setUser(session?.user ?? null)
+        setLoading(false)
       }
-      setLoading(false)
     })
 
     return () => subscription.unsubscribe()
-  }, [])
+  }, [mounted, supabase.auth])
 
   const handleSignOut = async () => {
+    setLoading(true)
     await supabase.auth.signOut()
+    setUser(null)
+    setLoading(false)
     router.push("/")
   }
 
   console.log("[v0] AuthButton render - loading:", loading, "user:", user?.email || "No user")
 
-  if (loading) {
+  if (!mounted || loading) {
     return (
       <Button variant="ghost" disabled>
         Loading...

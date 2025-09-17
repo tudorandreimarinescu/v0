@@ -1,8 +1,23 @@
-import { createClient } from "@/lib/supabase/server"
+"use client"
+
+import { useState, useEffect } from "react"
+import { createClient } from "@/lib/supabase/client"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { FileText, Download, Eye, Edit, Trash2 } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 interface Document {
   id: string
@@ -10,6 +25,7 @@ interface Document {
   document_type: string
   file_size: number
   mime_type: string
+  file_url: string | null
   issue_date: string | null
   expiry_date: string | null
   status: string
@@ -24,31 +40,113 @@ interface DocumentsListProps {
   userId: string
 }
 
-export async function DocumentsList({ userId }: DocumentsListProps) {
-  const supabase = await createClient()
+export function DocumentsList({ userId }: DocumentsListProps) {
+  const [documents, setDocuments] = useState<Document[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const { toast } = useToast()
 
-  const { data: documents, error } = await supabase
-    .from("company_documents")
-    .select(`
-      id,
-      document_name,
-      document_type,
-      file_size,
-      mime_type,
-      issue_date,
-      expiry_date,
-      status,
-      created_at,
-      companies!inner(name, cui, created_by)
-    `)
-    .eq("companies.created_by", userId)
-    .order("created_at", { ascending: false })
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      const supabase = createClient()
+      const { data, error } = await supabase
+        .from("company_documents")
+        .select(`
+          id,
+          document_name,
+          document_type,
+          file_size,
+          mime_type,
+          file_url,
+          issue_date,
+          expiry_date,
+          status,
+          created_at,
+          companies!inner(name, cui, created_by)
+        `)
+        .eq("companies.created_by", userId)
+        .order("created_at", { ascending: false })
 
-  if (error) {
-    console.error("Error fetching documents:", error)
+      if (error) {
+        console.error("Error fetching documents:", error)
+        toast({
+          title: "Eroare",
+          description: "Nu s-au putut încărca documentele.",
+          variant: "destructive",
+        })
+      } else {
+        setDocuments(data || [])
+      }
+      setIsLoading(false)
+    }
+
+    fetchDocuments()
+  }, [userId, toast])
+
+  const handleDownload = async (document: Document) => {
+    if (!document.file_url) {
+      toast({
+        title: "Eroare",
+        description: "Fișierul nu este disponibil pentru descărcare.",
+        variant: "destructive",
+      })
+      return
+    }
+
+    try {
+      const response = await fetch(document.file_url)
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = url
+      a.download = document.document_name
+      document.body.appendChild(a)
+      a.click()
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(a)
+    } catch (error) {
+      console.error("Download error:", error)
+      toast({
+        title: "Eroare",
+        description: "Nu s-a putut descărca fișierul.",
+        variant: "destructive",
+      })
+    }
   }
 
-  const documentsList = documents || []
+  const handleView = (document: Document) => {
+    if (!document.file_url) {
+      toast({
+        title: "Eroare",
+        description: "Fișierul nu este disponibil pentru vizualizare.",
+        variant: "destructive",
+      })
+      return
+    }
+
+    window.open(document.file_url, "_blank")
+  }
+
+  const handleDelete = async (documentId: string) => {
+    try {
+      const supabase = createClient()
+      const { error } = await supabase.from("company_documents").delete().eq("id", documentId)
+
+      if (error) throw error
+
+      setDocuments((prev) => prev.filter((doc) => doc.id !== documentId))
+      toast({
+        title: "Succes",
+        description: "Documentul a fost șters cu succes.",
+      })
+    } catch (error) {
+      console.error("Delete error:", error)
+      toast({
+        title: "Eroare",
+        description: "Nu s-a putut șterge documentul.",
+        variant: "destructive",
+      })
+    }
+  }
 
   const getDocumentTypeLabel = (type: string) => {
     const types: Record<string, string> = {
@@ -90,7 +188,18 @@ export async function DocumentsList({ userId }: DocumentsListProps) {
     return statusConfig[status as keyof typeof statusConfig] || { label: status, variant: "secondary" as const }
   }
 
-  if (documentsList.length === 0) {
+  if (isLoading) {
+    return (
+      <Card>
+        <CardContent className="text-center py-12">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Se încarcă documentele...</p>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (documents.length === 0) {
     return (
       <Card>
         <CardContent className="text-center py-12">
@@ -112,7 +221,7 @@ export async function DocumentsList({ userId }: DocumentsListProps) {
 
   return (
     <div className="space-y-4">
-      {documentsList.map((document) => {
+      {documents.map((document) => {
         const statusConfig = getStatusBadge(document.status)
         return (
           <Card key={document.id} className="hover:shadow-md transition-shadow">
@@ -151,18 +260,40 @@ export async function DocumentsList({ userId }: DocumentsListProps) {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 ml-4">
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" onClick={() => handleView(document)} disabled={!document.file_url}>
                     <Eye className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleDownload(document)}
+                    disabled={!document.file_url}
+                  >
                     <Download className="h-4 w-4" />
                   </Button>
                   <Button variant="ghost" size="sm">
                     <Edit className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm">
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button variant="ghost" size="sm">
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Șterge Document</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Ești sigur că vrei să ștergi documentul "{document.document_name}"? Această acțiune nu poate
+                          fi anulată.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Anulează</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => handleDelete(document.id)}>Șterge</AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
               </div>
             </CardContent>

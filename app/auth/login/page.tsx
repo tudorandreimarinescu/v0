@@ -26,17 +26,27 @@ export default function LoginPage() {
     setIsLoading(true)
     setError(null)
 
+    console.log("[v0] Login attempt for:", email)
+
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
+
+      console.log("[v0] Login response:", { user: data.user?.email, error: error?.message })
+
       if (error) throw error
 
+      console.log("[v0] Login successful, redirecting to:", redirectTo)
+
+      // Wait a bit for the auth state to update
       setTimeout(() => {
         router.push(redirectTo)
-      }, 100)
+        router.refresh()
+      }, 500)
     } catch (error: unknown) {
+      console.error("[v0] Login error:", error)
       setError(error instanceof Error ? error.message : "An error occurred")
     } finally {
       setIsLoading(false)

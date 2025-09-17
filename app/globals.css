@@ -5,41 +5,41 @@
 
 :root {
   /* Updated color tokens for Romanian company management dashboard */
-  --background: #ffffff; /* Main background */
-  --foreground: #1f2937; /* Main text color */
-  --card: #f1f5f9; /* Card background */
+  --background: #ffffff; /* Main background color */
+  --foreground: #475569; /* Primary text color */
+  --card: #f1f5f9; /* Card background color */
   --card-foreground: #475569; /* Card text color */
   --popover: #ffffff; /* Popover background */
-  --popover-foreground: #1f2937; /* Popover text color */
-  --primary: #1f2937; /* Primary actions */
-  --primary-foreground: #ffffff; /* Primary text on actions */
-  --secondary: #8b5cf6; /* Secondary actions */
-  --secondary-foreground: #ffffff; /* Secondary text on actions */
-  --muted: #f1f5f9; /* Muted background elements */
-  --muted-foreground: #475569; /* Muted text */
-  --accent: #8b5cf6; /* Accents and highlights */
-  --accent-foreground: #ffffff; /* Text on accents */
-  --destructive: #be123c; /* Destructive actions */
+  --popover-foreground: #475569; /* Popover text color */
+  --primary: #059669; /* Primary actions */
+  --primary-foreground: #ffffff; /* Primary text on buttons */
+  --secondary: #10b981; /* Accent actions */
+  --secondary-foreground: #ffffff; /* Secondary text on buttons */
+  --muted: #f1f5f9; /* Muted text */
+  --muted-foreground: #475569; /* Muted text color */
+  --accent: #10b981; /* Accent color for links */
+  --accent-foreground: #ffffff; /* Accent text color */
+  --destructive: #dc2626; /* Error states */
   --destructive-foreground: #ffffff; /* Text on destructive actions */
-  --border: #e5e7eb; /* Borders */
-  --input: #f1f5f9; /* Input backgrounds */
-  --ring: #8b5cf6; /* Focus rings */
-  --chart-1: #4f46e5; /* First chart color */
-  --chart-2: #4338ca; /* Second chart color */
-  --chart-3: #6366f1; /* Third chart color */
-  --chart-4: #a5b4fc; /* Fourth chart color */
-  --chart-5: #e0e7ff; /* Fifth chart color */
-  --radius: 0.5rem; /* Corner rounding */
+  --border: #e5e7eb; /* Border color */
+  --input: #f1f5f9; /* Input field background */
+  --ring: rgba(5, 150, 105, 0.5); /* Focus ring color */
+  --chart-1: #059669; /* Chart color 1 */
+  --chart-2: #10b981; /* Chart color 2 */
+  --chart-3: #f59e0b; /* Chart color 3 */
+  --chart-4: #ef4444; /* Chart color 4 */
+  --chart-5: #3b82f6; /* Chart color 5 */
+  --radius: 0.5rem; /* Border radius for cards and buttons */
   --sidebar: #f1f5f9; /* Sidebar background */
-  --sidebar-foreground: #1f2937; /* Sidebar text */
-  --sidebar-primary: #ffffff; /* Sidebar primary background */
-  --sidebar-primary-foreground: #1f2937; /* Sidebar primary text */
-  --sidebar-accent: #8b5cf6; /* Sidebar accent */
+  --sidebar-foreground: #475569; /* Sidebar text color */
+  --sidebar-primary: #059669; /* Sidebar primary color */
+  --sidebar-primary-foreground: #ffffff; /* Sidebar primary text */
+  --sidebar-accent: #10b981; /* Sidebar accent color */
   --sidebar-accent-foreground: #ffffff; /* Sidebar accent text */
-  --sidebar-border: #e5e7eb; /* Sidebar border */
-  --sidebar-ring: #8b5cf6; /* Sidebar focus ring */
-  --font-instrument-serif: "Instrument Serif", serif; /* Instrument Serif font family configuration */
-  --font-figtree: "Figtree", sans-serif; /* Figtree font family configuration */
+  --sidebar-border: #e5e7eb; /* Sidebar border color */
+  --sidebar-ring: rgba(5, 150, 105, 0.5); /* Sidebar focus ring */
+  --font-instrument-serif: "Instrument Serif", serif;
+  --font-figtree: "Figtree", sans-serif;
 }
 
 .dark {
@@ -50,32 +50,32 @@
   --card-foreground: #f1f5f9;
   --popover: #1e293b;
   --popover-foreground: #f1f5f9;
-  --primary: #f1f5f9;
-  --primary-foreground: #0f172a;
-  --secondary: #8b5cf6;
+  --primary: #10b981;
+  --primary-foreground: #ffffff;
+  --secondary: #059669;
   --secondary-foreground: #ffffff;
   --muted: #334155;
   --muted-foreground: #94a3b8;
-  --accent: #8b5cf6;
+  --accent: #10b981;
   --accent-foreground: #f1f5f9;
-  --destructive: #be123c;
+  --destructive: #dc2626;
   --destructive-foreground: #ffffff;
   --border: #334155;
   --input: #1e293b;
-  --ring: #8b5cf6;
-  --chart-1: #6366f1;
-  --chart-2: #8b5cf6;
-  --chart-3: #a855f7;
-  --chart-4: #c084fc;
-  --chart-5: #1e293b;
+  --ring: rgba(16, 185, 129, 0.5);
+  --chart-1: #10b981;
+  --chart-2: #059669;
+  --chart-3: #f59e0b;
+  --chart-4: #ef4444;
+  --chart-5: #3b82f6;
   --sidebar: #1e293b;
   --sidebar-foreground: #f1f5f9;
   --sidebar-primary: #334155;
   --sidebar-primary-foreground: #f1f5f9;
-  --sidebar-accent: #8b5cf6;
+  --sidebar-accent: #10b981;
   --sidebar-accent-foreground: #f1f5f9;
   --sidebar-border: #334155;
-  --sidebar-ring: #8b5cf6;
+  --sidebar-ring: rgba(16, 185, 129, 0.5);
   --font-instrument-serif: "Instrument Serif", serif;
   --font-figtree: "Figtree", sans-serif;
 }
