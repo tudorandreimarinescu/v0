@@ -42,21 +42,9 @@ export default function AuthButton() {
           return
         }
 
-        const {
-          data: { user },
-          error,
-        } = await supabase.auth.getUser()
-
-        if (error && error.message !== "Auth session missing!") {
-          console.error("Error getting user:", error)
-        }
-
-        console.log("[v0] Initial user check:", user?.email || "No user")
-        setUser(user)
+        setUser(null)
       } catch (error) {
-        if (error instanceof Error && !error.message.includes("Auth session missing")) {
-          console.error("Error in getInitialUser:", error)
-        }
+        console.error("Error in getInitialUser:", error)
         setUser(null)
       } finally {
         setLoading(false)
@@ -70,33 +58,12 @@ export default function AuthButton() {
     } = supabase.auth.onAuthStateChange(async (event, session) => {
       console.log("[v0] Auth state change:", event, session?.user?.email || "No user")
 
-      switch (event) {
-        case "SIGNED_IN":
-        case "TOKEN_REFRESHED":
-          setUser(session?.user ?? null)
-          setLoading(false)
-          break
-        case "SIGNED_OUT":
-          setUser(null)
-          setLoading(false)
-          break
-        case "INITIAL_SESSION":
-          setUser(session?.user ?? null)
-          setLoading(false)
-          break
-        default:
-          try {
-            const {
-              data: { session: currentSession },
-            } = await supabase.auth.getSession()
-            setUser(currentSession?.user ?? null)
-          } catch (error) {
-            console.error("Error getting session in auth state change:", error)
-            setUser(null)
-          }
-          setLoading(false)
-          break
+      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED" || (event === "INITIAL_SESSION" && session)) {
+        setUser(session?.user ?? null)
+      } else if (event === "SIGNED_OUT") {
+        setUser(null)
       }
+      setLoading(false)
     })
 
     return () => subscription.unsubscribe()
