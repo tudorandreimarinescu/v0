@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Users, Building2, FileText, BarChart3, Settings, Shield, Database, Activity } from "lucide-react"
+import { Users, Palette, BarChart3, Settings, Shield, Database, Activity, Crown } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
@@ -13,32 +13,37 @@ export default async function AdminDashboard() {
 
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black">
         <div className="container mx-auto p-6">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-foreground">Panou Administrare</h1>
-            <p className="text-muted-foreground">Bun venit, {profile?.first_name || "Administrator"}</p>
+            <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
+            <p className="text-white/60">Welcome back, {profile?.first_name || "Administrator"}</p>
           </div>
 
           {/* Admin Status Card */}
           <div className="mb-8">
-            <Card>
+            <Card className="bg-white/5 border-white/10">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Shield className="h-5 w-5 text-accent" />
-                  Acces Administrator Verificat
+                <CardTitle className="flex items-center gap-2 text-white">
+                  <Shield className="h-5 w-5 text-purple-400" />
+                  Administrator Access Verified
                 </CardTitle>
-                <CardDescription>Ai privilegii administrative complete pentru sistemul Kynky.ro</CardDescription>
+                <CardDescription className="text-white/60">
+                  You have full administrative privileges for the Kynky.ro shader platform
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center gap-4">
                   <div>
-                    <p className="font-medium">
+                    <p className="font-medium text-white">
                       {profile?.first_name} {profile?.last_name}
                     </p>
-                    <p className="text-sm text-muted-foreground">{profile?.email}</p>
+                    <p className="text-sm text-white/60">{profile?.email}</p>
                   </div>
-                  <Badge className="bg-accent text-accent-foreground">Administrator</Badge>
+                  <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30">
+                    <Crown className="h-3 w-3 mr-1" />
+                    Administrator
+                  </Badge>
                 </div>
               </CardContent>
             </Card>
@@ -46,136 +51,148 @@ export default async function AdminDashboard() {
 
           {/* Quick Actions Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <Card className="hover:shadow-md transition-shadow">
+            <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-accent" />
-                  Gestionare Utilizatori
+                <CardTitle className="flex items-center gap-2 text-white">
+                  <Users className="h-5 w-5 text-purple-400" />
+                  User Management
                 </CardTitle>
-                <CardDescription>Administrează conturile și permisiunile utilizatorilor</CardDescription>
+                <CardDescription className="text-white/60">
+                  Manage user accounts, subscriptions, and permissions
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <Button asChild className="w-full">
-                  <Link href="/admin/users">Gestionează Utilizatori</Link>
+                <Button asChild className="w-full bg-purple-500 hover:bg-purple-600">
+                  <Link href="/admin/users">Manage Users</Link>
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-md transition-shadow">
+            <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Building2 className="h-5 w-5 text-accent" />
-                  Gestionare Companii
+                <CardTitle className="flex items-center gap-2 text-white">
+                  <Palette className="h-5 w-5 text-purple-400" />
+                  Shader Management
                 </CardTitle>
-                <CardDescription>Administrează companiile înregistrate în sistem</CardDescription>
+                <CardDescription className="text-white/60">
+                  Moderate shaders, manage featured content, and handle reports
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <Button asChild className="w-full">
-                  <Link href="/admin/companies">Gestionează Companii</Link>
+                <Button asChild className="w-full bg-purple-500 hover:bg-purple-600">
+                  <Link href="/admin/shaders">Manage Shaders</Link>
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-md transition-shadow">
+            <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-accent" />
-                  Gestionare Documente
+                <CardTitle className="flex items-center gap-2 text-white">
+                  <Crown className="h-5 w-5 text-purple-400" />
+                  Subscription Management
                 </CardTitle>
-                <CardDescription>Administrează documentele încărcate în sistem</CardDescription>
+                <CardDescription className="text-white/60">
+                  Monitor subscriptions, billing, and revenue analytics
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <Button asChild className="w-full">
-                  <Link href="/admin/documents">Gestionează Documente</Link>
+                <Button asChild className="w-full bg-purple-500 hover:bg-purple-600">
+                  <Link href="/admin/subscriptions">Manage Subscriptions</Link>
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-md transition-shadow">
+            <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BarChart3 className="h-5 w-5 text-accent" />
-                  Rapoarte și Analize
+                <CardTitle className="flex items-center gap-2 text-white">
+                  <BarChart3 className="h-5 w-5 text-purple-400" />
+                  Analytics & Reports
                 </CardTitle>
-                <CardDescription>Vezi statistici și rapoarte de performanță</CardDescription>
+                <CardDescription className="text-white/60">
+                  View platform statistics, user engagement, and performance metrics
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <Button asChild className="w-full">
-                  <Link href="/admin/analytics">Vezi Analize</Link>
+                <Button asChild className="w-full bg-purple-500 hover:bg-purple-600">
+                  <Link href="/admin/analytics">View Analytics</Link>
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-md transition-shadow">
+            <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Database className="h-5 w-5 text-accent" />
-                  Administrare Bază de Date
+                <CardTitle className="flex items-center gap-2 text-white">
+                  <Database className="h-5 w-5 text-purple-400" />
+                  Database Administration
                 </CardTitle>
-                <CardDescription>Gestionează schema și datele din baza de date</CardDescription>
+                <CardDescription className="text-white/60">
+                  Monitor database health, manage schemas, and view system logs
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <Button asChild className="w-full">
-                  <Link href="/admin/database">Administrare BD</Link>
+                <Button asChild className="w-full bg-purple-500 hover:bg-purple-600">
+                  <Link href="/admin/database">Database Admin</Link>
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-md transition-shadow">
+            <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Settings className="h-5 w-5 text-accent" />
-                  Setări Sistem
+                <CardTitle className="flex items-center gap-2 text-white">
+                  <Settings className="h-5 w-5 text-purple-400" />
+                  System Settings
                 </CardTitle>
-                <CardDescription>Configurează setările sistemului</CardDescription>
+                <CardDescription className="text-white/60">
+                  Configure platform settings, features, and integrations
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <Button asChild className="w-full">
-                  <Link href="/admin/settings">Setări Sistem</Link>
+                <Button asChild className="w-full bg-purple-500 hover:bg-purple-600">
+                  <Link href="/admin/settings">System Settings</Link>
                 </Button>
               </CardContent>
             </Card>
           </div>
 
           {/* System Status */}
-          <Card>
+          <Card className="bg-white/5 border-white/10">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-white">
                 <Activity className="h-5 w-5" />
-                Status Sistem
+                System Status
               </CardTitle>
-              <CardDescription>Activitatea recentă și notificări de sistem</CardDescription>
+              <CardDescription className="text-white/60">
+                Recent activity and system health notifications
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="flex items-center gap-4 p-4 border rounded-lg bg-muted/50">
+                <div className="flex items-center gap-4 p-4 border border-white/10 rounded-lg bg-white/5">
                   <div className="h-2 w-2 bg-green-500 rounded-full"></div>
                   <div>
-                    <p className="font-medium">Sistem de autentificare configurat</p>
-                    <p className="text-sm text-muted-foreground">
-                      Toate componentele de autentificare funcționează corect
-                    </p>
+                    <p className="font-medium text-white">Authentication system operational</p>
+                    <p className="text-sm text-white/60">All authentication components working correctly</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 p-4 border rounded-lg bg-muted/50">
+                <div className="flex items-center gap-4 p-4 border border-white/10 rounded-lg bg-white/5">
                   <div className="h-2 w-2 bg-green-500 rounded-full"></div>
                   <div>
-                    <p className="font-medium">Schema bazei de date cu RLS activă</p>
-                    <p className="text-sm text-muted-foreground">Politicile Row Level Security sunt active</p>
+                    <p className="font-medium text-white">Database schema with RLS active</p>
+                    <p className="text-sm text-white/60">Row Level Security policies are enforced</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 p-4 border rounded-lg bg-muted/50">
+                <div className="flex items-center gap-4 p-4 border border-white/10 rounded-lg bg-white/5">
                   <div className="h-2 w-2 bg-green-500 rounded-full"></div>
                   <div>
-                    <p className="font-medium">Gestionarea rolurilor de administrator activă</p>
-                    <p className="text-sm text-muted-foreground">JWT claims și verificarea rolurilor funcționează</p>
+                    <p className="font-medium text-white">Shader rendering engine operational</p>
+                    <p className="text-sm text-white/60">WebGL and compute shader support active</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 p-4 border rounded-lg bg-muted/50">
+                <div className="flex items-center gap-4 p-4 border border-white/10 rounded-lg bg-white/5">
                   <div className="h-2 w-2 bg-green-500 rounded-full"></div>
                   <div>
-                    <p className="font-medium">Sistem de gestionare companii operațional</p>
-                    <p className="text-sm text-muted-foreground">Schema pentru companii românești implementată</p>
+                    <p className="font-medium text-white">Subscription system active</p>
+                    <p className="text-sm text-white/60">Payment processing and billing operational</p>
                   </div>
                 </div>
               </div>

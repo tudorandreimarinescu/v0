@@ -8,11 +8,14 @@ export async function middleware(request: NextRequest) {
     "/profile",
     "/orders",
     "/admin",
-    "/dashboard",
+    "/dashboard", // Added dashboard route for SaaS functionality
     "/companies",
     "/documents",
     "/checkout",
     "/account",
+    "/projects", // Added projects route for user projects
+    "/subscription", // Added subscription management route
+    "/settings", // Added settings route
   ]
   const isProtectedPath = protectedPaths.some((path) => request.nextUrl.pathname.startsWith(path))
 

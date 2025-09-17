@@ -2,24 +2,25 @@
 
 import SiteHeader from "@/components/site-header"
 import HeroContent from "@/components/hero-content"
-import PulsingCircle from "@/components/pulsing-circle"
-import ShaderBackground from "@/components/shader-background"
-import TrustStrip from "@/components/trust-strip"
+import FeaturesSection from "@/components/features-section"
+import PricingSection from "@/components/pricing-section"
+import TestimonialsSection from "@/components/testimonials-section"
+import CTASection from "@/components/cta-section"
 import SiteFooter from "@/components/site-footer"
 import { ErrorBoundary } from "@/components/error-boundary"
 
 export default function HomePage() {
   return (
     <ErrorBoundary>
-      <div className="min-h-screen">
-        <ShaderBackground>
-          <SiteHeader />
-          <main id="main-content">
-            <HeroContent />
-            <PulsingCircle />
-          </main>
-        </ShaderBackground>
-        <TrustStrip />
+      <div className="min-h-screen bg-background">
+        <SiteHeader />
+        <main>
+          <HeroContent />
+          <FeaturesSection />
+          <PricingSection />
+          <TestimonialsSection />
+          <CTASection />
+        </main>
         <SiteFooter />
       </div>
     </ErrorBoundary>

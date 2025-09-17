@@ -4,78 +4,78 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color tokens for Romanian company management dashboard based on design brief */
+  /* Updated color tokens based on design brief for professional SaaS landing page */
   --background: #ffffff; /* Main background color */
-  --foreground: #4b5563; /* Primary text color */
-  --card: #f9fafb; /* Card background color */
-  --card-foreground: #4b5563; /* Card text color */
-  --popover: #ffffff; /* Popover background */
-  --popover-foreground: #4b5563; /* Popover text color */
-  --primary: #0891b2; /* Primary actions (cyan-600) */
-  --primary-foreground: #ffffff; /* Primary text on buttons */
-  --secondary: #f59e0b; /* Accent actions (amber-500) */
-  --secondary-foreground: #ffffff; /* Secondary text on buttons */
-  --muted: #f9fafb; /* Muted text */
-  --muted-foreground: #4b5563; /* Muted text color */
-  --accent: #f59e0b; /* Accent color for highlights */
-  --accent-foreground: #ffffff; /* Accent text color */
-  --destructive: #dc2626; /* Error states */
-  --destructive-foreground: #ffffff; /* Text on destructive actions */
-  --border: #e5e7eb; /* Border color */
-  --input: #f9fafb; /* Input field background */
-  --ring: rgba(8, 145, 178, 0.5); /* Focus ring color */
-  --chart-1: #0891b2; /* Chart color 1 */
-  --chart-2: #f59e0b; /* Chart color 2 */
+  --foreground: #1f2937; /* Primary text color */
+  --card: #f8fafc; /* Section background for pricing tiers */
+  --card-foreground: #1f2937; /* Text color for cards */
+  --popover: #ffffff; /* Background for tooltips or popovers */
+  --popover-foreground: #1f2937; /* Text color for popovers */
+  --primary: #374151; /* Used for primary buttons and links */
+  --primary-foreground: #ffffff; /* Text color on primary buttons */
+  --secondary: #6366f1; /* Accent for secondary actions */
+  --secondary-foreground: #ffffff; /* Text color on secondary buttons */
+  --muted: #f8fafc; /* Used for muted text or backgrounds */
+  --muted-foreground: #1f2937; /* Text color for muted sections */
+  --accent: #6366f1; /* For highlights and active states */
+  --accent-foreground: #ffffff; /* Text color on accent elements */
+  --destructive: #dc2626; /* For error messages or alerts */
+  --destructive-foreground: #ffffff; /* Text color for destructive actions */
+  --border: #e5e7eb; /* Border color for cards and sections */
+  --input: #f8fafc; /* Input field background */
+  --ring: rgba(99, 102, 241, 0.5); /* Focus ring color for inputs */
+  --radius: 0.5rem; /* Corner rounding for buttons and cards */
+  --sidebar: #f8fafc; /* Sidebar background */
+  --sidebar-foreground: #1f2937; /* Sidebar text color */
+  --sidebar-primary: #6366f1; /* Primary color in sidebar */
+  --sidebar-primary-foreground: #ffffff; /* Text color for primary sidebar elements */
+  --sidebar-accent: #e5e7eb; /* Accent color in sidebar */
+  --sidebar-accent-foreground: #1f2937; /* Text color for sidebar accents */
+  --sidebar-border: #e5e7eb; /* Border color for sidebar */
+  --sidebar-ring: rgba(99, 102, 241, 0.5); /* Focus ring for sidebar elements */
+  --chart-1: #6366f1; /* Chart color 1 */
+  --chart-2: #374151; /* Chart color 2 */
   --chart-3: #dc2626; /* Chart color 3 */
-  --chart-4: #a16207; /* Chart color 4 */
+  --chart-4: #f59e0b; /* Chart color 4 */
   --chart-5: #4b5563; /* Chart color 5 */
-  --radius: 0.5rem; /* Border radius for cards and buttons */
-  --sidebar: #f9fafb; /* Sidebar background */
-  --sidebar-foreground: #4b5563; /* Sidebar text color */
-  --sidebar-primary: #ffffff; /* Sidebar primary background */
-  --sidebar-primary-foreground: #4b5563; /* Sidebar primary text */
-  --sidebar-accent: #f59e0b; /* Sidebar accent color */
-  --sidebar-accent-foreground: #ffffff; /* Sidebar accent text */
-  --sidebar-border: #e5e7eb; /* Sidebar border color */
-  --sidebar-ring: rgba(8, 145, 178, 0.5); /* Sidebar focus ring */
   --font-instrument-serif: "Instrument Serif", serif;
   --font-figtree: "Figtree", sans-serif;
 }
 
 .dark {
-  /* Updated dark mode colors for company management dashboard */
+  /* Updated dark mode colors for professional SaaS platform */
   --background: #0f172a;
   --foreground: #f1f5f9;
   --card: #1e293b;
   --card-foreground: #f1f5f9;
   --popover: #1e293b;
   --popover-foreground: #f1f5f9;
-  --primary: #0891b2;
+  --primary: #6366f1;
   --primary-foreground: #ffffff;
-  --secondary: #f59e0b;
+  --secondary: #374151;
   --secondary-foreground: #ffffff;
   --muted: #334155;
   --muted-foreground: #94a3b8;
-  --accent: #f59e0b;
+  --accent: #6366f1;
   --accent-foreground: #f1f5f9;
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
   --border: #334155;
   --input: #1e293b;
-  --ring: rgba(8, 145, 178, 0.5);
-  --chart-1: #0891b2;
-  --chart-2: #f59e0b;
+  --ring: rgba(99, 102, 241, 0.5);
+  --chart-1: #6366f1;
+  --chart-2: #374151;
   --chart-3: #dc2626;
-  --chart-4: #a16207;
+  --chart-4: #f59e0b;
   --chart-5: #4b5563;
   --sidebar: #1e293b;
   --sidebar-foreground: #f1f5f9;
   --sidebar-primary: #334155;
   --sidebar-primary-foreground: #f1f5f9;
-  --sidebar-accent: #f59e0b;
+  --sidebar-accent: #6366f1;
   --sidebar-accent-foreground: #f1f5f9;
   --sidebar-border: #334155;
-  --sidebar-ring: rgba(8, 145, 178, 0.5);
+  --sidebar-ring: rgba(99, 102, 241, 0.5);
   --font-instrument-serif: "Instrument Serif", serif;
   --font-figtree: "Figtree", sans-serif;
 }
