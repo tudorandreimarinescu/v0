@@ -4,78 +4,78 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color tokens for Romanian company management dashboard */
+  /* Updated color tokens for Romanian company management dashboard based on design brief */
   --background: #ffffff; /* Main background color */
-  --foreground: #475569; /* Primary text color */
-  --card: #f1f5f9; /* Card background color */
-  --card-foreground: #475569; /* Card text color */
+  --foreground: #4b5563; /* Primary text color */
+  --card: #f9fafb; /* Card background color */
+  --card-foreground: #4b5563; /* Card text color */
   --popover: #ffffff; /* Popover background */
-  --popover-foreground: #475569; /* Popover text color */
-  --primary: #059669; /* Primary actions */
+  --popover-foreground: #4b5563; /* Popover text color */
+  --primary: #0891b2; /* Primary actions (cyan-600) */
   --primary-foreground: #ffffff; /* Primary text on buttons */
-  --secondary: #10b981; /* Accent actions */
+  --secondary: #f59e0b; /* Accent actions (amber-500) */
   --secondary-foreground: #ffffff; /* Secondary text on buttons */
-  --muted: #f1f5f9; /* Muted text */
-  --muted-foreground: #475569; /* Muted text color */
-  --accent: #10b981; /* Accent color for links */
+  --muted: #f9fafb; /* Muted text */
+  --muted-foreground: #4b5563; /* Muted text color */
+  --accent: #f59e0b; /* Accent color for highlights */
   --accent-foreground: #ffffff; /* Accent text color */
   --destructive: #dc2626; /* Error states */
   --destructive-foreground: #ffffff; /* Text on destructive actions */
   --border: #e5e7eb; /* Border color */
-  --input: #f1f5f9; /* Input field background */
-  --ring: rgba(5, 150, 105, 0.5); /* Focus ring color */
-  --chart-1: #059669; /* Chart color 1 */
-  --chart-2: #10b981; /* Chart color 2 */
-  --chart-3: #f59e0b; /* Chart color 3 */
-  --chart-4: #ef4444; /* Chart color 4 */
-  --chart-5: #3b82f6; /* Chart color 5 */
+  --input: #f9fafb; /* Input field background */
+  --ring: rgba(8, 145, 178, 0.5); /* Focus ring color */
+  --chart-1: #0891b2; /* Chart color 1 */
+  --chart-2: #f59e0b; /* Chart color 2 */
+  --chart-3: #dc2626; /* Chart color 3 */
+  --chart-4: #a16207; /* Chart color 4 */
+  --chart-5: #4b5563; /* Chart color 5 */
   --radius: 0.5rem; /* Border radius for cards and buttons */
-  --sidebar: #f1f5f9; /* Sidebar background */
-  --sidebar-foreground: #475569; /* Sidebar text color */
-  --sidebar-primary: #059669; /* Sidebar primary color */
-  --sidebar-primary-foreground: #ffffff; /* Sidebar primary text */
-  --sidebar-accent: #10b981; /* Sidebar accent color */
+  --sidebar: #f9fafb; /* Sidebar background */
+  --sidebar-foreground: #4b5563; /* Sidebar text color */
+  --sidebar-primary: #ffffff; /* Sidebar primary background */
+  --sidebar-primary-foreground: #4b5563; /* Sidebar primary text */
+  --sidebar-accent: #f59e0b; /* Sidebar accent color */
   --sidebar-accent-foreground: #ffffff; /* Sidebar accent text */
   --sidebar-border: #e5e7eb; /* Sidebar border color */
-  --sidebar-ring: rgba(5, 150, 105, 0.5); /* Sidebar focus ring */
+  --sidebar-ring: rgba(8, 145, 178, 0.5); /* Sidebar focus ring */
   --font-instrument-serif: "Instrument Serif", serif;
   --font-figtree: "Figtree", sans-serif;
 }
 
 .dark {
-  /* Dark mode colors for company management dashboard */
+  /* Updated dark mode colors for company management dashboard */
   --background: #0f172a;
   --foreground: #f1f5f9;
   --card: #1e293b;
   --card-foreground: #f1f5f9;
   --popover: #1e293b;
   --popover-foreground: #f1f5f9;
-  --primary: #10b981;
+  --primary: #0891b2;
   --primary-foreground: #ffffff;
-  --secondary: #059669;
+  --secondary: #f59e0b;
   --secondary-foreground: #ffffff;
   --muted: #334155;
   --muted-foreground: #94a3b8;
-  --accent: #10b981;
+  --accent: #f59e0b;
   --accent-foreground: #f1f5f9;
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
   --border: #334155;
   --input: #1e293b;
-  --ring: rgba(16, 185, 129, 0.5);
-  --chart-1: #10b981;
-  --chart-2: #059669;
-  --chart-3: #f59e0b;
-  --chart-4: #ef4444;
-  --chart-5: #3b82f6;
+  --ring: rgba(8, 145, 178, 0.5);
+  --chart-1: #0891b2;
+  --chart-2: #f59e0b;
+  --chart-3: #dc2626;
+  --chart-4: #a16207;
+  --chart-5: #4b5563;
   --sidebar: #1e293b;
   --sidebar-foreground: #f1f5f9;
   --sidebar-primary: #334155;
   --sidebar-primary-foreground: #f1f5f9;
-  --sidebar-accent: #10b981;
+  --sidebar-accent: #f59e0b;
   --sidebar-accent-foreground: #f1f5f9;
   --sidebar-border: #334155;
-  --sidebar-ring: rgba(16, 185, 129, 0.5);
+  --sidebar-ring: rgba(8, 145, 178, 0.5);
   --font-instrument-serif: "Instrument Serif", serif;
   --font-figtree: "Figtree", sans-serif;
 }
