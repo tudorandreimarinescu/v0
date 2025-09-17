@@ -30,14 +30,15 @@ export default function AuthButton() {
           error,
         } = await supabase.auth.getUser()
 
-        if (error) {
+        if (error && error.message !== "Auth session missing!") {
           console.error("Error getting user:", error)
-          setUser(null)
-        } else {
-          setUser(user)
         }
+
+        setUser(user)
       } catch (error) {
-        console.error("Error in getInitialUser:", error)
+        if (error instanceof Error && !error.message.includes("Auth session missing")) {
+          console.error("Error in getInitialUser:", error)
+        }
         setUser(null)
       } finally {
         setLoading(false)
@@ -60,10 +61,18 @@ export default function AuthButton() {
         try {
           const {
             data: { user },
+            error,
           } = await supabase.auth.getUser()
+
+          if (error && error.message !== "Auth session missing!") {
+            console.error("Error getting user in auth state change:", error)
+          }
+
           setUser(user)
         } catch (error) {
-          console.error("Error getting user in auth state change:", error)
+          if (error instanceof Error && !error.message.includes("Auth session missing")) {
+            console.error("Error getting user in auth state change:", error)
+          }
           setUser(null)
         }
       }
