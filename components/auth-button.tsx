@@ -23,25 +23,56 @@ export default function AuthButton() {
   const supabase = createClient()
 
   useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      setUser(user)
-      setLoading(false)
+    const getInitialUser = async () => {
+      try {
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser()
+
+        if (error) {
+          console.error("Error getting user:", error)
+          setUser(null)
+        } else {
+          setUser(user)
+        }
+      } catch (error) {
+        console.error("Error in getInitialUser:", error)
+        setUser(null)
+      } finally {
+        setLoading(false)
+      }
     }
 
-    getUser()
+    getInitialUser()
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log("[v0] Auth state change:", event, session?.user?.email)
+
+      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
+        setUser(session?.user ?? null)
+      } else if (event === "SIGNED_OUT") {
+        setUser(null)
+      } else {
+        // For other events, get the current user state
+        try {
+          const {
+            data: { user },
+          } = await supabase.auth.getUser()
+          setUser(user)
+        } catch (error) {
+          console.error("Error getting user in auth state change:", error)
+          setUser(null)
+        }
+      }
+
       setLoading(false)
     })
 
     return () => subscription.unsubscribe()
-  }, [supabase.auth])
+  }, []) // Removed supabase.auth from dependency array to prevent unnecessary re-renders
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
